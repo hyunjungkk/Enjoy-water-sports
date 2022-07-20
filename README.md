@@ -1,4 +1,5 @@
 # Enjoy_water_sports
+
 2022 관광데이터 활용 공모전 출품작: 사랑해(海)
 
 npm install @react-navigation/native
@@ -16,3 +17,7 @@ expo install expo-app-loading
 expo install @react-native-async-storage/async-storage
 
 expo install react-native-vector-icons
+
+npm i react-native-swiper --save
+
+npm i react-native-swiper --save

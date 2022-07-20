@@ -24,10 +24,10 @@ const Search = () => {
 const Main_home = () => {
   return (
       <Stack.Navigator screenOptions = {{cardStyle : {backgroundColor : '#ffffff'}}}>
-          <Stack.Screen name = "Home" component = {Home} options = {{ headerBackTitleVisible : false }} />
-          <Stack.Screen name = "Spot" component = {Spot} options = {{ headerBackTitleVisible : false }} />
-          <Stack.Screen name = "Enterprise" component = {Enterprise} options = {{ headerBackTitleVisible : false }} />
-          <Stack.Screen name = "Ranking" component = {Ranking} options = {{ headerBackTitleVisible : false }} />
+          <Stack.Screen name = "Home" component = {Home} options = {{ headerBackTitleVisible : false, headerShown : false }} />
+          <Stack.Screen name = "Spot" component = {Spot} options = {{ headerBackTitleVisible : false,headerShown : false }} />
+          <Stack.Screen name = "Enterprise" component = {Enterprise} options = {{ headerBackTitleVisible : false,headerShown : false }} />
+          <Stack.Screen name = "Ranking" component = {Ranking} options = {{ headerBackTitleVisible : false,headerShown : false }} />
           
       </Stack.Navigator>
   )
