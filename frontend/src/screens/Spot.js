@@ -31,7 +31,7 @@ const Spot = ({navigation}) => {
                     <Text style={styles.text}>이용 정보</Text>
                     <Text style={styles.text1}>주소 : </Text>
                     <Text style={styles.text1}>연락처 :  </Text>
-                    <Text style={styles.text2}>중문해수욕장은 아름다운 바닷가 풍경과 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ </Text>
+                    <Text style={styles.text2}>중문해수욕장은 아름다운 바닷가 풍경과 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ </Text>
                 </View>
                 <View style={{flex:1, position:'relative',left: 10, width}}>
                     <Text style={styles.text3}>당신이 찾던 서핑</Text>

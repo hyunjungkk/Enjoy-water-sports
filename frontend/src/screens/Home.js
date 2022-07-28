@@ -74,7 +74,9 @@ const Home = ({navigation}) => {
                  autoplay={true}
                 >
                 <View style={styles.slide}>
+                  <TouchableOpacity>
                  <Image style={styles.image} source={require('../images/leisure_surfing.jpg')} />
+                 </TouchableOpacity>
                 </View>
                 <View style={styles.slide}>
                 <TouchableOpacity>
@@ -87,7 +89,9 @@ const Home = ({navigation}) => {
                 </TouchableOpacity>
                 </View>
                 <View style={styles.slide}>
+                  <TouchableOpacity>
                 <Image style={styles.image} source={require('../images/leisure_fishing.jpg')} />
+                </TouchableOpacity>
                 </View>
               </Swiper>
             </View>
