@@ -77,12 +77,6 @@ const Home = ({navigation}) => {
                  <Image style={styles.image} source={require('../images/leisure_surfing.jpg')} />
                 </View>
                 <View style={styles.slide}>
-<<<<<<< 822c503820606033d8232e4dcc726f05221df26b
-                 <Image style={styles.image} source={require('../images/spot_1_ocean.jpg')} />
-                </View>
-                 <View style={styles.slide}>
-                <Image style={styles.image} source={require('../images/spot_2_sea.jpg')} />
-=======
                 <TouchableOpacity>
                  <Image style={styles.image} source={require('../images/spot_2_sea.jpg')} />
                  </TouchableOpacity>
@@ -91,7 +85,6 @@ const Home = ({navigation}) => {
                   <TouchableOpacity>
                 <Image style={styles.image} source={require('../images/spot_1_ocean.jpg')} />
                 </TouchableOpacity>
->>>>>>> Spot 업데이트
                 </View>
                 <View style={styles.slide}>
                 <Image style={styles.image} source={require('../images/leisure_fishing.jpg')} />

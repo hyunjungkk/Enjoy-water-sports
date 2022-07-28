@@ -3,11 +3,8 @@ import { TouchableWithoutFeedback,Keyboard } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-<<<<<<< 822c503820606033d8232e4dcc726f05221df26b
-=======
 import SwiperView from 'react-native-swiper-view';
 import Enterprise from './Enterprise';
->>>>>>> Spot 업데이트
 
 
 const Container = styled.View`
@@ -21,18 +18,6 @@ const Container = styled.View`
 const Spot = ({navigation}) => {
 
     return (
-<<<<<<< 822c503820606033d8232e4dcc726f05221df26b
-        <KeyboardAwareScrollView 
-            contentContainerStyle = {{flex : 1}}
-            extraScrollHeight = {20}
-        >
-        <TouchableWithoutFeedback>
-        <Container>
-            <Button title = "spot" onPress={()=>navigation.navigate('Enterprise')}/>
-        </Container>
-        </TouchableWithoutFeedback>
-        </KeyboardAwareScrollView>
-=======
         <ScrollView showsVerticalScrollIndicator ={false}>
             <Container>
                 <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
@@ -79,7 +64,6 @@ const Spot = ({navigation}) => {
                   </SwiperView>
             </Container>
         </ScrollView>
->>>>>>> Spot 업데이트
     );
 };
 
