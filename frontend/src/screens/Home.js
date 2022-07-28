@@ -7,7 +7,7 @@ import { Dimensions } from 'react-native';
 import { StyleSheet, Text,View } from 'react-native';
 import { Image } from 'react-native'
 
-import Swiper from 'react-native-swiper';
+import Swiper from 'react-native-swiper/src';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get('window')
