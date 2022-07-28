@@ -21,3 +21,7 @@ expo install react-native-vector-icons
 npm i react-native-swiper --save
 
 npm i react-native-swiper --save
+
+npm install --save react-native-snap-carousel
+
+npm i react-native-hr@1.1.3
