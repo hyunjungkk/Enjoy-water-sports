@@ -1,33 +1,117 @@
 import React from 'react';
-import { TouchableWithoutFeedback,Keyboard } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, TouchableOpacity, navigation, StyleSheet, View, Button, SafeAreaView, Text, Alert, Image, FlatList, SectionList, } from 'react-native';
 import styled from 'styled-components/native';
-import { Button } from '../components';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 const Container = styled.View`
     flex : 1;
-    justify-content : center;
-    align-items : center;
-    background-color : ${({ theme }) => theme.background};
     padding : 20px;
 `;
 
-const Mypage = () => {
+const Separator = () => (
+    <View style={styles.separator} />
+  );
+
+const DATA = [
+    {
+      title: "더보기",
+      data: ["공지사항", "약관 및 동의 내용", "공지사항"]
+    },
+];  
+
+const Item = ({ title }) => (
+    <View style={styles.item}>
+      <Text style={styles.sectiontitle}>{title}</Text>
+    </View>
+  );
+
+const Mypage = (navigation) => {
 
     return (
-        <KeyboardAwareScrollView 
-            contentContainerStyle = {{flex : 1}}
-            extraScrollHeight = {20}
-        >
         <TouchableWithoutFeedback>
         <Container>
-            <Button title = "mypage" />
+            <View style={styles.fixprofile}> 
+            <Image 
+                style={styles.tinyLogo}
+                source={require('../images/fsa.jpg')}
+            />
+            </View>
+            <View style={styles.fixprofile}> 
+            <Text style={styles.title}> 김현지 </Text>
+            </View>
+            <Button
+                color="#adb5bd"
+                title="프로필 편집"
+                onPress={() => Alert.alert('프로필 편집 진행')}
+            />
+            <Separator/>
+            <View style={styles.fixToText}>
+                <Button
+                title="하트찜"
+                onPress={() => Alert.alert('찜 목록으로 이동')}
+                />
+                <Button
+                title="스크랩"
+                onPress={() => Alert.alert('스크랩 목록으로 이동')}
+                />
+                <Button
+                title="내후기"
+                onPress={()=>navigation.navigate('EditProfile')}
+                />
+            </View>
+            <Separator/>
+            <SafeAreaView style={styles.container}>
+                <SectionList
+                sections={DATA}
+                keyExtractor={(item, index) => item + index}
+                renderItem={({ item }) => <Item title={item} />}
+                />
+            </SafeAreaView>
+
         </Container>
         </TouchableWithoutFeedback>
-        </KeyboardAwareScrollView>
     );
 };
 
+
+const styles = StyleSheet.create({
+    tinyLogo: {
+      width: 100,
+      height: 100,
+      marginVertical: 15,
+      borderRadius: 70,
+    },
+    container: {
+      flex: 1,
+      marginHorizontal: 16,
+    },
+    title: {
+      marginBottom: 20,
+      fontSize: 18,
+    },
+    fixprofile: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+      },
+    fixToText: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    separator: {
+      marginVertical: 15,
+      borderBottomColor: '#737373',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    item: {
+      marginVertical: 8
+    },
+    sectiontitle: {
+      fontsize: 15,
+    },
+    section_separator:{
+      backgroundColor: '#e0e0e0',
+      height: 1,
+    }
+  });
 
 export default Mypage

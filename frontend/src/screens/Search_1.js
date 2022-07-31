@@ -87,7 +87,7 @@ const Search_1 = ({navigation}) => {
             </TouchableOpacity >
         </View>
         </KeyboardAwareScrollView>
-    );
+    ); 
 };
 
 
