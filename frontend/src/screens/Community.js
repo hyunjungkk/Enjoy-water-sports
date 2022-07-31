@@ -11,8 +11,6 @@ import Swiper from 'react-native-swiper/src';
 import { FlatList, TouchableOpacity } from 'react-native';
 import Hr from "react-native-hr-plus";
 
-
-
 const { width } = Dimensions.get('window')
 
 const styles = {
@@ -110,8 +108,7 @@ const Community = ({navigation}) => {
                     <View style={styles.slide}>
                         <Image style={styles.image} source={require('../images/magazine2.png')} />
                         <Text style={{fontSize: 13,color: 'grey',marginTop:5, marginBottom:5}}>해양쓰레기 첼린지! 지금 바로 참여해보세요</Text>
-                        
-                        
+  
                     </View>
                     <View style={styles.slide}>
                         <Image style={styles.image} source={require('../images/magazine1.png')} />
@@ -125,7 +122,6 @@ const Community = ({navigation}) => {
                 <View style={{flex: 2}}>
                     <FlatList
                     style ={{width: 350}}
-            
                     data={state}
                     renderItem={({ item }) => (<Item item={item}/>)}
                     keyExtractor={item => item.id} 

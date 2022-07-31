@@ -76,12 +76,22 @@ const Home = ({navigation}) => {
                  autoplay={true}
                 >
                 <View style={styles.slide}>
-                  <TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.navigate('Ranking')}>
                  <Image style={styles.image} source={require('../images/leisure_surfing.jpg')} />
                  </TouchableOpacity>
                 </View>
                 <View style={styles.slide}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.navigate('Ranking')}>
+                 <Image style={styles.image} source={require('../images/spot_1_ocean.jpg')} />
+                </TouchableOpacity>
+                </View>
+                 <View style={styles.slide}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Ranking')}>
+                <Image style={styles.image} source={require('../images/spot_2_sea.jpg')} />
+                </TouchableOpacity>
+                </View>
+                <View style={styles.slide}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Ranking')}>
                  <Image style={styles.image} source={require('../images/spot_2_sea.jpg')} />
                  </TouchableOpacity>
                 </View>
