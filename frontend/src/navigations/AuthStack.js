@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Community, Home, Mypage, Search_1 } from '../screens';
-import { Spot, Enterprise, Search_2, Location_list, Ranking, Login } from '../screens';
+import { Spot, Enterprise, Search_2, Location_list, Ranking, Login, EditProfile, Like_list, Scrap_list, Review_list } from '../screens';
 
 
 const Tab = createBottomTabNavigator();
@@ -46,7 +46,11 @@ const User = () => {
   return (
       <Stack.Navigator screenOptions = {{cardStyle : {backgroundColor : '#ffffff'}}}>
           <Stack.Screen name = "Mypage" component = {Mypage} options = {{ headerBackTitleVisible : false }} />
+          <Stack.Screen name = "EditProfile" component = {EditProfile} options = {{ headerBackTitleVisible : false }} />
           <Stack.Screen name = "Login" component = {Login} options = {{ headerBackTitleVisible : false }} />
+          <Stack.Screen name = "Like_list" component = {Like_list} options = {{ headerBackTitleVisible : false }} />
+          <Stack.Screen name = "Scrap_list" component = {Scrap_list} options = {{ headerBackTitleVisible : false }} />
+          <Stack.Screen name = "Review_list" component = {Review_list} options = {{ headerBackTitleVisible : false }} />
           
       </Stack.Navigator>
   )

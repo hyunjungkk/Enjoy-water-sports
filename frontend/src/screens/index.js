@@ -9,5 +9,9 @@ import Location_list from './Location_list';
 import Ranking from './Ranking';
 import Login from './Login';
 
+import EditProfile from './EditProfile';
+import Like_list from './Like_list';
+import Scrap_list from './Scrap_list';
+import Review_list from './Review_list';
 
-export {Community, Home, Mypage, Search_1, Spot, Enterprise, Search_2, Location_list, Ranking, Login};
+export {Community, Home, Mypage, Search_1, Spot, Enterprise, Search_2, Location_list, Ranking, Login, EditProfile, Like_list, Scrap_list, Review_list};

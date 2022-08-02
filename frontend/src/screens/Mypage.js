@@ -20,12 +20,14 @@ const DATA = [
 ];  
 
 const Item = ({ title }) => (
+  <TouchableOpacity onPress={()=>Alert.alert('이동')}>
     <View style={styles.item}>
       <Text style={styles.sectiontitle}>{title}</Text>
     </View>
+  </TouchableOpacity>
   );
 
-const Mypage = (navigation) => {
+const Mypage = ({navigation}) => {
 
     return (
         <TouchableWithoutFeedback>
@@ -42,21 +44,22 @@ const Mypage = (navigation) => {
             <Button
                 color="#adb5bd"
                 title="프로필 편집"
-                onPress={() => Alert.alert('프로필 편집 진행')}
+                onPress={()=>navigation.navigate('EditProfile')}
             />
             <Separator/>
             <View style={styles.fixToText}>
                 <Button
                 title="하트찜"
-                onPress={() => Alert.alert('찜 목록으로 이동')}
+                onPress={()=>navigation.navigate('Like_list')}
                 />
+                
                 <Button
                 title="스크랩"
-                onPress={() => Alert.alert('스크랩 목록으로 이동')}
+                onPress={()=>navigation.navigate('Scrap_list')}
                 />
                 <Button
                 title="내후기"
-                onPress={()=>navigation.navigate('EditProfile')}
+                onPress={()=>navigation.navigate('Review_list')}
                 />
             </View>
             <Separator/>
@@ -103,7 +106,8 @@ const styles = StyleSheet.create({
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
     item: {
-      marginVertical: 8
+      marginVertical: 8,
+      fontsize: 15,
     },
     sectiontitle: {
       fontsize: 15,
