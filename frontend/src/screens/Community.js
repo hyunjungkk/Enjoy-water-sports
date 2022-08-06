@@ -128,20 +128,6 @@ const Community = ({navigation}) => {
                     />
                 </View>
             </Container>
-
-
-        /*
-        <KeyboardAwareScrollView 
-            contentContainerStyle = {{flex : 1}}
-            extraScrollHeight = {20}
-        >
-        <TouchableWithoutFeedback>
-        <Container>
-            <Button title = "community" />
-        </Container>
-        </TouchableWithoutFeedback>
-        </KeyboardAwareScrollView>
-        */
     );
 };
 
