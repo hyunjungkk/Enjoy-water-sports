@@ -9,6 +9,7 @@ __pycache__
 local_settings.py
 db.sqlite3
 media
+Brewfile
 
 ### Django.Python Stack ###
 # Byte-compiled / optimized / DLL files
