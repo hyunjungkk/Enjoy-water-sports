@@ -2,6 +2,11 @@
 
 2022 관광데이터 활용 공모전 출품작: 사랑해(海)
 
+expo version
+5.5.1 (이정민)
+5.4.9 (김여민)
+
+
 npm install @react-navigation/native
 
 expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
