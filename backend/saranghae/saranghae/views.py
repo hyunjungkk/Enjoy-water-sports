@@ -19,7 +19,17 @@ def get_test(request):
     serailized_test= TestSerializer(tests, many=True)
     return Response(serailized_test.data)
 
+# para example
+@api_view(['GET'])
+def get_para_test(request):
+    title = request.GET.get('title')
+    tests = Test.objects.filter(title=title)
+    serailized_test= TestSerializer(tests, many=True)
+    return Response(serailized_test.data)
+
+
 # post example
+@api_view(['POST'])
 def post_test(request):
     if request.method == 'GET':
         return HttpResponse(status=200)
