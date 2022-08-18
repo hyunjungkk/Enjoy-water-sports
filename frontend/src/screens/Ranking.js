@@ -13,6 +13,7 @@ import Hr from "react-native-hr-plus";
 
 const { width } = Dimensions.get('window')
 
+ 
 const styles = {
   wrapper: {
     

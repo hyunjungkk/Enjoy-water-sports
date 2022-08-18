@@ -18,6 +18,7 @@ export const Main_home = () => {
         </Container>
     );
 };
+ 
 
 export const Search = () => {
     return(

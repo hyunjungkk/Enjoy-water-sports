@@ -12,7 +12,7 @@ import SwiperView from 'react-native-swiper-view';
 
 const { width } = Dimensions.get('window');
 
-
+   
 const Container = styled.View`
     flex : 1;
     justify-content : center;
@@ -20,6 +20,7 @@ const Container = styled.View`
     background-color : ${({ theme }) => theme.background};
     padding : 20px;
 `;
+
 
 const styles = {
   image: {

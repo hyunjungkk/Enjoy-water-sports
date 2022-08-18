@@ -12,7 +12,8 @@ const Container = styled.View`
     background-color : ${({ theme }) => theme.background};
     padding : 20px;
 `;
-
+  
+ 
 const Search_1 = ({navigation}) => {
 
     return (

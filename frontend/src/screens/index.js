@@ -8,6 +8,7 @@ import Search_2 from './Search_2';
 import Location_list from './Location_list';
 import Ranking from './Ranking';
 import Login from './Login';
+  
 
 
 export {Community, Home, Mypage, Search_1, Spot, Enterprise, Search_2, Location_list, Ranking, Login};
