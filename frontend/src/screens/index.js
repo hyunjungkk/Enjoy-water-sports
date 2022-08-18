@@ -8,6 +8,7 @@ import Search_2 from './Search_2';
 import Location_list from './Location_list';
 import Ranking from './Ranking';
 import Login from './Login';
+  
 
 import EditProfile from './EditProfile';
 import Like_list from './Like_list';

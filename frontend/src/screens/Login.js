@@ -12,6 +12,7 @@ const Container = styled.View`
     background-color : ${({ theme }) => theme.background};
     padding : 20px;
 `;
+  
 
 const Login = () => {
 

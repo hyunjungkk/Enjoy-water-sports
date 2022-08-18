@@ -13,7 +13,7 @@ import MapView, {Marker} from 'react-native-maps';
 
 const { width } = Dimensions.get('window');
 
-
+  
 const Container = styled.View`
     flex : 1;
     justify-content : center;

@@ -7,10 +7,9 @@ const Container = styled.View`
     flex : 1;
     padding : 20px;
 `;
-
-const Separator = () => (
-    <View style={styles.separator} />
-  );
+    
+ 
+const Mypage = () => {
 
 const DATA = [
     {

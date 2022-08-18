@@ -12,25 +12,8 @@ const Container = styled.View`
     background-color : ${({ theme }) => theme.background};
     padding : 20px;
 `;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    fixPic: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-      },
-    tinyLogo: {
-        width: 150,
-        height: 130,
-        marginVertical: 10,
-        marginHorizontal: 10,
-        borderRadius: 10,
-    },
-
-  });
-
+  
+ 
 const Search_1 = ({navigation}) => {
 
     return (

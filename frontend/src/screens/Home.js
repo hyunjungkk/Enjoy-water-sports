@@ -14,6 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get('window')
 
+
 const styles = {
   wrapper: {},
   slide: {
