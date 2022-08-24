@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 import tourapi.views
+import community.views
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -24,5 +25,6 @@ urlpatterns = [
     path('post_test', views.post_test),
     path('get_para_test', views.get_para_test),
 
-    path('tourapi/', include('tourapi.urls'))
+    path('tourapi/', include('tourapi.urls')),
+    path('community/', include('community.urls')),
 ]
