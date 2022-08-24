@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'saranghae',
+    'tourapi',
+    'community',
+    'user',
 ]
 
 MIDDLEWARE = [
