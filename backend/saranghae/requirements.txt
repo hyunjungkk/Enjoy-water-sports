@@ -1,7 +1,6 @@
 Django==4.0.6
 djangorestframework==3.13.1
 bs4
-requests
 asgiref==3.5.2
 certifi==2022.6.15
 cffi==1.15.1
