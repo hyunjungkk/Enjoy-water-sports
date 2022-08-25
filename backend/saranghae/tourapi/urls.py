@@ -9,4 +9,6 @@ app_name = 'tourapi' # app_name에는 앱 이름을 넣어줍니다.
 urlpatterns = [
     path('enterprise/', views.enterprise, name='enterprise'),
     path('areacode/', views.areacode, name='areacode'),
+    path('rank/', views.rank, name='rank'),
+    path('locationlist/', views.locationlist, name='locationlist'),
 ]
