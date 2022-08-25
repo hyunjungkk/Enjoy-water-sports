@@ -11,4 +11,5 @@ urlpatterns = [
     path('areacode/', views.areacode, name='areacode'),
     path('rank/', views.rank, name='rank'),
     path('locationlist/', views.locationlist, name='locationlist'),
+    path('spot/', views.spot, name='spot'),
 ]
