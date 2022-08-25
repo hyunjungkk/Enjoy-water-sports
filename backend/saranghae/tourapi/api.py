@@ -7,7 +7,7 @@ from . import my_settings
 serviceKey = my_settings.API_KEY
 # serviceKeyDecoded = unquote(serviceKey, 'UTF-8')
 
-def enterprise_tour_api(str_contentid, str_contenttypeid):
+def detailIntro(str_contentid, str_contenttypeid):
     overview = []
     url = "https://apis.data.go.kr/B551011/KorService/detailIntro"
     
@@ -37,7 +37,7 @@ def enterprise_tour_api(str_contentid, str_contenttypeid):
     return data
 
 
-def areacode_tour_api(str_areacode):
+def areaCode(str_areacode):
     overview = []
     url = "https://apis.data.go.kr/B551011/KorService/areaCode"
     
@@ -53,19 +53,12 @@ def areacode_tour_api(str_areacode):
                                     quote_plus('areaCode') : areacode })
                                     
     res = requests.get(url + queryParams, verify=False)
-#    xml = res.text
-#    soup = BeautifulSoup(xml, 'html.parser')
-#    for tag in soup.find_all('overview'):
-#        overview.append(tag.text)
-
-#    res = overview
-#    res = dict(zip(station))
     data = json.loads(res.text)
 
     return data
 
 
-def rank_tour_api(str_keyword):
+def searchKeyword(str_keyword):
     overview = []
     url = "https://apis.data.go.kr/B551011/KorService/searchKeyword"
     
@@ -92,19 +85,12 @@ def rank_tour_api(str_keyword):
                                      })
                                     
     res = requests.get(url + queryParams, verify=False)
-#    xml = res.text
-#    soup = BeautifulSoup(xml, 'html.parser')
-#    for tag in soup.find_all('overview'):
-#        overview.append(tag.text)
-
-#    res = overview
-#    res = dict(zip(station))
     data = json.loads(res.text)
 
     return data
 
 
-def locationlist_tour_api(str_areacode,str_sigungucode,
+def areaBasedList(str_areacode,str_sigungucode,
                           str_cat1,str_cat2,str_cat3,pageId):
     overview = []
     url = "https://apis.data.go.kr/B551011/KorService/areaBasedList"
@@ -142,14 +128,44 @@ def locationlist_tour_api(str_areacode,str_sigungucode,
                                      })
                                     
     res = requests.get(url + queryParams, verify=False)
-#    xml = res.text
-#    soup = BeautifulSoup(xml, 'html.parser')
-#    for tag in soup.find_all('overview'):
-#        overview.append(tag.text)
-
-#    res = overview
-#    res = dict(zip(station))
     data = json.loads(res.text)
 
     return data
 
+def detailCommon(str_contentid, str_contenttypeid):
+    # 1. 공통정보: 컨텐츠ID가 “126508”인 관광정보의 “기본정보”, “주소”, “개요” 정보를 조회   (공통정보API 하단에)
+    # 예시) http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=인증키&contentId=126508&defaultYN=Y&addrinfoYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTest
+
+    url = "https://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon"
+
+    MobileOS="ETC"
+    MobileApp="saranghae"
+    _type="json"
+    contentId = str_contentid #125716
+    contentTypeId = str_contenttypeid #12
+    defaultYN="Y"
+    firstImageYN="Y"
+    areacodeYN="Y"
+    catcodeYN="Y"
+    addrinfoYN="Y"  
+    mapinfoYN="Y"  # 좌표 필요 없을수도?
+    overviewYN="Y"
+
+    queryParams = '?' + urlencode({ quote_plus('serviceKey') : serviceKey, 
+                                    quote_plus('MobileOS') : MobileOS, 
+                                    quote_plus('MobileApp') : MobileApp, 
+                                    quote_plus('_type') : _type, 
+                                    quote_plus('contentId') : contentId, 
+                                    quote_plus('contentTypeId') : contentTypeId,
+                                    quote_plus('defaultYN') : defaultYN,
+                                    quote_plus('firstImageYN') : firstImageYN,
+                                    quote_plus('areacodeYN') : areacodeYN,
+                                    quote_plus('catcodeYN') : catcodeYN,
+                                    quote_plus('addrinfoYN') : addrinfoYN,
+                                    quote_plus('mapinfoYN') : mapinfoYN,
+                                    quote_plus('overviewYN') : overviewYN, })
+
+    res = requests.get(url + queryParams, verify=False)
+    data = json.loads(res.text)
+
+    return data
