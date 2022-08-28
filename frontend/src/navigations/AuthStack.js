@@ -3,12 +3,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Community, Home, Mypage, Search_1 } from '../screens';
-import { Spot, Enterprise, Search_2, Location_list, Ranking, Login, EditProfile, Like_list, Scrap_list, Review_list } from '../screens';
-
+import { Spot, Enterprise, Search_2, Location_list, Ranking, Login, EditProfile, Like_list, Scrap_list, Review_list,kakaoLogin } from '../screens';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
-
 
 const Search = () => {
   return (
@@ -25,6 +23,7 @@ const Main_home = () => {
   return (
       <Stack.Navigator screenOptions = {{cardStyle : {backgroundColor : '#ffffff'}}}>
           <Stack.Screen name = "Login" component = {Login} options = {{ headerBackTitleVisible : false, headerShown : false }} />
+          <Stack.Screen name = "kakaoLogin" component = {kakaoLogin} options = {{ headerBackTitleVisible : false, headerShown : false }} />
           <Stack.Screen name = "Home" component = {Home} options = {{ headerBackTitleVisible : false, headerShown : false }} />
           <Stack.Screen name = "Spot" component = {Spot} options = {{ headerBackTitleVisible : false,headerShown : false }} />
           <Stack.Screen name = "Enterprise" component = {Enterprise} options = {{ headerBackTitleVisible : false,headerShown : false }} />

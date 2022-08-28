@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Dimensions } from 'react-native';
 import { StyleSheet, Text,View } from 'react-native';
 import { Image} from 'react-native';
+import axios from 'axios';
 
 import Swiper from 'react-native-swiper/src';
 import { FlatList, TouchableOpacity } from 'react-native';
@@ -76,6 +77,8 @@ const state =[
     ,"picture":"url","time":"29/10/2016"},
   ];
 
+  const apiUrl = "http://3.34.181.178/";
+
   function Item({ item }) {
     return (
       <View style={styles.listImage}>
@@ -91,6 +94,38 @@ const state =[
     );
   }
 
+  function ex({}){
+    /*
+    const access = cookies.get("access_token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    };
+    */
+    const magazineId = 2
+    axios.get(`${apiUrl}community/mz/${magazineId}`)
+        .then(function (response) {
+        // response.id 
+
+        if(response.data.count > 0 ) {
+          //renderFunction
+         // console.log('response: '+response);
+          navigate("/searchlist",{state:response.data});
+        
+          //setLists(response.data)
+        }
+        else {
+          //검색 결과가 없습니다.
+          alert("검색 결과가 없습니다 !!");
+        }
+    }).catch(function (error) {
+        // 오류발생시 실행
+    }).then(function() {
+        // 항상 실행
+    });
+  }
+
 const Community = ({navigation}) => {
 
     return (
@@ -103,7 +138,8 @@ const Community = ({navigation}) => {
                 <View style={{flex:1.4,width:440, paddingHorizontal: 15, marginBottom: -10}}>
                 <Swiper style={styles.wrapper} showsButtons={true}>
                     <View style={styles.slide} >
-                        <Image style={styles.image} source={require('../images/magazine1.png')} />
+                        <Image style={styles.image} source={require('../images/magazine1.png')} 
+                        onPress={()=>ex}/>
                         <Text style={{fontSize: 13,color: 'grey',marginTop:5, marginBottom:5}}>BTS를 좋아한다면? BTS가 다녀간 강릉 해변에 방문해보세요!</Text>
                     </View>
                     <View style={styles.slide}>
