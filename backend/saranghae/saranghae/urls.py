@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
 from . import views
-import tourapi.views
-import community.views
+from . import settings
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('get_test', views.get_test),
     path('post_test', views.post_test),
@@ -27,4 +28,8 @@ urlpatterns = [
 
     path('tourapi/', include('tourapi.urls')),
     path('community/', include('community.urls')),
+    path('mypage/', include('user.urls')),
 ]
+
+# if settings.DEBUG:
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
