@@ -15,11 +15,11 @@ class Magazine(models.Model):
         return self.title
 
 
-class Magazine_Comment(models.Model):
-    writer = models.CharField(max_length=128, null=False)
-    text = models.TextField()
-    magazine_id = models.ForeignKey(Magazine, on_delete=models.CASCADE, verbose_name='target') # magazine_id_id
-    created_at = models.DateTimeField('create_at', default=timezone.now)
+# class Magazine_Comment(models.Model):
+#     writer = models.CharField(max_length=128, null=False)
+#     text = models.TextField()
+#     magazine_id = models.ForeignKey(Magazine, on_delete=models.CASCADE, verbose_name='target') # magazine_id_id
+#     created_at = models.DateTimeField('create_at', default=timezone.now)
 
-    def __str__(self):
-        return self.text[:20]
+#     def __str__(self):
+#         return self.text[:20]
