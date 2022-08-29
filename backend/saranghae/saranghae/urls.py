@@ -28,7 +28,7 @@ urlpatterns = [
 
     path('tourapi/', include('tourapi.urls')),
     path('community/', include('community.urls')),
-    path('mypage/', include('user.urls')),
+    path('mypage/', include('user.urls', namespace='rest_framework')),
 ]
 
 # if settings.DEBUG:

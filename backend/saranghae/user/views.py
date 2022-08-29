@@ -14,12 +14,12 @@ from . import my_settings
 class KakaoLoginView(APIView):
     def get(self, request): # , auth_code):
 
-        print(request.GET["code"])
+        # print(request.GET["code"])
         client_id = my_settings.KAKAO_REST_API_KEY
         redirect_uri = my_settings.KAKAO_REDIRECT_URI
 
         print()
-        print("client id :", client_id)
+        # print("client id :", client_id)
        
         """
         # 1. Request an access token
@@ -34,14 +34,13 @@ class KakaoLoginView(APIView):
         kakao_token_api = 'https://kauth.kakao.com/oauth/token'         
         kakao_token_res = requests.post(kakao_token_api, data=data).json()
 
-        print()
-        print(kakao_token_res)
-        print()
-        print()
+        error = kakao_token_res.get('error')
+        if error is not None:
+            raise json.JSONDecodeError(error)
         access_token = kakao_token_res["access_token"]
 
         # token_req = requests.get('https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={auth_code}')
-        # token_json = token_req.json()
+        # # token_json = token_req.json()
         # error = token_json.get('error')
         # if error is not None:
         #     raise json.JSONDecodeError(error)
@@ -66,11 +65,6 @@ class KakaoLoginView(APIView):
         # nickname = properties.get("nickname") # 이름
         # return JsonResponse(data=properties, safe=False)
 
-        print()
-        print(kakao_img_url)
-        print()
-
-
         """
         3. check DB
         """
@@ -90,19 +84,25 @@ class KakaoLoginView(APIView):
             # profile image
             kakao_img = requests.get(kakao_img_url)            
             user.profile_img.save(
-                    f"{nickname}-profile.jpg", ContentFile(kakao_img.content)
+                    f"{kakao_id}-profile.jpg", ContentFile(kakao_img.content)
                 )
+
+        print()
+        print("hehehehehehe")
+        print()
 
         """ 
         4. login - create jwt token
         """ 
-        login(request, user) # ???
+        # login(request, user) # ???
+
         token = TokenObtainPairSerializer.get_token(user)
         jwt_refresh_token = str(token)
         jwt_access_token = str(token.access_token)
         res = Response(
             {
-                "user": nickname,
+                "user_id": kakao_id,
+                "nickname": nickname,
                 "email": email,
                 "profile_img": kakao_img_url ,
                 "message": "Kakao login success",
