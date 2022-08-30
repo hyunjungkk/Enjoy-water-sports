@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Magazine #, Magazine_Comment
+from .models import Magazine, Heart, Bookmark  # , Magazine_Comment
 
 # Magazine list
 class MagazineListSerializer(serializers.ModelSerializer):
@@ -12,6 +12,21 @@ class MagazineDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Magazine
         fields = ('id', 'writer', 'title', 'overview', 'content', 'create_at')
+
+
+# Heart
+class HeartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Heart
+        fields = ('id', 'user_id', 'contentid', 'contenttypeid', 'likeYn')
+
+# Bookmark
+class BookmarkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Heart
+        fields = ('id', 'user_id', 'mz_id', 'bookmarkYn')
+
+
 
 
 

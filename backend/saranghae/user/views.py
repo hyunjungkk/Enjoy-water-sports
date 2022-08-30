@@ -87,10 +87,6 @@ class KakaoLoginView(APIView):
                     f"{kakao_id}-profile.jpg", ContentFile(kakao_img.content)
                 )
 
-        print()
-        print("hehehehehehe")
-        print()
-
         """ 
         4. login - create jwt token
         """ 
@@ -102,9 +98,6 @@ class KakaoLoginView(APIView):
         res = Response(
             {
                 "user_id": kakao_id,
-                "nickname": nickname,
-                "email": email,
-                "profile_img": kakao_img_url ,
                 "message": "Kakao login success",
                 "token": {
                     "access": jwt_access_token,
@@ -116,6 +109,9 @@ class KakaoLoginView(APIView):
         res.set_cookie("access", jwt_access_token, httponly=True)
         res.set_cookie("refresh", jwt_refresh_token, httponly=True)
         
+        print()
+        print(jwt_access_token)
+        print()
         return res
-        # return redirect(reverse('kakaologin')) # redirect page는 추후 변경.
+        # return redirect(reverse('kakaologin'))
         
