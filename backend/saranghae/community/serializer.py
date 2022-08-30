@@ -23,10 +23,8 @@ class HeartSerializer(serializers.ModelSerializer):
 # Bookmark
 class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Heart
+        model = Bookmark
         fields = ('id', 'user_id', 'mz_id', 'bookmarkYn')
-
-
 
 
 
