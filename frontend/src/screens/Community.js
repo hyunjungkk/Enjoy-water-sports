@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import { TouchableWithoutFeedback,Keyboard,ScrollView } from 'react-native';
 import styled from 'styled-components/native';
@@ -11,8 +12,9 @@ import axios from 'axios';
 import Swiper from 'react-native-swiper/src';
 import { FlatList, TouchableOpacity } from 'react-native';
 import Hr from "react-native-hr-plus";
+import Ranking from './Ranking';
 
-const { width } = Dimensions.get('window')
+const { width } = Dimensions.get('window');
 
 
 const styles = {
@@ -68,6 +70,7 @@ const message =[
   {"msg": "해양쓰레기 첼린지! 지금 바로 참여해보세요 "}
 ]
 
+
 const state =[
     {"id":1,"name":"찐 다이빙 스팟 추천","title":"오늘은 다이빙 스팟을 추천하려 합니다. 지난 번 스노쿨링스팟에 이어서 준비해봤습니다. 다이빙을 여러 곳 다녀봤…", 
     "picture":"uri","time":"29/10/2016"},
@@ -76,6 +79,7 @@ const state =[
     {"id":3,"name":"찐 다이빙 스팟 추천","title":"오늘은 다이빙 스팟을 추천하려 합니다. 지난 번 스노쿨링스팟에 이어서 준비해봤습니다. 다이빙을 여러 곳 다녀봤…"
     ,"picture":"url","time":"29/10/2016"},
   ];
+
 
   const apiUrl = "http://3.34.181.178/";
 
@@ -94,26 +98,21 @@ const state =[
     );
   }
 
-  function ex({}){
-    /*
-    const access = cookies.get("access_token");
-    const config = {
-      headers: {
-        Authorization: `Bearer ${access}`,
-      },
-    };
-    */
-    const magazineId = 2
-    axios.get(`${apiUrl}community/mz/${magazineId}`)
+  function get_magazineList({}){
+
+    //const magazineId = 2
+    //axios.get(`${apiUrl}community/mz/${magazineId}`)
+    axios.get(`${apiUrl}community/mz`)
         .then(function (response) {
         // response.id 
 
         if(response.data.count > 0 ) {
           //renderFunction
          // console.log('response: '+response);
-          navigate("/searchlist",{state:response.data});
+          //navigate("/searchlist",{state:response.data});
+        state = response.results;
+        setLists(state,response.results);
         
-          //setLists(response.data)
         }
         else {
           //검색 결과가 없습니다.
@@ -139,7 +138,7 @@ const Community = ({navigation}) => {
                 <Swiper style={styles.wrapper} showsButtons={true}>
                     <View style={styles.slide} >
                         <Image style={styles.image} source={require('../images/magazine1.png')} 
-                        onPress={()=>ex}/>
+                        onPress={()=>get_magazineList}/>
                         <Text style={{fontSize: 13,color: 'grey',marginTop:5, marginBottom:5}}>BTS를 좋아한다면? BTS가 다녀간 강릉 해변에 방문해보세요!</Text>
                     </View>
                     <View style={styles.slide}>
@@ -165,6 +164,181 @@ const Community = ({navigation}) => {
                     />
                 </View>
             </Container>
+    );
+};
+
+
+export default Community
+*/
+
+import React from 'react';
+import { TouchableWithoutFeedback,Keyboard,ScrollView } from 'react-native';
+import styled from 'styled-components/native';
+import { Button } from '../components';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Dimensions } from 'react-native';
+import { StyleSheet, Text,View } from 'react-native';
+import { Image} from 'react-native';
+
+import Swiper from 'react-native-swiper/src';
+import { FlatList, TouchableOpacity } from 'react-native';
+import Hr from "react-native-hr-plus";
+
+const { width } = Dimensions.get('window')
+
+ 
+const styles = {
+  wrapper: {
+    
+  },
+
+  text: {
+    color: '#D8D8D8'
+  },
+  
+  slide: {
+    justifyItems: 'center',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    marginTop : 20,
+    marginBottom: 40
+  },
+  
+  listItem: {
+    width: '100%',
+    marginTop:15,
+    marginBottom:20,
+    justifyContent:'center',
+
+  }
+
+/*
+  listItem: {
+    height: 90,
+    justifyContent:'center',
+    alignItems:'center'
+  }
+  */
+}
+
+const apiUrl = "http://3.34.181.178/";
+
+const Container = styled.View`
+    flex : 1;
+    background-color : ${({ theme }) => theme.background};
+    justify-content : center;
+    align-items : center;
+`;
+
+const state =[
+  {"id":1,"name":"찐 다이빙 스팟 추천","title":"오늘은 다이빙 스팟을 추천하려 합니다. 지난 번 스노쿨링스팟에 이어서…", 
+  "picture":"uri","time":"29/10/2016"},
+  {"id":2,"name":"바다거북이 마주친 범섬 스팟","title":"이번에 범섬으로 다이빙을 떠났는데, 너무나 운 좋게도 바다거북을 만났.."
+  ,"picture":"url","time":"29/10/2016"},
+  {"id":3,"name":"찐 다이빙 스팟 추천","title":"오늘은 다이빙 스팟을 추천하려 합니다. 지난 번 스노쿨링스팟에 이어서 준비해봤.."
+  ,"picture":"url","time":"29/10/2016"},
+  ];
+
+  function getRanking({}){
+    /*
+    const access = cookies.get("access_token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    };
+    */
+    //const magazineId = 2
+    //axios.get(`${apiUrl}community/mz/${magazineId}`)
+    axios.get(`${apiUrl}commnunnity/mz`)
+        .then(function (response) {
+        // response.id 
+
+        if(response.data.count > 0 ) {
+          //renderFunction
+         // console.log('response: '+response);
+          //navigate("/searchlist",{state:response.data});
+        const magazineList = response.results.title;
+          //setLists(response.data)
+        
+          
+
+        }
+        else {
+          //검색 결과가 없습니다.
+          alert("검색 결과가 없습니다 !!");
+        }
+    }).catch(function (error) {
+        // 오류발생시 실행
+    }).then(function() {
+        // 항상 실행
+    });
+  }
+
+
+  function Magazine_Item({ item }) {
+    return (
+    <Container>
+      <Image source={require('../images/magazine1.png')}  style={{ width: '100%',resizeMode:'contain'}} />
+      <View style={styles.listItem}>
+          <Text style={{color:"#595959", fontWeight:"bold", fontSize: 18, marginTop:10, marginBottom:15, marginRight:10,
+        marginLeft: 10}}>{item.name}</Text>
+          <Text style={{color:"grey", fontSize: 16, marginBottom: 35, marginRight:10,
+        marginLeft: 10}}>{item.title}</Text>  
+                <Hr color="#B0AEAE" width={1} style={{flex: 0.1, width:'150%', marginBottom:17}}></Hr>                
+
+      </View>
+
+    </Container>
+    /*
+      <Container>
+      <View>
+        <View style={styles.listItem}>
+        <Image source={require('../images/magazine_user.png')}  style={{width:50, height:50,borderRadius:30}} />
+            <Text style={{fontSize:22, color:"#818182", fontWeight:"bold"}}>{item.id + item.name}</Text>
+            <Text style={{fontSize:17, color:"#5887BF" }}>{item.tag}</Text>                  
+        </View>
+        <TouchableOpacity style={{height:50,width:50, justifyContent:"center",alignItems:"center"}}>
+            <Text style={{color:"green"}}></Text>
+        </TouchableOpacity>
+        <Hr color="#B0AEAE" width={1} style={{flex: 0.1, width:'150%'}}></Hr>                
+      </View>
+      </Container>
+      */
+    );
+  }
+
+const Community = ({navigation}) => {
+
+    return (
+            <Container>
+                <Text style={{fontSize:21, fontWeight:'bold', color:'grey',flex:0.25}}>
+                    <Text>Magazine</Text>
+                </Text>
+
+                <View style={{flex: 2.3}}>
+                    <FlatList
+                    style ={{width: 350}}
+                    data={state}
+                    renderItem={({ item }) => (<Magazine_Item item={item}/>)}
+                    keyExtractor={item => item.id} 
+                    />
+                </View>
+            </Container>
+
+
+        /*
+        <KeyboardAwareScrollView 
+            contentContainerStyle = {{flex : 1}}
+            extraScrollHeight = {20}
+        >
+        <TouchableWithoutFeedback>
+        <Container>
+            <Button title = "community" />
+        </Container>
+        </TouchableWithoutFeedback>
+        </KeyboardAwareScrollView>
+        */
     );
 };
 

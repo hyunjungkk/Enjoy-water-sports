@@ -62,6 +62,7 @@ const styles = {
   */
 }
 
+const apiUrl = "http://3.34.181.178/";
 
 const Container = styled.View`
     flex : 1;
@@ -74,6 +75,43 @@ const state =[
     {"id":"2. ","name":"중문서핑스쿨","tag":"★★★★☆ 4.6", "picture":"../images/leisure_surfing.jpg"},
     {"id":"3. ","name":"월정리 해변","tag":"★★★★☆ 4.6 (5,727)", "picture":"../images/leisure_surfing.jpg"},
   ];
+
+  function getRanking({}){
+    /*
+    const access = cookies.get("access_token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    };
+    */
+    //const magazineId = 2
+    //axios.get(`${apiUrl}community/mz/${magazineId}`)
+    axios.get(`${apiUrl}rank`)
+        .then(function (response) {
+        // response.id 
+
+        if(response.data.count > 0 ) {
+          //renderFunction
+         // console.log('response: '+response);
+          //navigate("/searchlist",{state:response.data});
+        const magazineList = response.results.title;
+          //setLists(response.data)
+        
+          
+
+        }
+        else {
+          //검색 결과가 없습니다.
+          alert("검색 결과가 없습니다 !!");
+        }
+    }).catch(function (error) {
+        // 오류발생시 실행
+    }).then(function() {
+        // 항상 실행
+    });
+  }
+
 
   function Ranking_Item({ item }) {
     return (

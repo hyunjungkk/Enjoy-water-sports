@@ -48,22 +48,63 @@ const styles = {
   // other import settings...
 
 const runFirst = `window.ReactNativeWebView.postMessage("this is message from web");`;
+const apiUrl = "http://3.34.181.178/";
 
 const kakaoLogin = ({navigation}) => {
     function LogInProgress (data){
-        const exp = "code=";
-      	var condition = data.indexOf(exp);
+        
+      
+      const exp = "code=";
+      	//var condition = data.indexOf(exp);
         console.log('-----------');
 
-        if (condition != -1) {
+        
           console.log('kakaoLogin start');
-            var request_code = data.substring(condition+exp.length);
+            //var request_code = data.substring(condition+exp.length);
             //토큰값 받기
-            console.log("access code :: " + request_code);
-            requestToken(request_code);
-        }
+            //console.log("access code :: " + request_code);
+            //requestToken(request_code);
+            get_token;
+            //navigation.navigate('Home');
+        
     }
+    function get_token({}){
+      /*
+      const access = cookies.get("access_token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      };
+      */
+      
+      axios.get(`${apiUrl}mypage/login`)
+          .then(function (response) {
+          // response.id 
+  
+          if(response.data.count > 0 ) {
+            //renderFunction
+           // console.log('response: '+response);
+            //navigate("/searchlist",{state:response.data});
+          
+            //setLists(response.data)
+            //const access_token = response.token.access;
+            //const refresh_token = response.token.refresh;
+            console.log('access_token: '+ access_token);
+            console.log('refresh_token: '+ refresh_token);
+            navigation.navigate('Home');
 
+          }
+          else {
+            //검색 결과가 없습니다.
+            alert("검색 결과가 없습니다 !!");
+          }
+      }).catch(function (error) {
+          // 오류발생시 실행
+      }).then(function() {
+          // 항상 실행
+      });
+    }
         /*
         const requestToken = async (request_code) => {
 
@@ -144,9 +185,10 @@ const kakaoLogin = ({navigation}) => {
         
     //...
 
+    /*
     async function requestToken(request_code){
       var returnValue = "none";
-      var request_token_url = "http://3.34.181.178/mypage/login/"; 
+      var request_token_url = "http://3.34.181.178/mypage/login"; 
       axios
       .get(`${apiUrl}accounts/kakao/accesstoken/${KAKAO_CODE}`)
       .then((res) => {
@@ -164,6 +206,7 @@ const kakaoLogin = ({navigation}) => {
 
       return returnValue;
   }
+  */
 
     return (
           <View style={{flex: 1}}>
@@ -171,12 +214,12 @@ const kakaoLogin = ({navigation}) => {
                 originWhitelist={['*']}
                 scalesPageToFit={false}
                 style={{ marginTop: 30 }}
-                source = {{uri : 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5b48efc86f980599330df1d6a153e1bf&redirect_uri=http://localhost:3000/accounts/kakao/login/callback/'}}
+                source = {{uri : 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=af62338ebe8c58e6ef815e75d71810e9&redirect_uri=http://3.34.181.178/mypage/login'}}
                 injectedJavaScript={runFirst}
 
                 javaScriptEnabled={true}
                 
-                onMessage={(event) => LogInProgress(event.nativeEvent["http://localhost:3000/accounts/kakao/login/callback/"]) }
+                onMessage={(event) => LogInProgress(event.nativeEvent["http://3.34.181.178/mypage/login"]) }
 
             // onMessage ... :: webview에서 온 데이터를 event handler로 잡아서 logInProgress로 전달
             />

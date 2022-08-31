@@ -24,6 +24,7 @@ const Main_home = () => {
       <Stack.Navigator screenOptions = {{cardStyle : {backgroundColor : '#ffffff'}}}>
           <Stack.Screen name = "Login" component = {Login} options = {{ headerBackTitleVisible : false, headerShown : false }} />
           <Stack.Screen name = "kakaoLogin" component = {kakaoLogin} options = {{ headerBackTitleVisible : false, headerShown : false }} />
+    
           <Stack.Screen name = "Home" component = {Home} options = {{ headerBackTitleVisible : false, headerShown : false }} />
           <Stack.Screen name = "Spot" component = {Spot} options = {{ headerBackTitleVisible : false,headerShown : false }} />
           <Stack.Screen name = "Enterprise" component = {Enterprise} options = {{ headerBackTitleVisible : false,headerShown : false }} />
@@ -51,6 +52,7 @@ const User = () => {
           <Stack.Screen name = "Like_list" component = {Like_list} options = {{ headerBackTitleVisible : false }} />
           <Stack.Screen name = "Scrap_list" component = {Scrap_list} options = {{ headerBackTitleVisible : false }} />
           <Stack.Screen name = "Review_list" component = {Review_list} options = {{ headerBackTitleVisible : false }} />
+
           
       </Stack.Navigator>
   )
