@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { TouchableWithoutFeedback,Keyboard,ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from '../components';
@@ -63,7 +63,7 @@ const styles = {
   */
 }
 
-const apiUrl = "http://3.34.181.178/";
+const Ranking = ({navigation, route}) => {
 
 const Container = styled.View`
     flex : 1;
@@ -71,97 +71,59 @@ const Container = styled.View`
     padding : 30px;
 `;
 
-const state =[
-    {"id":"1. ","name":"양양 게스트 하우스","tag":"#제주 #익스트림","picture":"../images/leisure_surfing.jpg"},
-    {"id":"2. ","name":"중문서핑스쿨","tag":"★★★★☆ 4.6", "picture":"../images/leisure_surfing.jpg"},
-    {"id":"3. ","name":"월정리 해변","tag":"★★★★☆ 4.6 (5,727)", "picture":"../images/leisure_surfing.jpg"},
-  ];
 
-  function getRanking({}){
-    /*
-    const access = cookies.get("access_token");
-    const config = {
-      headers: {
-        Authorization: `Bearer ${access}`,
-      },
-    };
-    */
-    //const magazineId = 2
-    //axios.get(`${apiUrl}community/mz/${magazineId}`)
-    axios.get(`${apiUrl}rank`)
-        .then(function (response) {
-        // response.id 
 
-        if(response.data.count > 0 ) {
-          //renderFunction
-         // console.log('response: '+response);
-          //navigate("/searchlist",{state:response.data});
-        const magazineList = response.results.title;
-          //setLists(response.data)
-        
-          
 
-        }
-        else {
-          //검색 결과가 없습니다.
-          alert("검색 결과가 없습니다 !!");
-        }
-    }).catch(function (error) {
-        // 오류발생시 실행
-    }).then(function() {
-        // 항상 실행
-    });
-  }
+  let query= "http://3.34.181.178/tourapi/rank/?rank=래프팅"
 
-  const axios_all= async ()=>{
+  
+  const [address,setaddress]=useState('');
+  const [title,settitle]=useState('');
+  const [uri,setpicture]=useState('');
+  
+
+  const axiostest= async ()=>{
     const access = ''
-    const config = {
-      headers : {
-        Authorization : `Bearer ${access}`,
-      }
     }
-    axios.get(all_query)
+    axios.get(query)
     .then(function (response) {
       const valor = JSON.stringify(response.data)
       const report=JSON.parse(valor)
-      console.log(report)
+      const add_axios=report.response.body.items.item[0].addr1
+      const title_axios=report.response.body.items.item[0].title
+      const picture_axios = report.response.body.items.item[0].firstimage
+      setaddress(add_axios)
+      settitle(title_axios)
+      setpicture(picture_axios)
+      
     })
-  }
-
-  function Ranking_Item({ item }) {
-    return (
-      <View style={styles.listImage}>
-      <Image source={require('../images/leisure_fishing.jpg')}  style={{width:120, height:120}} />
-      <View style={styles.listItem}>
-          <Text style={{color:"#595959", fontWeight:"bold", fontSize: 18, marginBottom:5}}>{item.id + item.name}</Text>
-          <Text style={{color:"grey", marginRight:50, fontSize: 16}}>{item.tag}</Text>
-      </View>
-      <Hr color="#B0AEAE" width={1} style={{marginTop: 30}}></Hr>                
-    </View>
-    /*
-      <Container>
-      <View>
+  
+    const state = [
+      {id: '1. ', component: <FlatList data={address} renderItem={renderItem} keyExtractor={item => item.id}/>},
+      { id: '2. ', component: <FlatList data={title} renderItem={renderItem} keyExtractor={item => item.id}/> },
+      { id: '3. ', component: <FlatList data={uri} renderItem={renderItem} keyExtractor={item => item.id}/> },
+    ];
+    
+    function Ranking_Item({ item }) {
+      return (
+        <View style={styles.listImage}>
+        <Image source={{uri}}  style={{width:120, height:120}} />
         <View style={styles.listItem}>
-        <Image source={require('../images/magazine_user.png')}  style={{width:50, height:50,borderRadius:30}} />
-            <Text style={{fontSize:22, color:"#818182", fontWeight:"bold"}}>{item.id + item.name}</Text>
-            <Text style={{fontSize:17, color:"#5887BF" }}>{item.tag}</Text>                  
+            <Text style={{color:"#595959", fontWeight:"bold", fontSize: 18, marginBottom:5}}>{title}</Text>
+            <Text style={{color:"grey", marginRight:50, fontSize: 16}}>{address}</Text>
         </View>
-        <TouchableOpacity style={{height:50,width:50, justifyContent:"center",alignItems:"center"}}>
-            <Text style={{color:"green"}}></Text>
-        </TouchableOpacity>
-        <Hr color="#B0AEAE" width={1} style={{flex: 0.1, width:'150%'}}></Hr>                
+        <Hr color="#B0AEAE" width={1} style={{marginTop: 30}}></Hr>                
       </View>
-      </Container>
-      */
+      );
+    }
+    const renderItem = ({ item }) => (
+      <Item title={item.title}/>
     );
-  }
+    
 
-const Ranking = ({navigation, route}) => {
-  ID=route.params.ID
     return (
             <Container>
               <View>
-                <Text>{ID}</Text>
                 <Image source={require('../images/ranking_cardnews.jpg')}
                 style={{marginLeft: -30, marginTop: 20, marginBottom:30, width: 440, height: 140}} />
               </View>
@@ -169,7 +131,7 @@ const Ranking = ({navigation, route}) => {
                     <Text>위클리 인기 TOP </Text>
                 </Text>
                 <Text style={{ marginBottom:20,fontSize:14, color:"#595959"}}>
-                  <Text>최근 1주간 별점이 가장 높았어요</Text>
+                  <Text>최근 1주간 조회수가 가장 높았어요</Text>
                 </Text>
 
                 <View style={{flex: 2.3}}>

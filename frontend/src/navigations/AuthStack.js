@@ -22,8 +22,6 @@ const Search = () => {
 const Main_home = () => {
   return (
       <Stack.Navigator screenOptions = {{cardStyle : {backgroundColor : '#ffffff'}}}>
-          <Stack.Screen name = "Login" component = {Login} options = {{ headerBackTitleVisible : false, headerShown : false }} />
-          <Stack.Screen name = "kakaoLogin" component = {kakaoLogin} options = {{ headerBackTitleVisible : false, headerShown : false }} />
           <Stack.Screen name = "Home" component = {Home} options = {{ headerBackTitleVisible : false, headerShown : false }} />
           <Stack.Screen name = "Spot" component = {Spot} options = {{ headerBackTitleVisible : false,headerShown : false }} />
           <Stack.Screen name = "Enterprise" component = {Enterprise} options = {{ headerBackTitleVisible : false,headerShown : false }} />
@@ -35,7 +33,9 @@ const Main_home = () => {
 
 const Magazine = () => {
   return (
+
       <Stack.Navigator screenOptions = {{cardStyle : {backgroundColor : '#ffffff'}}}>
+
           <Stack.Screen name = "Community" component = {Community} options = {{ headerBackTitleVisible : false }} />
           
       </Stack.Navigator>
