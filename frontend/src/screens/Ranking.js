@@ -141,11 +141,12 @@ const state =[
     );
   }
 
-const Ranking = ({navigation}) => {
-
+const Ranking = ({navigation, route}) => {
+  ID=route.params.ID
     return (
             <Container>
               <View>
+                <Text>{ID}</Text>
                 <Image source={require('../images/ranking_cardnews.jpg')}
                 style={{marginLeft: -30, marginTop: 20, marginBottom:30, width: 440, height: 140}} />
               </View>

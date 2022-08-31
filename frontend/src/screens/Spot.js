@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { TouchableWithoutFeedback,Keyboard,ImageBackground, FlatList  } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from '../components';
@@ -9,6 +9,8 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Dimensions } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SwiperView from 'react-native-swiper-view';
+import axios from 'axios';
+import { Linking } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -53,6 +55,11 @@ const styles = {
       fontSize : 20,
       margin :15,
   },
+  text4:{
+    fontSize : 15,
+    marginLeft:15,
+    margin :5,
+},
   item: {
     backgroundColor: '#6da7ed',
     padding: 20,
@@ -70,27 +77,109 @@ const styles = {
 
 
 const DATA = [
-  {id: '1', title: 'Fist Item', },
-  {id: '2', title: 'Second Item',},
-  {id: '3', title: 'Third Item', },
-  {id: '4', title: 'Forth Item', },
-  {id: '5', title: 'Fifth Item', },
-  {id: '6', title: 'Sixth Item', },
+  {id: '1', title: 'Fist Item', t:'1233'},
+  {id: '2', title: 'Second Item', t:'1234'},
+  {id: '3', title: 'Third Item', t:'1235'},
+  {id: '4', title: 'Forth Item', t:'1236'},
+  {id: '5', title: 'Fifth Item', t:'1237'},
+  {id: '6', title: 'Sixth Item', t:'1238'},
 ];
 
-const Item = ({ title }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
 
 
-const Spot = ({navigation}) => {
+const Spot = ({navigation, route}) => {
+  const Item = ({ title }) => (
+    <View style={styles.item}>
+      <TouchableOpacity onPress={()=>navigation.navigate('Enterprise')}>
+      <Text style={styles.title}>{title}</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  ID=route.params.ID
+  const name=route.params.ID
+  const sid=route.params.SID
+  const uri=route.params.Uri
+  const tid=route.params.TID
+
+  let query= "http://3.34.181.178/tourapi/spot/?contentid={}&contenttypeid=*"
+  query=query.replace('{}',sid)
+  query=query.replace('*',tid)
+  
+  const [address,setaddress]=useState('');
+  const [homepage,sethomepage]=useState('');
+  const [overview,setoverview]=useState('');
+
+  const axiostest= async ()=>{
+    const access = ''
+    const config = {
+      headers : {
+        Authorization : `Bearer ${access}`,
+      }
+    }
+    axios.get(query)
+    .then(function (response) {
+      const valor = JSON.stringify(response.data)
+      const report=JSON.parse(valor)
+      const add=report.response.body.items.item[0].addr1
+      const homepage=report.response.body.items.item[0].homepage
+      const overview=report.response.body.items.item[0].overview
+      setaddress(add)
+      sethomepage(homepage)
+      setoverview(overview)
+    })
+  }
+
+  let kakao_query='https://dapi.kakao.com/v2/local/search/keyword.json?query={}'
+  kakao_query=kakao_query.replace('{}',name)
+  const [pid, setPid] = useState('');
+  const [px,setPx]=useState(0);
+  const [py,setPy]=useState(0);
+  const callApi = async ()=> {
+      try{
+          setPid(null);
+          const res=await axios.get (
+                  query,
+                  {
+                      headers:{
+                          Authorization:"KakaoAK 62e37fc1387a408315981029aef3f771",
+                      },
+                  },
+              );
+              const location=res.data.documents[0];
+              console.log(location)
+              const p_id=location.id
+              const p_x=location.x
+              const p_y=location.y
+              setPid(p_id)
+              setPx(p_x)
+              setPy(p_y)
+      }catch(error){
+          console.log(error.message);
+      }
+  };
+
+  useEffect(()=>{
+      callApi();
+      axiostest();
+  },[]);
+
+  console.log(pid)
+
+  let p_id=String(pid)
+  let Kakao_map='kakaomap://place?id={}'
+  Kakao_map=Kakao_map.replace('{}',p_id)
+  let p_x=Number(px)
+  let p_y=Number(py)
+  let x=Number(p_x.toFixed(4))
+  let y=Number(p_y.toFixed(4))
 
   const renderItem = ({ item }) => (
     <Item title={item.title}/>
   );
   
+
+
   const tabListData = [
     { name: '전체', component: <FlatList data={DATA} renderItem={renderItem} style={{width:width}} keyExtractor={item => item.id}/> },
     {name: '숙소', component: <FlatList data={DATA} renderItem={renderItem} keyExtractor={item => item.id}/>},
@@ -112,23 +201,50 @@ const Spot = ({navigation}) => {
     alert('북마크에 저장되었습니다.');
   }
   
+  const [line, setLine] = useState(4);
+  const [isActivated, setIsActivated] = useState(false);
+
+  const handleLine = () => {
+    isActivated ? setLine(4) : setLine(Number.MAX_SAFE_INTEGER);
+    setIsActivated(prev => !prev);
+  }
     return (
         <ScrollView showsVerticalScrollIndicator ={false}>
             <Container>
                 <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
-                    <Text style={{fontSize:20, margin:10, marginTop:30, marginRight:width/2-20}}>중문 해수욕장</Text>
+                    <Text style={{fontSize:20, margin:10, marginTop:30, marginRight:width/2-20}}>{ID}</Text>
                     <TouchableOpacity onPress={onIncrease} >
                     <Icon name={iconname} size={25}  color='red' style={{margin:10, marginTop:30}}/>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex:1}}>
-                    <Image style={styles.image} source={require('../images/spot_1_ocean.jpg')} />
+                <View style={{flex:1, marginBottom:20}}>
+                    <Image style={{width:width-30, height:250, margin:5}} imageStyle={styles.listImage} source={{uri}}/>
+                    <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
                     <Text style={styles.text}>이용 정보</Text>
-                    <Text style={styles.text1}>주소 : </Text>
-                    <Text style={styles.text1}>연락처 :  </Text>
-                    <Text style={styles.text2}>중문해수욕장은 아름다운 바닷가 풍경과 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ </Text>
+                    <TouchableOpacity onPress={()=>Linking.openURL(Kakao_map)}>
+                    <Text style={{marginLeft:width-250, marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
+                    </TouchableOpacity>
+                    </View>
+                    <Text style={styles.text4}>
+                    <Text style={styles.text4}> 주소 : </Text>
+                    <Text >{address}</Text>
+                    </Text>
+                    <Text style={styles.text4}>{homepage}</Text>
+                    <View style={{ flex:0.5, alignItems:'flex-start'}}>
+                    <Text style={styles.text}>개요 </Text>
+                      <Text style={styles.text2} numberOfLines={line} ellipsizeMode="tail" onPress={()=>handleLine()}>{overview}</Text>
+                    </View>
                 </View>
-                <View style={{flex:1, position:'relative',left: 10, width}}>
+                <SwiperView
+                  tabList={tabListData}>
+                  </SwiperView>
+            </Container>
+        </ScrollView>
+
+    );
+};
+
+/*<View style={{flex:1, position:'relative',left: 10, width}}>
                     <Text style={styles.text3}>당신이 찾던 서핑</Text>
                     <ScrollView horizontal={true} style={{marginBottom:20}} showsHorizontalScrollIndicator={false}>
                   <TouchableOpacity onPress={()=>navigation.navigate('Enterprise')}>
@@ -154,14 +270,6 @@ const Spot = ({navigation}) => {
                   </TouchableOpacity>
                 </ScrollView>
                 </View>
-                <SwiperView
-                  tabList={tabListData}>
-                  </SwiperView>
-            </Container>
-        </ScrollView>
-
-    );
-};
-
+*/
 
 export default Spot;

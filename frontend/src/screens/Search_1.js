@@ -13,6 +13,46 @@ const Container = styled.View`
     padding : 20px;
 `;
   
+const styles = StyleSheet.create({
+    tinyLogo: {
+      width: 100,
+      height: 100,
+      marginVertical: 15,
+      borderRadius: 70,
+    },
+    container: {
+      flex: 1,
+      marginHorizontal: 16,
+    },
+    title: {
+      marginBottom: 20,
+      fontSize: 18,
+    },
+    fixprofile: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+      },
+    fixToText: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    separator: {
+      marginVertical: 15,
+      borderBottomColor: '#737373',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    item: {
+      marginVertical: 8,
+      fontsize: 15,
+    },
+    sectiontitle: {
+      fontsize: 15,
+    },
+    section_separator:{
+      backgroundColor: '#e0e0e0',
+      height: 1,
+    }
+  });
  
 const Search_1 = ({navigation}) => {
 
