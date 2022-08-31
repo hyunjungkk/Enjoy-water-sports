@@ -10,6 +10,7 @@ my_settings.py
 db.sqlite3
 media
 Brewfile
+secrets.json
 
 
 ### Django.Python Stack ###
