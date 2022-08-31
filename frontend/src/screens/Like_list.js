@@ -20,7 +20,7 @@ const DATA = [
       category: '숙박레저 패키지',
       location: '강릉',
       content: '서핑 강습 + 바베큐 파티 + 게스트하우스',
-      imageUrl: '../images/fsa.jpg',
+      iU: require('../images/leisure_fishing.jpg'),
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
@@ -28,7 +28,7 @@ const DATA = [
       category: '관광지',
       location: '제주',
       content: '검은모래해변, 유채꽃밭, 둘레길',
-      imageUrl: '../images/fsa.jpg',
+      iU: require('../images/leisure_surfing.jpg'),
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
@@ -36,7 +36,7 @@ const DATA = [
       category: '관광지',
       location: '대부도',
       content: '해수욕장, 해변',
-      imageUrl: '../images/fsa.jpg',
+      iU: require('../images/leisure_fishing.jpg'),
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
@@ -44,7 +44,7 @@ const DATA = [
       category: '관광지',
       location: '대부도',
       content: '해수욕장, 해변',
-      imageUrl: '../images/fsa.jpg',
+      iU: require('../images/leisure_fishing.jpg'),
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
@@ -52,7 +52,7 @@ const DATA = [
       category: '관광지',
       location: '대부도',
       content: '해수욕장, 해변',
-      imageUrl: '../images/fsa.jpg',
+      iU: require('../images/leisure_fishing.jpg'),
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
@@ -60,14 +60,14 @@ const DATA = [
       category: '관광지',
       location: '대부도',
       content: '해수욕장, 해변',
-      imageUrl: '../images/fsa.jpg',
+      iU: require('../images/leisure_fishing.jpg'),
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
       title: '방아머리해수욕장',
       category: '관광지',
       content: '해수욕장, 해변',
-      imageUrl: '../images/fsa.jpg',
+      iU: require('../images/leisure_fishing.jpg'),
     },
   ];
   
@@ -75,7 +75,7 @@ const DATA = [
     <TouchableOpacity onPress={()=>Alert.alert('이동')}>
     <View style={styles.item}>
         <Image style={styles.tinyLogo}
-        source={require('../images/fsa.jpg')}
+        source={item.iU}
         />
       <View style={styles.textcon}>
         <Text style={styles.title}>{item.title}</Text>

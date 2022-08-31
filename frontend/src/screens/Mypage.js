@@ -2,26 +2,29 @@ import React from 'react';
 import { TouchableWithoutFeedback, Keyboard, TouchableOpacity, navigation, StyleSheet, View, Button, SafeAreaView, Text, Alert, Image, FlatList, SectionList, } from 'react-native';
 import styled from 'styled-components/native';
 
+const fsainit = require('../images/fsa.jpg')
+const fsauser = require('../images/fsa.jpg')
 
 const Container = styled.View`
     flex : 1;
     padding : 20px;
 `;
-    
- 
-const Mypage = () => {
+
+const Separator = () => (
+    <View style={styles.separator} />
+  );
 
 const DATA = [
     {
       title: "더보기",
-      data: ["공지사항", "약관 및 동의 내용", "공지사항"]
+      data: ["공지사항", "약관 및 동의 내용", "앱 버전"]
     },
 ];  
 
 const Item = ({ title }) => (
   <TouchableOpacity onPress={()=>Alert.alert('이동')}>
     <View style={styles.item}>
-      <Text style={styles.sectiontitle}>{title}</Text>
+      <Text fontSize={30} >{title}</Text>
     </View>
   </TouchableOpacity>
   );
@@ -34,7 +37,7 @@ const Mypage = ({navigation}) => {
             <View style={styles.fixprofile}> 
             <Image 
                 style={styles.tinyLogo}
-                source={require('../images/fsa.jpg')}
+                source={fsainit}
             />
             </View>
             <View style={styles.fixprofile}> 
@@ -105,17 +108,17 @@ const styles = StyleSheet.create({
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
     item: {
-      marginVertical: 8,
-      fontsize: 15,
+      marginVertical: 12,
+      fontsize: 20,
+
     },
     sectiontitle: {
-      fontsize: 15,
+      fontsize: 25,
     },
     section_separator:{
       backgroundColor: '#e0e0e0',
       height: 1,
     }
   });
-}
 
 export default Mypage

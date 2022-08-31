@@ -12,4 +12,5 @@ urlpatterns = [
     path('rank/', views.rank, name='rank'),
     path('locationlist/', views.locationlist, name='locationlist'),
     path('spot/', views.spot, name='spot'),
+    path('spotalltype/', views.location_alltype, name='locationalltype'),
 ]

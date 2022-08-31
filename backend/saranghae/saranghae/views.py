@@ -12,6 +12,10 @@ def index(request):
     context = {'overview': overview} 
     return render(request, 'index.html', context)  
 
+# privacy policy html
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')  
+
 # get example
 @api_view(['GET'])
 def get_test(request):
