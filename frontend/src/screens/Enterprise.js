@@ -70,7 +70,6 @@ text6:{
     fontSize: 15,
   }
 }
-const searching='중문 해수욕장'
 
 const cost='1시간 25,000 \n 2시간 40,000 \n 3시간 50,000';
 
@@ -78,8 +77,9 @@ const cost='1시간 25,000 \n 2시간 40,000 \n 3시간 50,000';
 const Enterprise = ({navigation, route}) => {
 
     const typeid=route.params.typeid
+    const img=route.params.img
     const conid=route.params.conid
-    
+    const title=route.params.title
     const [accomcountleports, setaccomcountleports]=useState('');
     const [chkbabycarriageleports, setchkbabycarriageleports]=useState('');
     const [chkcreditcardleports, setchkcreditcardleports]=useState('');
@@ -139,7 +139,7 @@ const Enterprise = ({navigation, route}) => {
 
 
     let query='https://dapi.kakao.com/v2/local/search/keyword.json?query={}'
-    query=query.replace('{}',searching)
+    query=query.replace('{}',title)
     const [pid, setPid] = useState('');
     const [px,setPx]=useState(0);
     const [py,setPy]=useState(0);
@@ -264,13 +264,13 @@ const Enterprise = ({navigation, route}) => {
       iconname='bookmark';
       alert('북마크에 저장되었습니다.');
     }
-
+    const sampleimg="http://tong.visitkorea.or.kr/cms/resource/13/2837213_image2_1.jpg"
 
     return (
         <ScrollView>
             <Container>
             <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
-                    <Text style={{fontSize:20, margin:10, marginTop:30, marginRight:width/2-20}}>{searching}</Text>
+                    <Text style={{fontSize:20, margin:10, marginTop:30, marginRight:width/2-20}}>{title}</Text>
                     <TouchableOpacity onPress={onIncrease} >
                     <Icon name={iconname} size={25}  color='red' style={{margin:10, marginTop:30}}/>
                     </TouchableOpacity>
@@ -282,19 +282,11 @@ const Enterprise = ({navigation, route}) => {
                 </TouchableOpacity>
             </View>
             <View>
-            <MapView 
-                style={{width: Dimensions.get('window').width-30,height: 250}}
-                initialRegion={{
-                    latitude: y,
-                    longitude: x,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                  }}
-                >
-                <Marker
-                    coordinate={{latitude: y, longitude: x}}
-                    />
-                </MapView>
+            {img===""?
+          <Image style={{width:width-20,height:250, margin:10}} source={{uri:sampleimg}}>
+           </Image>
+        :<Image style={{width:width-20,height:250, margin:10}} source={{uri:img}}>
+          </Image>}
             </View>
             <View style={{flexDirection: 'row', flex:1, justifyContent:'space-around', paddingTop:15}}>
                 <Text style={styles.text1}>가격 정보</Text>

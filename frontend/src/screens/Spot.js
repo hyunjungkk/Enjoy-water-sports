@@ -236,7 +236,7 @@ const Spot = ({navigation, route}) => {
   const sampleimg="http://tong.visitkorea.or.kr/cms/resource/13/2837213_image2_1.jpg"
   const Item = ({ title, img, typeid, contentid}) => (
       
-      <TouchableOpacity onPress={()=>navigation.navigate('Enterprise',{typeid:typeid, conid:contentid})}>
+      <TouchableOpacity onPress={()=>navigation.navigate('Enterprise',{typeid:typeid, conid:contentid, title:title,img:img})}>
       {img===""?
       <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
         <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
