@@ -169,3 +169,41 @@ def detailCommon(str_contentid, str_contenttypeid):
     data = json.loads(res.text)
 
     return data
+
+
+# Spot -> Enterprise
+def areaBasedList_alltype(str_areacode,str_sigungucode, str_contentTypeId):
+    overview = []
+    url = "https://apis.data.go.kr/B551011/KorService/areaBasedList"
+    
+    numOfRows="100"
+    pageNo=1
+    
+    MobileOS="ETC"
+    MobileApp="saranghae"
+    _type="json"
+    listYN = "Y"
+    arrange = "Q"
+    
+    areacode = str_areacode
+    sigungucode=str_sigungucode
+    contentTypeId=str_contentTypeId
+
+    queryParams = '?' + urlencode({ quote_plus('numOfRows') : numOfRows, 
+                                    quote_plus('pageNo') : pageNo, 
+                                    quote_plus('serviceKey') : serviceKey, 
+                                    quote_plus('MobileOS') : MobileOS, 
+                                    quote_plus('MobileApp') : MobileApp, 
+                                    quote_plus('_type') : _type, 
+
+                                    quote_plus('listYN') : listYN,
+                                    quote_plus('areaCode') : areacode,
+                                    quote_plus('sigunguCode') : sigungucode,
+                                    quote_plus('arrange') : arrange,
+                                    quote_plus('contentTypeId') : str_contentTypeId,
+                                     })
+                                    
+    res = requests.get(url + queryParams, verify=False)
+    data = json.loads(res.text)
+
+    return data
