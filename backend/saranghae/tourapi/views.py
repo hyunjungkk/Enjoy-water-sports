@@ -5,7 +5,7 @@ from .api import detailIntro
 from .api import areaCode
 from .api import searchKeyword
 from .api import areaBasedList
-from .api import detailCommon
+from .api import detailCommon, areaBasedList_alltype
 
 # """"""""""
 # rank
@@ -58,6 +58,22 @@ def locationlist(request):
     res = areaBasedList(str_areacode,str_sigungucode,
                                 str_cat1,str_cat2,str_cat3,str_page)
     return Response(res)
+
+
+
+# """"""""""
+# location_alltype
+# 지역에 따라 검색한 결과 제공
+# """"""""""
+@api_view(['GET'])
+def location_alltype(request):
+    str_areacode = request.GET.get("areacode",'')
+    str_sigungucode = request.GET.get("sigungucode",'')
+    str_contentTypeId = request.GET.get("contenttypeid",'')
+
+    res = areaBasedList_alltype(str_areacode,str_sigungucode, str_contentTypeId)
+    return Response(res)
+
 
 # """"""""""
 # detailCommon
