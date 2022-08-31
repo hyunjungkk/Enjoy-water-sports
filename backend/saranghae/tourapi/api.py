@@ -189,7 +189,22 @@ def areaBasedList_alltype(str_areacode,str_sigungucode, str_contentTypeId):
     sigungucode=str_sigungucode
     contentTypeId=str_contentTypeId
 
-    queryParams = '?' + urlencode({ quote_plus('numOfRows') : numOfRows, 
+    if contentTypeId == '99':  # all content_type_id code
+        queryParams = '?' + urlencode({ quote_plus('numOfRows') : numOfRows, 
+                                    quote_plus('pageNo') : pageNo, 
+                                    quote_plus('serviceKey') : serviceKey, 
+                                    quote_plus('MobileOS') : MobileOS, 
+                                    quote_plus('MobileApp') : MobileApp, 
+                                    quote_plus('_type') : _type, 
+
+                                    quote_plus('listYN') : listYN,
+                                    quote_plus('areaCode') : areacode,
+                                    quote_plus('sigunguCode') : sigungucode,
+                                    quote_plus('arrange') : arrange,
+                                    # quote_plus('contentTypeId') : str_contentTypeId,
+                                     })
+    else:
+        queryParams = '?' + urlencode({ quote_plus('numOfRows') : numOfRows, 
                                     quote_plus('pageNo') : pageNo, 
                                     quote_plus('serviceKey') : serviceKey, 
                                     quote_plus('MobileOS') : MobileOS, 
@@ -202,7 +217,7 @@ def areaBasedList_alltype(str_areacode,str_sigungucode, str_contentTypeId):
                                     quote_plus('arrange') : arrange,
                                     quote_plus('contentTypeId') : str_contentTypeId,
                                      })
-                                    
+                                  
     res = requests.get(url + queryParams, verify=False)
     data = json.loads(res.text)
 
