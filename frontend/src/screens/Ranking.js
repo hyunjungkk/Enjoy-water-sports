@@ -10,6 +10,7 @@ import { Image} from 'react-native';
 import Swiper from 'react-native-swiper/src';
 import { FlatList, TouchableOpacity } from 'react-native';
 import Hr from "react-native-hr-plus";
+import axios from 'axios';
 
 const { width } = Dimensions.get('window')
 
@@ -112,6 +113,20 @@ const state =[
     });
   }
 
+  const axios_all= async ()=>{
+    const access = ''
+    const config = {
+      headers : {
+        Authorization : `Bearer ${access}`,
+      }
+    }
+    axios.get(all_query)
+    .then(function (response) {
+      const valor = JSON.stringify(response.data)
+      const report=JSON.parse(valor)
+      console.log(report)
+    })
+  }
 
   function Ranking_Item({ item }) {
     return (

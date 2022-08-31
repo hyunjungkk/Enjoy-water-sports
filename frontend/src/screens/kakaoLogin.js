@@ -10,6 +10,7 @@ import Login from './Login';
 
 import { WebView } from 'react-native-webview';
 import axios from 'axios';
+import { AsyncStorage} from 'react-native';
 
 const { width } = Dimensions.get('window')
 
@@ -52,46 +53,32 @@ const apiUrl = "http://3.34.181.178/";
 
 const kakaoLogin = ({navigation}) => {
     function LogInProgress (data){
-        
-      
-      const exp = "code=";
-      	//var condition = data.indexOf(exp);
-        console.log('-----------');
+      //const exp = "code=";
+      //	var condition = data.indexOf(exp);
 
-        
-          console.log('kakaoLogin start');
-            //var request_code = data.substring(condition+exp.length);
+          console.log('kakaoLogin start 2222');
+          //  var request_code = data.substring(condition+exp.length);
             //토큰값 받기
             //console.log("access code :: " + request_code);
             //requestToken(request_code);
-            get_token;
-            //navigation.navigate('Home');
-        
-    }
-    function get_token({}){
-      /*
-      const access = cookies.get("access_token");
-      const config = {
-        headers: {
-          Authorization: `Bearer ${access}`,
-        },
-      };
-      */
-      
-      axios.get(`${apiUrl}mypage/login`)
+           
+    /*  axios.get(`${apiUrl}mypage/login`)
           .then(function (response) {
           // response.id 
-  
-          if(response.data.count > 0 ) {
+
+          if(response) {
+
+            alert("test")
             //renderFunction
-           // console.log('response: '+response);
+            console.log('response: '+response);
             //navigate("/searchlist",{state:response.data});
           
             //setLists(response.data)
-            //const access_token = response.token.access;
-            //const refresh_token = response.token.refresh;
-            console.log('access_token: '+ access_token);
-            console.log('refresh_token: '+ refresh_token);
+            const access_token = response.token.access;
+            const refresh_token = response.token.refresh;
+            AsyncStorage.setItem('data', data);
+            AsyncStorage.setItem('data', data);
+
             navigation.navigate('Home');
 
           }
@@ -104,47 +91,21 @@ const kakaoLogin = ({navigation}) => {
       }).then(function() {
           // 항상 실행
       });
+           */ 
     }
-        /*
-        const requestToken = async (request_code) => {
 
-            var returnValue = "none";    
-            var request_token_url = "https://kauth.kakao.com/oauth/token";
+    function get_token(){
+      /*
+      const access = cookies.get("access_token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      };
+      */
+      
+    }
     
-            axios({
-    
-                method: "post",
-    
-                url: request_token_url,
-    
-                params: {
-    
-                    grant_type: 'authorization_code',
-    
-                    client_id: 'ic',
-    
-                    redirect_uri: 'url',
-    
-                    code: request_code,
-    
-                },
-    
-            }).then(function (response) {
-    
-                returnValue = response.data.access_token;
-                console.log(returnValue)
-    
-     
-    
-            }).catch(function (error) {
-    
-                console.log('error', error);
-    
-            });
-    
-        };
-    
- */
 /*
         const requestToken = async (request_code) => {
           var returnValue = "none";
@@ -220,7 +181,7 @@ const kakaoLogin = ({navigation}) => {
                 javaScriptEnabled={true}
                 
                 onMessage={(event) => LogInProgress(event.nativeEvent["http://3.34.181.178/mypage/login"]) }
-
+                
             // onMessage ... :: webview에서 온 데이터를 event handler로 잡아서 logInProgress로 전달
             />
           </View>

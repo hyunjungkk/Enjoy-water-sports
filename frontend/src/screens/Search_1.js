@@ -12,48 +12,25 @@ const Container = styled.View`
     background-color : ${({ theme }) => theme.background};
     padding : 20px;
 `;
-  
+
 const styles = StyleSheet.create({
-    tinyLogo: {
-      width: 100,
-      height: 100,
-      marginVertical: 15,
-      borderRadius: 70,
-    },
     container: {
-      flex: 1,
-      marginHorizontal: 16,
+        flex: 1,
     },
-    title: {
-      marginBottom: 20,
-      fontSize: 18,
-    },
-    fixprofile: {
+    fixPic: {
         flexDirection: 'row',
         justifyContent: 'center',
       },
-    fixToText: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
+    tinyLogo: {
+        width: 150,
+        height: 130,
+        marginVertical: 10,
+        marginHorizontal: 10,
+        borderRadius: 10,
     },
-    separator: {
-      marginVertical: 15,
-      borderBottomColor: '#737373',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-    },
-    item: {
-      marginVertical: 8,
-      fontsize: 15,
-    },
-    sectiontitle: {
-      fontsize: 15,
-    },
-    section_separator:{
-      backgroundColor: '#e0e0e0',
-      height: 1,
-    }
+
   });
- 
+
 const Search_1 = ({navigation}) => {
 
     return (
@@ -69,7 +46,19 @@ const Search_1 = ({navigation}) => {
             </TouchableOpacity >
             <TouchableOpacity onPress={()=>navigation.navigate('Search_2')}>
             <Image style={styles.tinyLogo}
-                source={require('../images/leisure_fishing.jpg')}
+                source={require('../images/leisure_surfing.jpg')}
+            />
+            </TouchableOpacity >
+        </View>
+        <View style={styles.fixPic}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Search_2')}>
+                <Image style={styles.tinyLogo}
+                    source={require('../images/enterprise_1_hotel.jpg')}
+                />
+            </TouchableOpacity >
+            <TouchableOpacity onPress={()=>navigation.navigate('Search_2')}>
+            <Image style={styles.tinyLogo}
+                source={require('../images/enterprise_2_market.jpg')}
             />
             </TouchableOpacity >
         </View>
@@ -81,31 +70,19 @@ const Search_1 = ({navigation}) => {
             </TouchableOpacity >
             <TouchableOpacity onPress={()=>navigation.navigate('Search_2')}>
             <Image style={styles.tinyLogo}
-                source={require('../images/leisure_fishing.jpg')}
+                source={require('../images/leisure_surfing.jpg')}
             />
             </TouchableOpacity >
         </View>
         <View style={styles.fixPic}>
             <TouchableOpacity onPress={()=>navigation.navigate('Search_2')}>
                 <Image style={styles.tinyLogo}
-                    source={require('../images/leisure_fishing.jpg')}
+                    source={require('../images/enterprise_1_hotel.jpg')}
                 />
             </TouchableOpacity >
             <TouchableOpacity onPress={()=>navigation.navigate('Search_2')}>
             <Image style={styles.tinyLogo}
-                source={require('../images/leisure_fishing.jpg')}
-            />
-            </TouchableOpacity >
-        </View>
-        <View style={styles.fixPic}>
-            <TouchableOpacity onPress={()=>navigation.navigate('Search_2')}>
-                <Image style={styles.tinyLogo}
-                    source={require('../images/leisure_fishing.jpg')}
-                />
-            </TouchableOpacity >
-            <TouchableOpacity onPress={()=>navigation.navigate('Search_2')}>
-            <Image style={styles.tinyLogo}
-                source={require('../images/leisure_fishing.jpg')}
+                    source={require('../images/enterprise_2_market.jpg')}
             />
             </TouchableOpacity >
         </View>
