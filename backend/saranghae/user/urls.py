@@ -1,10 +1,12 @@
 from django.urls import path
-from .views import KakaoLoginView
+from .views import KakaoLoginView, JWTLoginView, JWTSignupView
 
 app_name = "user"
 
 urlpatterns = [
         path('login/', KakaoLoginView.as_view() ), # /<str:code>
+        path('oursignup/', JWTSignupView.as_view()), # 회원가입
+        path('ourlogin/', JWTLoginView.as_view()), # 로그인
 ]
 
 # https://stackoverflow.com/questions/28044219/urest-framework-is-not-a-registered-namespace
