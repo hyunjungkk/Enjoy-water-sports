@@ -21,10 +21,8 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('get_test', views.get_test),
-    path('post_test', views.post_test),
-    path('get_para_test', views.get_para_test),
+    path('', views.index, name='index'), # test
+    path('privacy_policy', views.privacy_policy, name='privacy_policy'),
 
     path('tourapi/', include('tourapi.urls')),
     path('community/', include('community.urls')),
