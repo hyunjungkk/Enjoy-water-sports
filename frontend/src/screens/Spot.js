@@ -11,6 +11,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import SwiperView from 'react-native-swiper-view';
 import axios from 'axios';
 import { Linking } from 'react-native';
+import { Platform } from 'react-native'
 
 const { width } = Dimensions.get('window');
 
@@ -22,6 +23,31 @@ const Container = styled.View`
     background-color : ${({ theme }) => theme.background};
     padding : 20px;
 `;
+
+const style = StyleSheet.create({
+  shadow: {
+      ...Platform.select({
+          ios: { 
+              shadowColor: '#000',
+              background: '#ffffff',
+             shadowOffset: { width: 10, height: 10, },
+              shadowOpacity: 0.5,
+             shadowRadius: 10,
+             fontSize : 20,
+              margin :15,
+            fontWeight: "bold",
+          },
+          android: { 
+            background: '#ffffff',
+             elevation: 23,
+             fontSize : 20,
+             margin :15,
+             color:'#ffffff',
+             fontWeight: "bold",
+          },
+      })
+  }
+});
 
 
 const styles = {
@@ -55,10 +81,17 @@ const styles = {
       fontSize : 20,
       margin :15,
   },
+  text5:{
+    fontSize : 20,
+      margin :15,
+      fontWeight: "bold",
+      color:'#ffffff',
+      backgroundColor:'#E6E6E6'
+},
   text4:{
     fontSize : 15,
     marginLeft:15,
-    margin :5,
+    margin :5
 },
   item: {
     backgroundColor: '#6da7ed',
@@ -76,31 +109,21 @@ const styles = {
 }
 
 
-const DATA = [
-  {id: '1', title: 'Fist Item', t:'1233'},
-  {id: '2', title: 'Second Item', t:'1234'},
-  {id: '3', title: 'Third Item', t:'1235'},
-  {id: '4', title: 'Forth Item', t:'1236'},
-  {id: '5', title: 'Fifth Item', t:'1237'},
-  {id: '6', title: 'Sixth Item', t:'1238'},
-];
+
 
 
 
 const Spot = ({navigation, route}) => {
-  const Item = ({ title }) => (
-    <View style={styles.item}>
-      <TouchableOpacity onPress={()=>navigation.navigate('Enterprise')}>
-      <Text style={styles.title}>{title}</Text>
-      </TouchableOpacity>
-    </View>
-  );
 
-  ID=route.params.ID
+
+  
+
   const name=route.params.ID
   const sid=route.params.SID
   const uri=route.params.Uri
   const tid=route.params.TID
+  const area=route.params.Are
+  const sigun=route.params.Sig
 
   let query= "http://3.34.181.178/tourapi/spot/?contentid={}&contenttypeid=*"
   query=query.replace('{}',sid)
@@ -129,9 +152,122 @@ const Spot = ({navigation, route}) => {
       setoverview(overview)
     })
   }
+  /*레포츠 받아오기 */
+  let all_query="http://3.34.181.178/tourapi/spotalltype?areacode=@&sigungucode=*&contenttypeid=28"
+  all_query=all_query.replace('@',area)
+  all_query=all_query.replace('*',sigun)
+  const [sports,setreports]=useState([])
+  const axios_all= async ()=>{
+    const access = ''
+    const config = {
+      headers : {
+        Authorization : `Bearer ${access}`,
+      }
+    }
+    axios.get(all_query)
+    .then(function (response) {
+      const valor = JSON.stringify(response.data)
+      const report=JSON.parse(valor)
+      setreports(report.response.body.items.item)
+    })
+  }
 
+  /*숙박 받아오기*/
+  let sleep_query="http://3.34.181.178/tourapi/spotalltype?areacode=@&sigungucode=*&contenttypeid=32"
+  sleep_query=sleep_query.replace('@',area)
+  sleep_query=sleep_query.replace('*',sigun)
+  const [sleep,setsleep]=useState([])
+  const axios_sleep= async ()=>{
+    const access = ''
+    const config = {
+      headers : {
+        Authorization : `Bearer ${access}`,
+      }
+    }
+    axios.get(sleep_query)
+    .then(function (response) {
+      const valor = JSON.stringify(response.data)
+      const report=JSON.parse(valor)
+      setsleep(report.response.body.items.item)
+    })
+  }
+  
+  /* 음식점 받아오기*/
+  let eat_query="http://3.34.181.178/tourapi/spotalltype?areacode=@&sigungucode=*&contenttypeid=39"
+  eat_query=eat_query.replace('@',area)
+  eat_query=eat_query.replace('*',sigun)
+  const [eat,seteat]=useState([])
+  const axios_eat= async ()=>{
+    const access = ''
+    const config = {
+      headers : {
+        Authorization : `Bearer ${access}`,
+      }
+    }
+    axios.get(eat_query)
+    .then(function (response) {
+      const valor = JSON.stringify(response.data)
+      const report=JSON.parse(valor)
+      seteat(report.response.body.items.item)
+    })
+  }
+
+  /* 행사/공연/축제 받아오기 */
+
+  let fun_query="http://3.34.181.178/tourapi/spotalltype?areacode=@&sigungucode=*&contenttypeid=15"
+  fun_query=fun_query.replace('@',area)
+  fun_query=fun_query.replace('*',sigun)
+  const [fun,setfun]=useState([])
+  const axios_fun= async ()=>{
+    const access = ''
+    const config = {
+      headers : {
+        Authorization : `Bearer ${access}`,
+      }
+    }
+    axios.get(fun_query)
+    .then(function (response) {
+      const valor = JSON.stringify(response.data)
+      const report=JSON.parse(valor)
+      setfun(report.response.body.items.item)
+    })
+  }
+
+  const sampleimg="http://tong.visitkorea.or.kr/cms/resource/13/2837213_image2_1.jpg"
+  const Item = ({ title, img, typeid, contentid}) => (
+      
+      <TouchableOpacity onPress={()=>navigation.navigate('Enterprise',{typeid:typeid, conid:contentid})}>
+      {img===""?
+      <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
+        <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
+        <Text style={style.shadow}>{title}</Text>
+        </View>
+      </ImageBackground>
+      :<ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:img}}>
+        <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
+        <Text style={style.shadow}>{title}</Text>
+        </View>
+      </ImageBackground>}
+
+      </TouchableOpacity>
+  );
+
+  const renderItem = ({ item }) => (
+    <Item title={item.title} img={item.firstimage} typeid={item.contenttypeid} contentid={item.contentid}/>
+  );
+  
+  const tabListData = [
+    {name: '레포츠', component: <FlatList data={sports} renderItem={renderItem} keyExtractor={item => item.id}/>},
+    { name: '숙박', component: <FlatList data={sleep} renderItem={renderItem} keyExtractor={item => item.id}/> },
+    { name: '음식점', component: <FlatList data={eat} renderItem={renderItem} keyExtractor={item => item.id}/> },
+    { name: '즐길거리', component: <FlatList data={fun} renderItem={renderItem} keyExtractor={item => item.id}/> },
+  ];
+
+
+
+  const n_id=String(name)
   let kakao_query='https://dapi.kakao.com/v2/local/search/keyword.json?query={}'
-  kakao_query=kakao_query.replace('{}',name)
+  kakao_query=kakao_query.replace('{}',n_id)
   const [pid, setPid] = useState('');
   const [px,setPx]=useState(0);
   const [py,setPy]=useState(0);
@@ -139,7 +275,7 @@ const Spot = ({navigation, route}) => {
       try{
           setPid(null);
           const res=await axios.get (
-                  query,
+                  kakao_query,
                   {
                       headers:{
                           Authorization:"KakaoAK 62e37fc1387a408315981029aef3f771",
@@ -147,7 +283,6 @@ const Spot = ({navigation, route}) => {
                   },
               );
               const location=res.data.documents[0];
-              console.log(location)
               const p_id=location.id
               const p_x=location.x
               const p_y=location.y
@@ -162,9 +297,13 @@ const Spot = ({navigation, route}) => {
   useEffect(()=>{
       callApi();
       axiostest();
+      axios_all();
+      axios_sleep();
+      axios_eat();
+      axios_fun();
   },[]);
 
-  console.log(pid)
+
 
   let p_id=String(pid)
   let Kakao_map='kakaomap://place?id={}'
@@ -174,19 +313,7 @@ const Spot = ({navigation, route}) => {
   let x=Number(p_x.toFixed(4))
   let y=Number(p_y.toFixed(4))
 
-  const renderItem = ({ item }) => (
-    <Item title={item.title}/>
-  );
   
-
-
-  const tabListData = [
-    { name: '전체', component: <FlatList data={DATA} renderItem={renderItem} style={{width:width}} keyExtractor={item => item.id}/> },
-    {name: '숙소', component: <FlatList data={DATA} renderItem={renderItem} keyExtractor={item => item.id}/>},
-    { name: '맛집', component: <FlatList data={DATA} renderItem={renderItem} keyExtractor={item => item.id}/> },
-    { name: '대여', component: <FlatList data={DATA} renderItem={renderItem} keyExtractor={item => item.id}/> },
-    { name: '장소', component: <FlatList data={DATA} renderItem={renderItem} keyExtractor={item => item.id}/> },
-  ];
   
   const [num, setNum] = useState(0);
   
@@ -212,7 +339,7 @@ const Spot = ({navigation, route}) => {
         <ScrollView showsVerticalScrollIndicator ={false}>
             <Container>
                 <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
-                    <Text style={{fontSize:20, margin:10, marginTop:30, marginRight:width/2-20}}>{ID}</Text>
+                    <Text style={{fontSize:20, margin:10, marginTop:30, marginRight:width/2-20}}>{name}</Text>
                     <TouchableOpacity onPress={onIncrease} >
                     <Icon name={iconname} size={25}  color='red' style={{margin:10, marginTop:30}}/>
                     </TouchableOpacity>

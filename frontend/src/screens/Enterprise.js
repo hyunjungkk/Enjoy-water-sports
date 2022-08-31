@@ -73,11 +73,13 @@ text6:{
 const searching='중문 해수욕장'
 
 const cost='1시간 25,000 \n 2시간 40,000 \n 3시간 50,000';
-const data='SA 국제서핑연맹 자격증 보유, KSL프로서퍼 강사와 함께하는 체계적이고 안전한 서핑커리큘럼 \n 내용 줄바꿈 확인용 \n 추가 되는 내용은  \n 스크롤뷰로 확인하려고 함 \n 몇줄까지 보여도 되는 건지?'
 
 
-const Enterprise = () => {
+const Enterprise = ({navigation, route}) => {
 
+    const typeid=route.params.typeid
+    const conid=route.params.conid
+    
     const [accomcountleports, setaccomcountleports]=useState('');
     const [chkbabycarriageleports, setchkbabycarriageleports]=useState('');
     const [chkcreditcardleports, setchkcreditcardleports]=useState('');
