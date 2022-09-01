@@ -7,8 +7,8 @@ import { StyleSheet, Text,View, Button } from 'react-native';
 import { Image,TextInput } from 'react-native';
 import Home from './Home';
 import kakaoLogin from './kakaoLogin';
-import RegisterPage from './RegisterPage';
 import { useState } from 'react';
+import axios from 'axios';
 
 const { width } = Dimensions.get('window')
 
@@ -28,8 +28,8 @@ const styles = {
     },
 
     image: {
-      width: 180,
-      height: 180,
+      width: 100,
+      height: 100,
       justifyItems: 'center',
       alignItems: 'center',
       resizeMode: 'contain',
@@ -60,12 +60,45 @@ const Container = styled.View`
 `;
 
 
-const Login = ({navigation}) => {
+const apiUrl = 'http://3.34.181.178/'
+//const apiUrl = 'http://127.0.0.1:8000/'
+
+
+const RegisterPage = ({navigation}) => {
     const [ID, setID] = useState('')
     const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+    const [nickname, setNickname] = useState('')
 
-    const goResgister = () => {
-        navigation.navigate(RegisterPage)
+    const startRegister = () => {
+        if (
+            !(ID && password && email && nickname)
+        ) {
+            alert("입력하지 않은 항목이 있습니다!")
+        }
+        //이메일 포맷체크
+        
+        let formData = new FormData();
+        const config = {
+            header: { "content-Type": "multipart/form-data" },
+        };
+        formData.append("user_id", ID);
+        formData.append("password", password);
+        formData.append("email", email);
+        formData.append("nickname", nickname);
+    
+        axios.post(
+            `${apiUrl}oursignup/`,
+            formData,
+            config
+            )
+            .then(function (response) {
+                alert(response.user.nickname+"님! 회원가입이 완료되었습니다!");
+                navigation.navigate(Login)
+            })
+            .catch(function (error) {
+                alert(error)
+            });
     }
 
     return (
@@ -78,7 +111,7 @@ const Login = ({navigation}) => {
             <View style={{flex : 1.5}}>
                 <Image style={styles.image} source={require('../images/login_logo.png')} />
             </View>
-            <View style={{flex : 1.2}}>
+            <View style={{flex : 2.0}}>
                 <TextInput style={styles.textinput}
                     placeholder="ID"
                     onChangeText={text => setID(text)} value={ID}
@@ -87,17 +120,18 @@ const Login = ({navigation}) => {
                     placeholder="PASSWORD"
                     onChangeText={text => setPassword(text)} value={password}
                 />
-                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate(kakaoLogin)}>
-                    <Text style={{color: '#3C1E1E', fontWeight: 'bold'}}>로그인</Text>
+                <TextInput style={styles.textinput}
+                    placeholder="이메일"
+                    onChangeText={text => setEmail(text)} value={email}
+                />
+                <TextInput style={styles.textinput}
+                    placeholder="닉네임"
+                    onChangeText={text => setNickname(text)} value={nickname}
+                />
+                <TouchableOpacity style={styles.button} onPress={startRegister}>
+                    <Text style={{color: '#3C1E1E', fontWeight: 'bold'}}>회원가입</Text>
                 </TouchableOpacity>
 
-                <View style={{flex: 0.75}}>
-                    <View style={styles.btnArea}>
-                        <TouchableOpacity style={styles.btn}>
-                            <Text style={{color: 'gray'}}>사랑해가 처음이라면? <Text style={{textDecorationLine: 'underline'}} onPress={goResgister}>회원가입</Text>이 필요해요!</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
             </View>
         </Container>
         </TouchableWithoutFeedback>
@@ -105,4 +139,4 @@ const Login = ({navigation}) => {
     );
 };
 
-export default Login
+export default RegisterPage

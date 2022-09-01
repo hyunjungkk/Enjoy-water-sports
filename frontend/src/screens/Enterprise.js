@@ -9,7 +9,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Dimensions } from 'react-native';
 import { Linking } from 'react-native';
 import axios from 'axios';
-import MapView, {Marker} from 'react-native-maps';
+//import MapView, {Marker} from 'react-native-maps';
 import { element } from 'prop-types';
 
 const { width } = Dimensions.get('window');
