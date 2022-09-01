@@ -17,7 +17,7 @@ class SignupSerializer(serializers.ModelSerializer):
         email = validated_data.get('email')
         nickname = validated_data.get('nickname')
         last_login = validated_data.get('last_login')
-        is_speruser = validated_data.get('is_speruser')
+        is_superuser = validated_data.get('is_superuser')
         is_active = validated_data.get('is_active')
         is_staff = validated_data.get('is_staff')
         user = User(
@@ -27,7 +27,7 @@ class SignupSerializer(serializers.ModelSerializer):
             email = email,
             nickname = nickname,
             last_login = last_login,
-            is_speruser = is_speruser,
+            is_superuser = is_superuser,
             is_active = is_active,
             is_staff = is_staff,
         )

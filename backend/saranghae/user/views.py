@@ -17,38 +17,51 @@ class JWTSignupView(APIView):
     def post(self, request):
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.save()
-            # jwt token 접근
-            token = TokenObtainPairSerializer.get_token(user)
-            refresh_token = str(token)
-            access_token = str(token.access_token)
-            res = Response(
-                {
-                    "user": serializer.data,
-                    "message": "회원가입에 성공하였습니다.",
-                    "token": {
-                        "access": access_token,
-                        "refresh": refresh_token,
-                    },
+             user = serializer.save()
+   #     user = User.objects.create(
+   #         user_id = request.data.get("uesr_id"), # email.split(sep='@')[0],
+   #         email = request.data.get("email"),
+   #         nickname = request.data.get("nickname"),
+   #     )
+   #     user.set_unusable_password()
+   #     user.save()
+        print('in !!')
+
+        # jwt token 접근
+        token = TokenObtainPairSerializer.get_token(user)
+        refresh_token = str(token)
+        access_token = str(token.access_token)
+        res = Response(
+            {
+                "user": serializer.data,
+                "message": "회원가입에 성공하였습니다.",
+                "token": {
+                    "access": access_token,
+                    "refresh": refresh_token,
                 },
-                status = status.HTTP_200_OK,
-            )
-            # 쿠키에 넣어주기(set_cookie)
-            res.set_cookie("access", access_token, httponly=True)
-            res.set_cookie("refresh", refresh_token, httponly=True)
-            return res
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            },
+            status = status.HTTP_200_OK,
+        )
+        # 쿠키에 넣어주기(set_cookie)
+        res.set_cookie("access", access_token, httponly=True)
+        res.set_cookie("refresh", refresh_token, httponly=True)
+        return res
+        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class JWTLoginView(APIView):
     def post(self, request):
         user = authenticate(
             user_id=request.data.get("user_id"), password=request.data.get("password")
         )
+        print(user)
         if user is not None:
+            print("why?")
             serializer = UserSerializer(user)
             token = TokenObtainPairSerializer.get_token(user)
+            print("why?1")
             refresh_token = str(token)
             access_token = str(token.access_token)
+            print("why?2")
             res = Response(
                 {
                     "user": serializer.data,
@@ -62,6 +75,7 @@ class JWTLoginView(APIView):
             )
             return res
         else:
+            print("why?11")
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class KakaoLoginView(APIView):
