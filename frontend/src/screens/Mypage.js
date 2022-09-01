@@ -41,7 +41,7 @@ const Mypage = ({navigation}) => {
             />
             </View>
             <View style={styles.fixprofile}> 
-            <Text style={styles.title}> 김현지 </Text>
+            <Text style={styles.title}> 홍길동 </Text>
             </View>
             <Button
                 color="#adb5bd"
