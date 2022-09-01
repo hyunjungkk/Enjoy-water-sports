@@ -10,6 +10,7 @@ from django.core.files.base import ContentFile
 from .models import User
 from . import my_settings
 from django.contrib.auth import authenticate
+# from django.contrib.auth.backends
 
 from .serializers import SignupSerializer, UserSerializer
 
@@ -50,8 +51,13 @@ class JWTSignupView(APIView):
 
 class JWTLoginView(APIView):
     def post(self, request):
+
+        print("hello")
+        print(request.data.get("user_id"))
+        print(request.data.get("password"))
+        print()
         user = authenticate(
-            user_id=request.data.get("user_id"), password=request.data.get("password")
+            username=request.data.get("user_id"), password=request.data.get("password")
         )
         print(user)
         if user is not None:

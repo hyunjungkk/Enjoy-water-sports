@@ -31,8 +31,10 @@ class SignupSerializer(serializers.ModelSerializer):
             is_active = is_active,
             is_staff = is_staff,
         )
+        user.is_active = True
         user.set_password(password)
         user.save()
+
         return user
 
 class UserSerializer(serializers.ModelSerializer):

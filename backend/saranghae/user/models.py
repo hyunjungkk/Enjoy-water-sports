@@ -15,6 +15,7 @@ class UserManager(BaseUserManager):
             nickname = nickname,
             profile_img = profile_img,
         )
+        user.is_active = True
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -47,12 +48,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True) 
     is_staff = models.BooleanField(default=False) 
 
-    def __str__(self):
-        return self.user_id
-
     # helper class
     objects = UserManager() 
-    USERNAME_FIELD = 'email' 
-    REQUIRED_FIELDS = ['user_id'] # superuser ?
+    USERNAME_FIELD = 'user_id' 
+    REQUIRED_FIELDS = ['email'] # superuser ?
+
+    def __str__(self):
+        return self.user_id
 
     
