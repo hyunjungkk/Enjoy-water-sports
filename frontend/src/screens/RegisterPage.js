@@ -118,6 +118,7 @@ const RegisterPage = ({navigation}) => {
                 />
                 <TextInput style={styles.textinput}
                     placeholder="PASSWORD"
+                    secureTextEntry={true} 
                     onChangeText={text => setPassword(text)} value={password}
                 />
                 <TextInput style={styles.textinput}

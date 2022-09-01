@@ -9,6 +9,7 @@ import Home from './Home';
 import kakaoLogin from './kakaoLogin';
 import RegisterPage from './RegisterPage';
 import { useState } from 'react';
+import axios from 'axios';
 
 const { width } = Dimensions.get('window')
 
@@ -60,12 +61,42 @@ const Container = styled.View`
 `;
 
 
+const apiUrl = 'http://3.34.181.178/'
 const Login = ({navigation}) => {
     const [ID, setID] = useState('')
     const [password, setPassword] = useState('')
 
     const goResgister = () => {
         navigation.navigate(RegisterPage)
+    }
+
+    const startLogin = () => {
+        if (
+            !(ID && password)
+        ) {
+            alert("입력하지 않은 항목이 있습니다!")
+        }
+        //이메일 포맷체크
+        
+        let formData = new FormData();
+        const config = {
+            header: { "content-Type": "multipart/form-data" },
+        };
+        formData.append("user_id", ID);
+        formData.append("password", password);
+    
+        axios.post(
+            `${apiUrl}ourlogin/`,
+            formData,
+            config
+            )
+            .then(function (response) {
+                alert("로그인이 완료되었습니다!");
+                navigation.navigate(Home)
+            })
+            .catch(function (error) {
+                alert(error)
+            });
     }
 
     return (
@@ -85,9 +116,10 @@ const Login = ({navigation}) => {
                 />
                 <TextInput style={styles.textinput}
                     placeholder="PASSWORD"
+                    secureTextEntry={true} 
                     onChangeText={text => setPassword(text)} value={password}
                 />
-                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate(kakaoLogin)}>
+                <TouchableOpacity style={styles.button} onPress={startLogin}>
                     <Text style={{color: '#3C1E1E', fontWeight: 'bold'}}>로그인</Text>
                 </TouchableOpacity>
 
