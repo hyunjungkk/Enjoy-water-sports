@@ -1,9 +1,11 @@
 import React from 'react';
-import { TouchableWithoutFeedback, Keyboard, TouchableOpacity, navigation, StyleSheet, View, Button, SafeAreaView, Text, Alert, Image, FlatList, SectionList, } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, TouchableOpacity, navigation, StyleSheet, View, Button, SafeAreaView, Text, Alert, Image, FlatList, SectionList } from 'react-native';
 import styled from 'styled-components/native';
+import { useState, useEffect } from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const fsainit = require('../images/fsa.jpg')
-const fsauser = require('../images/fsa.jpg')
+const fsainit = require('../images/me.svg')
+const fsauser = require('../images/me.svg')
 
 const Container = styled.View`
     flex : 1;
@@ -30,6 +32,17 @@ const Item = ({ title }) => (
   );
 
 const Mypage = ({navigation}) => {
+    const [nickname, SetNickName] =  useState('')
+      useEffect(()=>{
+        //const data = AsyncStorage.getItem('user')
+       // alert(JSON.parse(data))
+                  
+       AsyncStorage.getItem('nickname', (err, result) => {
+        // alert(result)
+      });
+        //setUser(AsyncStorage.getItem("user_info"))
+    },[]);
+ 
 
     return (
         <TouchableWithoutFeedback>
@@ -41,7 +54,7 @@ const Mypage = ({navigation}) => {
             />
             </View>
             <View style={styles.fixprofile}> 
-            <Text style={styles.title}> 홍길동 </Text>
+             {nickname? <Text style={styles.title}> {nickname} </Text>:<Text  style={styles.title}>로그인이 필요해요!</Text>}
             </View>
             <Button
                 color="#adb5bd"

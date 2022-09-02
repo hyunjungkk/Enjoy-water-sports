@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableWithoutFeedback, Keyboard, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, ScrollView, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Dimensions } from 'react-native';
@@ -10,6 +10,7 @@ import kakaoLogin from './kakaoLogin';
 import RegisterPage from './RegisterPage';
 import { useState } from 'react';
 import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get('window')
 
@@ -94,13 +95,16 @@ const Login = ({navigation}) => {
                 alert("로그인이 완료되었습니다!");
                 AsyncStorage.setItem("access_token",response.data.token.access)
                 AsyncStorage.setItem("refresh_token",response.data.token.refresh)
-                AsyncStorage.setItem("user_info",response.data.user)
-              //  alert(response.data.user.id)
+                AsyncStorage.setItem('user',JSON.stringify(response.data.user))
+
+                AsyncStorage.setItem("user_id",response.data.user.user_id)
+                AsyncStorage.setItem("email",response.data.user.email)
+                AsyncStorage.setItem("nickname",response.data.user.nickname)
 
                 navigation.navigate(Home)
             })
             .catch(function (error) {
-                alert(error)
+                alert("ID 또는 비밀번호를 다시 한 번 확인해주세요!")
             });
     }
 
