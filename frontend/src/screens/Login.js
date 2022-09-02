@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableWithoutFeedback,Keyboard,ScrollView, TouchableOpacity } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
 import styled from 'styled-components/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Dimensions } from 'react-native';
@@ -86,12 +86,17 @@ const Login = ({navigation}) => {
         formData.append("password", password);
     
         axios.post(
-            `${apiUrl}ourlogin/`,
+            `${apiUrl}mypage/ourlogin/`,
             formData,
             config
             )
             .then(function (response) {
                 alert("로그인이 완료되었습니다!");
+                AsyncStorage.setItem("access_token",response.data.token.access)
+                AsyncStorage.setItem("refresh_token",response.data.token.refresh)
+                AsyncStorage.setItem("user_info",response.data.user)
+              //  alert(response.data.user.id)
+
                 navigation.navigate(Home)
             })
             .catch(function (error) {

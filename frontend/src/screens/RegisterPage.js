@@ -7,6 +7,7 @@ import { StyleSheet, Text,View, Button } from 'react-native';
 import { Image,TextInput } from 'react-native';
 import Home from './Home';
 import kakaoLogin from './kakaoLogin';
+import Login from './Login';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -88,12 +89,12 @@ const RegisterPage = ({navigation}) => {
         formData.append("nickname", nickname);
     
         axios.post(
-            `${apiUrl}oursignup/`,
+            `${apiUrl}mypage/oursignup/`,
             formData,
             config
             )
             .then(function (response) {
-                alert(response.user.nickname+"님! 회원가입이 완료되었습니다!");
+                alert("회원가입이 완료되었습니다!");
                 navigation.navigate(Login)
             })
             .catch(function (error) {
