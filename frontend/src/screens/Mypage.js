@@ -1,10 +1,11 @@
 import React from 'react';
 import { TouchableWithoutFeedback, Keyboard, TouchableOpacity, navigation, StyleSheet, View, Button, SafeAreaView, Text, Alert, Image, FlatList, SectionList } from 'react-native';
 import styled from 'styled-components/native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { UserContext } from '../context/UserContext';
 
-const fsainit = require('../images/me.svg')
+const fsainit = require('../images/me.png')
 const fsauser = require('../images/me.svg')
 
 const Container = styled.View`
@@ -32,16 +33,26 @@ const Item = ({ title }) => (
   );
 
 const Mypage = ({navigation}) => {
+    const data = useContext(UserContext);
     const [nickname, SetNickName] =  useState('')
       useEffect(()=>{
-        //const data = AsyncStorage.getItem('user')
-       // alert(JSON.parse(data))
-                  
-       AsyncStorage.getItem('nickname', (err, result) => {
-        // alert(result)
-      });
-        //setUser(AsyncStorage.getItem("user_info"))
-    },[]);
+        if(data.userdata) {
+          alert(data.userdata)
+
+          AsyncStorage.getItem('nickname', (err, result) => {
+            SetNickName(result)
+          });
+        }
+    },[data.userdata]);
+
+    const getLists = ({option}) => {
+      if(data.userdata) {
+        navigation.navigate(option)
+      }
+      else {
+        //alert("먼저 로그인해주세요!")
+      }
+    }
  
 
     return (
@@ -65,16 +76,16 @@ const Mypage = ({navigation}) => {
             <View style={styles.fixToText}>
                 <Button
                 title="하트찜"
-                onPress={()=>navigation.navigate('Like_list')}
+                onPress={getLists('Like_list')}
                 />
                 
                 <Button
                 title="스크랩"
-                onPress={()=>navigation.navigate('Scrap_list')}
+                onPress={getLists('Scrap_list')}
                 />
                 <Button
                 title="내후기"
-                onPress={()=>navigation.navigate('Review_list')}
+                onPress={getLists('Review_list')}
                 />
             </View>
             <Separator/>

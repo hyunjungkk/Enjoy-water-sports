@@ -11,6 +11,8 @@ import RegisterPage from './RegisterPage';
 import { useState } from 'react';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
 const { width } = Dimensions.get('window')
 
@@ -64,6 +66,8 @@ const Container = styled.View`
 
 const apiUrl = 'http://3.34.181.178/'
 const Login = ({navigation}) => {
+    const data = useContext(UserContext);
+
     const [ID, setID] = useState('')
     const [password, setPassword] = useState('')
 
@@ -93,6 +97,8 @@ const Login = ({navigation}) => {
             )
             .then(function (response) {
                 alert("로그인이 완료되었습니다!");
+                data.setUserdata(true); //로그인 여부 세팅
+
                 AsyncStorage.setItem("access_token",response.data.token.access)
                 AsyncStorage.setItem("refresh_token",response.data.token.refresh)
                 AsyncStorage.setItem('user',JSON.stringify(response.data.user))
