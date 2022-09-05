@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from '../context/UserContext';
 
-const fsainit = require('../images/me.png')
+const fsainit = require('../images/magazine_user.png')
 const fsauser = require('../images/me.svg')
 
 const Container = styled.View`
@@ -37,7 +37,7 @@ const Mypage = ({navigation}) => {
     const [nickname, SetNickName] =  useState('')
       useEffect(()=>{
         if(data.userdata) {
-          alert(data.userdata)
+         // alert(data.userdata)
 
           AsyncStorage.getItem('nickname', (err, result) => {
             SetNickName(result)
@@ -45,12 +45,13 @@ const Mypage = ({navigation}) => {
         }
     },[data.userdata]);
 
-    const getLists = ({option}) => {
+    const goLists = (option) => {
       if(data.userdata) {
-        navigation.navigate(option)
+       // alert(option)
+         navigation.navigate(option)
       }
       else {
-        //alert("먼저 로그인해주세요!")
+        alert("먼저 로그인해주세요!")
       }
     }
  
@@ -76,16 +77,16 @@ const Mypage = ({navigation}) => {
             <View style={styles.fixToText}>
                 <Button
                 title="하트찜"
-                onPress={getLists('Like_list')}
+                onPress={()=>goLists('Like_list')}
                 />
                 
                 <Button
                 title="스크랩"
-                onPress={getLists('Scrap_list')}
+                onPress={()=>goLists('Scrap_list')}
                 />
                 <Button
                 title="내후기"
-                onPress={getLists('Review_list')}
+                onPress={()=>goLists('Review_list')}
                 />
             </View>
             <Separator/>
