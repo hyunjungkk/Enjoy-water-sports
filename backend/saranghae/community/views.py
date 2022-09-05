@@ -89,6 +89,9 @@ class heart_yn(APIView):
     def post(self, request):
         content_id = request.GET["contentid"]
         content_type_id = request.GET["contenttypeid"]
+        title = request.GET["title"]
+        thumbnail = request.GET["thumbnail"]
+        overview = request.GET["overview"]
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         payload = jwt.decode(token, my_settings.SIGNING_KEY, my_settings.ALGORITHM)
         user_id = payload['user_id']
@@ -111,6 +114,9 @@ class heart_yn(APIView):
                 user_id = user,
                 contentid = content_id,
                 contenttypeid = content_type_id,
+                title=title,
+                thumbnail=thumbnail,
+                overview=overview,
                 likeYn = True,
             )
             res = Response({
@@ -179,9 +185,13 @@ class bookmark_yn(APIView):
 
     def post(self, request):
         mz_id = request.GET["mz_id"]
+        title = request.GET["title"]
+        thumbnail = request.GET["thumbnail"]
+        overview = request.GET["overview"]
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         payload = jwt.decode(token, my_settings.SIGNING_KEY, my_settings.ALGORITHM)
         user_id = payload['user_id']
+
 
         try:
         # cancel
@@ -201,6 +211,9 @@ class bookmark_yn(APIView):
             Bookmark.objects.create(
                 user_id = user,
                 mz_id = mz,
+                title=title,
+                thumbnail=thumbnail,
+                overview=overview,
                 bookmarkYn = True,
             )
             res = Response({

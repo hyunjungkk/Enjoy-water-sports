@@ -18,13 +18,15 @@ class MagazineDetailSerializer(serializers.ModelSerializer):
 class HeartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Heart
-        fields = ('id', 'user_id', 'contentid', 'contenttypeid', 'likeYn')
+        fields ='__all__'
+        # fields = ('id', 'user_id', 'contentid', 'contenttypeid', 'likeYn', 'title','thumbnail', 'overview')
 
 # Bookmark
 class BookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookmark
-        fields = ('id', 'user_id', 'mz_id', 'bookmarkYn')
+        fields ='__all__'
+        # fields = ('id', 'user_id', 'mz_id', 'bookmarkYn')
 
 
 

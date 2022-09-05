@@ -1,3 +1,4 @@
+from turtle import title
 from django.db import models
 from django.utils import timezone 
 from user.models import User
@@ -18,11 +19,17 @@ class Heart(models.Model):
     user_id = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name="heart")
     contentid = models.CharField(max_length=128, null=False)
     contenttypeid = models.CharField(max_length=128, null=False)
+    title = models.CharField(max_length=128, null=True)
+    thumbnail = models.ImageField(upload_to="media/mz", blank=True, null=True)
+    overview = models.TextField(null=True)
     likeYn = models.BooleanField(default=False)
 
 class Bookmark(models.Model):
     user_id = models.ForeignKey('user.User', on_delete=models.CASCADE, related_name="bookmark")
     mz_id = models.ForeignKey('Magazine', on_delete=models.CASCADE, related_name="bookmark")
+    title = models.CharField(max_length=128, null=True)
+    thumbnail = models.ImageField(upload_to="media/mz", blank=True, null=True)
+    overview = models.TextField(null=True)
     bookmarkYn = models.BooleanField(default=False)
 
 
