@@ -1,8 +1,11 @@
 import React from 'react';
+import {useState, useEffect} from 'react';
 import { TouchableWithoutFeedback,Keyboard, SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const Container = styled.View`
@@ -13,15 +16,39 @@ const Container = styled.View`
     padding : 20px;
 `;
 
-const DATA = [
+  const Item = ({ item }) => (
+    <TouchableOpacity onPress={()=>Alert.alert('이동')}>
+    <View style={styles.item}>
+        <Image style={styles.tinyLogo}
+        source={{uri:item.thumbnail}}
+        />
+      <View style={styles.textcon}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.overview}>#{item.overview}</Text>
+      </View>
+    </View>
+    </TouchableOpacity>
+  );
+
+const Like_list = () => {
+  const [DATA,setDATA] = useState([
     {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: '하파서프',
-      category: '숙박레저 패키지',
-      location: '강릉',
-      content: '서핑 강습 + 바베큐 파티 + 게스트하우스',
-      iU: require('../images/leisure_fishing.jpg'),
+      "id": 2,
+      "contentid": "125716",
+      "contenttypeid": "12",
+      "title": "동호해변(양양) 샘플 데이터",
+      "thumbnail": "http://tong.visitkorea.or.kr/cms/resource/48/2745248_image2_1.jpg",
+      "overview": "동호해변 개요개요 어쩌",
+      "likeYn": true,
+      "user_id": 8,
+  //    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+  //    title: '하파서프',
+  //    category: '숙박레저 패키지',
+  //    location: '강릉',
+  //    content: '서핑 강습 + 바베큐 파티 + 게스트하우스',
+  //    iU: require('../images/leisure_fishing.jpg'),
     },
+      /*
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
       title: '함덕해수욕장',
@@ -68,28 +95,38 @@ const DATA = [
       category: '관광지',
       content: '해수욕장, 해변',
       iU: require('../images/leisure_fishing.jpg'),
-    },
-  ];
-  
-  const Item = ({ item }) => (
-    <TouchableOpacity onPress={()=>Alert.alert('이동')}>
-    <View style={styles.item}>
-        <Image style={styles.tinyLogo}
-        source={item.iU}
-        />
-      <View style={styles.textcon}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.category}>#{item.category}</Text>
-        <Text style={styles.category}>#{item.location}</Text>
-      </View>
-    </View>
-    <View style={styles.itemcontent}>
-        <Text style={styles.content}>{item.content}</Text>
-    </View>
-    </TouchableOpacity>
-  );
+    },*/
+  ]);
 
-const Like_list = () => {
+  useEffect(()=>{
+    const access = ''
+
+    AsyncStorage.getItem('access_token', (err, result) => {
+      const config = {
+        headers : {
+          Authorization : `Bearer ${result}`,
+        }
+      }
+      axios.get(`http://3.34.181.178/community/likelist`,config)
+          .then(function (response) {
+          // response  
+          if(response) {
+            if(response.data.count > 0) {
+              setDATA(response.data.results)
+              
+            }
+          }
+          else {
+          
+          }
+      }).catch(function (error) {
+          // 오류발생시 실행
+          alert(error)
+      }).then(function() {
+          // 항상 실행
+      });
+    })
+  },[]);
 
     const renderItem = ({ item }) => (
         <Item item={item} />
