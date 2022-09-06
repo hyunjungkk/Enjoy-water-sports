@@ -1,188 +1,17 @@
-/*
-import React from 'react';
-import { TouchableWithoutFeedback,Keyboard,ScrollView } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { TouchableWithoutFeedback,Keyboard,ImageBackground,ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Dimensions } from 'react-native';
+import { Dimensions,Linking } from 'react-native';
 import { StyleSheet, Text,View } from 'react-native';
 import { Image} from 'react-native';
+
+import Swiper from 'react-native-swiper/src';
+import { FlatList, TouchableOpacity } from 'react-native';
+import Hr from "react-native-hr-plus";
 import axios from 'axios';
-
-import Swiper from 'react-native-swiper/src';
-import { FlatList, TouchableOpacity } from 'react-native';
-import Hr from "react-native-hr-plus";
-import Ranking from './Ranking';
-
-const { width } = Dimensions.get('window');
-
-
-const styles = {
-  wrapper: {
-    
-  },
-
-  text: {
-    color: '#D8D8D8'
-  },
-  
-  slide: {
-    justifyItems: 'center',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-  },
-
-  image: {
-    height: 160,
-    width: 300,
-    resizeMode: 'contain',
-    marginTop:5,
-    marginBottom:5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius:5,
-  },
-
-  listImage: {
-    flexDirection:'row',
-    borderRadius:15,
-    marginBottom:30,
-    marginTop:20,
-    marginHorizontal:0,
-  },
-  listItem: {
-    borderRadius:15,
-    paddingHorizontal:15,
-  }
-}
-
-
-const Container = styled.View`
-    flex : 1;
-    justify-content : center;
-    align-items : center;
-    background-color : ${({ theme }) => theme.background};
-    padding : 13px;
-`;
-
-const message =[
-  {"msg": "BTS를 좋아한다면? BTS가 다녀간 강릉 해변에 방문해보세요!"},
-  {"msg": "해양쓰레기 첼린지! 지금 바로 참여해보세요 "}
-]
-
-
-const state =[
-    {"id":1,"name":"찐 다이빙 스팟 추천","title":"오늘은 다이빙 스팟을 추천하려 합니다. 지난 번 스노쿨링스팟에 이어서 준비해봤습니다. 다이빙을 여러 곳 다녀봤…", 
-    "picture":"uri","time":"29/10/2016"},
-    {"id":2,"name":"바다거북이 마주친 범섬 스팟","title":"이번에 범섬으로 다이빙을 떠났는데, 너무나 운 좋게도 바다거북을 만났습니다. 사진도 찍었는데 공유드리고 갈게…"
-    ,"picture":"url","time":"29/10/2016"},
-    {"id":3,"name":"찐 다이빙 스팟 추천","title":"오늘은 다이빙 스팟을 추천하려 합니다. 지난 번 스노쿨링스팟에 이어서 준비해봤습니다. 다이빙을 여러 곳 다녀봤…"
-    ,"picture":"url","time":"29/10/2016"},
-  ];
-
-
-  const apiUrl = "http://3.34.181.178/";
-
-  function Item({ item }) {
-    return (
-      <View style={styles.listImage}>
-        <Image source={require('../images/magazine_user.png')}  style={{width:50, height:50,borderRadius:30}} />
-        <View style={styles.listItem}>
-            <Text style={{color:"grey", fontWeight:"bold", marginBottom:15}}>{item.name}</Text>
-            <Text style={{color:"grey", marginRight:50, fontSize: 14}}>{item.title}</Text>
-        </View>
-        <TouchableOpacity style={{height:50,width:50, justifyContent:"center",alignItems:"center"}}>
-            <Text style={{color:"green"}}></Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  function get_magazineList({}){
-
-    //const magazineId = 2
-    //axios.get(`${apiUrl}community/mz/${magazineId}`)
-    axios.get(`${apiUrl}community/mz`)
-        .then(function (response) {
-        // response.id 
-
-        if(response.data.count > 0 ) {
-          //renderFunction
-         // console.log('response: '+response);
-          //navigate("/searchlist",{state:response.data});
-        state = response.results;
-        setLists(state,response.results);
-        
-        }
-        else {
-          //검색 결과가 없습니다.
-          alert("검색 결과가 없습니다 !!");
-        }
-    }).catch(function (error) {
-        // 오류발생시 실행
-    }).then(function() {
-        // 항상 실행
-    });
-  }
-
-const Community = ({navigation}) => {
-
-    return (
-            <Container>
-                
-                <Text style={{fontSize:21, color:'grey',flex:0.2}}>
-                    <Text>Magazine</Text>
-                </Text>
-                
-                <View style={{flex:1.4,width:440, paddingHorizontal: 15, marginBottom: -10}}>
-                <Swiper style={styles.wrapper} showsButtons={true}>
-                    <View style={styles.slide} >
-                        <Image style={styles.image} source={require('../images/magazine1.png')} 
-                        onPress={()=>get_magazineList}/>
-                        <Text style={{fontSize: 13,color: 'grey',marginTop:5, marginBottom:5}}>BTS를 좋아한다면? BTS가 다녀간 강릉 해변에 방문해보세요!</Text>
-                    </View>
-                    <View style={styles.slide}>
-                        <Image style={styles.image} source={require('../images/magazine2.png')} />
-                        <Text style={{fontSize: 13,color: 'grey',marginTop:5, marginBottom:5}}>해양쓰레기 첼린지! 지금 바로 참여해보세요</Text>
-  
-                    </View>
-                    <View style={styles.slide}>
-                        <Image style={styles.image} source={require('../images/magazine1.png')} />
-                        <Text style={{fontSize: 13,color: 'grey',marginTop:5, marginBottom:5}}>BTS를 좋아한다면? BTS가 다녀간 강릉 해변에 방문해보세요!</Text>
-
-                    </View>
-                </Swiper>
-                </View>
-                  <Hr color="#B0AEAE" width={1} style={{flex: 0.1}}></Hr>                
-                
-                <View style={{flex: 2}}>
-                    <FlatList
-                    style ={{width: 350}}
-                    data={state}
-                    renderItem={({ item }) => (<Item item={item}/>)}
-                    keyExtractor={item => item.id} 
-                    />
-                </View>
-            </Container>
-    );
-};
-
-
-export default Community
-*/
-
-import React from 'react';
-import { TouchableWithoutFeedback,Keyboard,ScrollView } from 'react-native';
-import styled from 'styled-components/native';
-import { Button } from '../components';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Dimensions } from 'react-native';
-import { StyleSheet, Text,View } from 'react-native';
-import { Image} from 'react-native';
-
-import Swiper from 'react-native-swiper/src';
-import { FlatList, TouchableOpacity } from 'react-native';
-import Hr from "react-native-hr-plus";
+import { withTheme } from 'styled-components';
 
 const { width } = Dimensions.get('window')
 
@@ -203,143 +32,95 @@ const styles = {
     marginTop : 20,
     marginBottom: 40
   },
+
+  listImage: {
+    flexDirection:'row',
+    marginBottom:50,
+    marginTop:20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   
   listItem: {
-    width: '100%',
-    marginTop:15,
-    marginBottom:20,
+    paddingLeft:20,
     justifyContent:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
 
-  }
+  },
 
-/*
-  listItem: {
-    height: 90,
-    justifyContent:'center',
-    alignItems:'center'
-  }
-  */
 }
 
-const apiUrl = "http://3.34.181.178/";
+const Community = ({navigation}) => {
 
 const Container = styled.View`
     flex : 1;
     background-color : ${({ theme }) => theme.background};
-    justify-content : center;
-    align-items : center;
+    padding : 30px;
+    
 `;
 
-const state =[
-  {"id":1,"name":"찐 다이빙 스팟 추천","title":"오늘은 다이빙 스팟을 추천하려 합니다. 지난 번 스노쿨링스팟에 이어서…", 
-  "picture":"uri","time":"29/10/2016"},
-  {"id":2,"name":"바다거북이 마주친 범섬 스팟","title":"이번에 범섬으로 다이빙을 떠났는데, 너무나 운 좋게도 바다거북을 만났.."
-  ,"picture":"url","time":"29/10/2016"},
-  {"id":3,"name":"찐 다이빙 스팟 추천","title":"오늘은 다이빙 스팟을 추천하려 합니다. 지난 번 스노쿨링스팟에 이어서 준비해봤.."
-  ,"picture":"url","time":"29/10/2016"},
-  ];
 
-  function getRanking({}){
-    /*
-    const access = cookies.get("access_token");
-    const config = {
-      headers: {
-        Authorization: `Bearer ${access}`,
-      },
-    };
-    */
-    //const magazineId = 2
-    //axios.get(`${apiUrl}community/mz/${magazineId}`)
-    axios.get(`${apiUrl}commnunnity/mz`)
-        .then(function (response) {
-        // response.id 
+/*메거진 리스트 받아오기 */
+let all_query="http://3.34.181.178/community/mz"
 
-        if(response.data.count > 0 ) {
-          //renderFunction
-         // console.log('response: '+response);
-          //navigate("/searchlist",{state:response.data});
-        const magazineList = response.results.title;
-          //setLists(response.data)
-        
-          
-
-        }
-        else {
-          //검색 결과가 없습니다.
-          alert("검색 결과가 없습니다 !!");
-        }
-    }).catch(function (error) {
-        // 오류발생시 실행
-    }).then(function() {
-        // 항상 실행
-    });
+const [magazine,setmagazine]=useState('');
+const axios_magazine= async ()=>{
+  const access = ''
+  const config = {
+    headers : {
+      Authorization : `Bearer ${access}`,
+    }
   }
+  axios.get(all_query)
+  .then(function (response) {
+    const valor = JSON.stringify(response.data)
+    const report=JSON.parse(valor)
+    setmagazine(report.results)
+  })
+
+}
+
+const Item = ({id,title, writer, overview, create_at}) => (
+    //<Image style={{width:'100%',resizeMode:'contain'}} source={{uri:img}}></Image>
+  <TouchableOpacity onPress={()=>navigation.navigate('MZ', {ID:id})}>
+  <View style={{margin:20}}>
+  <Text style={{color:"#595959", fontSize: 15, marginBottom:10}}>{"작가 : " + writer}</Text>
+  <Text style={{fontWeight:"bold", fontSize: 18,marginBottom:20}}>{title}</Text>
+  <Text style={{color:"#595959", fontSize: 15, marginBottom:10}}>{overview}</Text>
+  <Text style={{color:"#595959", fontSize: 15, marginBottom:30}}>{create_at}</Text>
+  </View>
+  </TouchableOpacity>
+
+);
+
+const renderItem = ({ item }) => (
+  <Item id={item.id} title={item.title} writer={item.writer} overview={item.overview} create_at={item.create_at}/>
+);
+
+useEffect(() => {
+  axios_magazine();
+},[]);
 
 
-  function Magazine_Item({ item }) {
-    return (
-    <Container>
-      <Image source={require('../images/magazine1.png')}  style={{ width: '100%',resizeMode:'contain'}} />
-      <View style={styles.listItem}>
-          <Text style={{color:"#595959", fontWeight:"bold", fontSize: 18, marginTop:10, marginBottom:15, marginRight:10,
-        marginLeft: 10}}>{item.name}</Text>
-          <Text style={{color:"grey", fontSize: 16, marginBottom: 35, marginRight:10,
-        marginLeft: 10}}>{item.title}</Text>  
-                <Hr color="#B0AEAE" width={1} style={{flex: 0.1, width:'150%', marginBottom:17}}></Hr>                
+return(
+  
+  <View style = {styles.container}>
+  <View style = {styles.listItem}>
+  <Text style={{marginLeft:20, marginBottom:30,marginTop:20, fontSize:22,fontWeight:
+    'bold', color:'#595959'}}>
+    MAGAZINE</Text>
 
-      </View>
-
-    </Container>
-    /*
-      <Container>
-      <View>
-        <View style={styles.listItem}>
-        <Image source={require('../images/magazine_user.png')}  style={{width:50, height:50,borderRadius:30}} />
-            <Text style={{fontSize:22, color:"#818182", fontWeight:"bold"}}>{item.id + item.name}</Text>
-            <Text style={{fontSize:17, color:"#5887BF" }}>{item.tag}</Text>                  
-        </View>
-        <TouchableOpacity style={{height:50,width:50, justifyContent:"center",alignItems:"center"}}>
-            <Text style={{color:"green"}}></Text>
-        </TouchableOpacity>
-        <Hr color="#B0AEAE" width={1} style={{flex: 0.1, width:'150%'}}></Hr>                
-      </View>
-      </Container>
-      */
-    );
-  }
-
-const Community = ({navigation}) => {
-
-    return (
-            <Container>
-                <Text style={{fontSize:21, fontWeight:'bold', color:'grey',flex:0.25}}>
-                    <Text>Magazine</Text>
-                </Text>
-
-                <View style={{flex: 2.3}}>
-                    <FlatList
-                    style ={{width: 350}}
-                    data={state}
-                    renderItem={({ item }) => (<Magazine_Item item={item}/>)}
-                    keyExtractor={item => item.id} 
-                    />
-                </View>
-            </Container>
-
-
-        /*
-        <KeyboardAwareScrollView 
-            contentContainerStyle = {{flex : 1}}
-            extraScrollHeight = {20}
-        >
-        <TouchableWithoutFeedback>
-        <Container>
-            <Button title = "community" />
-        </Container>
-        </TouchableWithoutFeedback>
-        </KeyboardAwareScrollView>
-        */
-    );
+  </View>
+  
+    <FlatList
+      data = {magazine}
+      renderItem = {renderItem}
+      keyExtractor = {results => results.id}
+      loop={true}
+    />
+  </View>
+  );
 };
 
 

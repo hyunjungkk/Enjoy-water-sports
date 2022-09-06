@@ -106,7 +106,7 @@ const renderPagination = (index, total, context) => {
         </Text>
       </View>
     )
-  }
+}
 
 const Container = styled.View`
     flex : 1;
@@ -144,7 +144,7 @@ const Home = ({navigation}) => {
     return parseInt(Math.random()*length);
   }
 
-  const _renderItem = ({item}) => (
+ const _renderItem = ({item}) => (
     <TouchableOpacity  onPress={()=>navigation.navigate('Spot', {ID:item.title, SID:item.contentid, Uri:item.uri, TID:item.contenttypeid, Are:item.areacode, Sig:item.sigungucode})}>
       <ImageBackground style={{width:150, height:150, margin:5}} imageStyle={styles.listImage} source={{uri:item.uri}}>
           <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'flex-end', alignItems: 'flex-start'}}>
@@ -164,22 +164,22 @@ const Home = ({navigation}) => {
                  autoplay={true}
                 >
                 <View style={styles.slide}>
-                <TouchableOpacity onPress={()=>navigation.navigate('Ranking', {ID:'A03030300'})}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Ranking', {ID:"요트"})}>
                  <Image style={styles.image} source={require('../images/banner_yort.png')} />
                  </TouchableOpacity>
                 </View>
                 <View style={styles.slide}>
-                <TouchableOpacity onPress={()=>navigation.navigate('Ranking', {ID:'A03030200'})}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Ranking', {ID:"카약"})}>
                  <Image style={styles.image} source={require('../images/banner_kayak.png')} />
                 </TouchableOpacity>
                 </View>
                  <View style={styles.slide}>
-                <TouchableOpacity onPress={()=>navigation.navigate('Ranking', {ID:'A03030400'})}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Ranking', {ID:"스쿠버다이빙"})}>
                 <Image style={styles.image} source={require('../images/banner_diving.png')} />
                 </TouchableOpacity>
                 </View>
                 <View style={styles.slide}>
-                <TouchableOpacity onPress={()=>navigation.navigate('Ranking', {ID:'A0303'})}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Ranking', {ID:"서핑"})}>
                  <Image style={styles.image} source={require('../images/banner_surfing.png')} />
                  </TouchableOpacity>
                 </View>
