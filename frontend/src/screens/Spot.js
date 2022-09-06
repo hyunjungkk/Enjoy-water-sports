@@ -75,7 +75,7 @@ const styles = {
       fontSize : 12,
       marginLeft:15,
       margin:5,
-      color:'#bfbfbf'
+     
   },
   text3:{
       fontSize : 20,
@@ -335,6 +335,15 @@ const Spot = ({navigation, route}) => {
     isActivated ? setLine(4) : setLine(Number.MAX_SAFE_INTEGER);
     setIsActivated(prev => !prev);
   }
+
+  let re_home=homepage.split('<a href="')
+  let re_re_home=String(re_home[1])
+  let re_homepage=re_re_home.split('"')
+  let home_page=re_homepage[0]
+  
+  let re_over=overview.replace(/<br [/]>/gi , '\n')
+  let re_re_over=re_over.replace(/<br>/gi, '')
+
     return (
         <ScrollView showsVerticalScrollIndicator ={false}>
             <Container>
@@ -355,10 +364,19 @@ const Spot = ({navigation, route}) => {
                     <Text style={styles.text4}> 주소 : </Text>
                     <Text >{address}</Text>
                     </Text>
-                    <Text style={styles.text4}>{homepage}</Text>
+                    {home_page==="undefined"?
+                    <Text style={styles.text4}>   </Text>
+                    :
+                    <TouchableOpacity onPress={()=>Linking.openURL(home_page)}>
+                    <Text style={styles.text4}>
+                    <Text style={styles.text4}> 홈페이지 : </Text>
+                    <Text style={styles.text4}>{home_page}</Text>
+                    </Text>
+                    </TouchableOpacity> 
+                    }
                     <View style={{ flex:0.5, alignItems:'flex-start'}}>
                     <Text style={styles.text}>개요 </Text>
-                      <Text style={styles.text2} numberOfLines={line} ellipsizeMode="tail" onPress={()=>handleLine()}>{overview}</Text>
+                      <Text style={styles.text2} numberOfLines={line} ellipsizeMode="tail" onPress={()=>handleLine()}>{re_re_over}</Text>
                     </View>
                 </View>
                 <SwiperView

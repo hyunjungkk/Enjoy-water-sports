@@ -71,7 +71,6 @@ text6:{
   }
 }
 
-const cost='1시간 25,000 \n 2시간 40,000 \n 3시간 50,000';
 
 
 const Enterprise = ({navigation, route}) => {
@@ -80,6 +79,8 @@ const Enterprise = ({navigation, route}) => {
     const img=route.params.img
     const conid=route.params.conid
     const title=route.params.title
+
+
     const [accomcountleports, setaccomcountleports]=useState('');
     const [chkbabycarriageleports, setchkbabycarriageleports]=useState('');
     const [chkcreditcardleports, setchkcreditcardleports]=useState('');
@@ -94,7 +95,8 @@ const Enterprise = ({navigation, route}) => {
     const [scaleleports,setscaleleports]=useState('');
     const [usefeeleports,setusefeeleports]=useState('');
     const [usetimeleports,setusetimeleports]=useState('');
-
+    const api_query="http://3.34.181.178/tourapi/enterprise/?contentid=*&contenttypeid=28"
+    const query_28=api_query.replace('*',conid)
     const axiostest= async ()=>{
         const access = ''
         const config = {
@@ -102,7 +104,7 @@ const Enterprise = ({navigation, route}) => {
             Authorization : `Bearer ${access}`,
           }
         }
-        axios.get("http://3.34.181.178/tourapi/enterprise/?contentid=2501905&contenttypeid=28")
+        axios.get(query_28)
         .then(function (response) {
           const valor = JSON.stringify(response.data)
           const report=JSON.parse(valor)
@@ -227,6 +229,40 @@ const Enterprise = ({navigation, route}) => {
         }
     })
 
+    Content.forEach(function(value,key){
+      if (value.includes('<a href="')===true){
+          let t=Content.get(key)
+          let s=t.split('<a href="')
+          let re_s=s[1].split('"')
+          Content.set(key,re_s[0])
+          console.log(re_s[0])
+
+      }
+  })
+
+   Content.forEach(function(value,key){
+    if (value.includes('<br />')===true){
+        let t=Content.get(key)
+        let s=t.replace(/<br [/]>/gi , '\n')
+        Content.set(key,s)
+    }
+})
+Content.forEach(function(value,key){
+  if (value.includes('<br/>')===true){
+      let t=Content.get(key)
+      let s=t.replace(/<br[/]>/gi , '\n')
+      Content.set(key,s)
+  }
+})
+
+Content.forEach(function(value,key){
+  if (value.includes('<br>')===true){
+      let t=Content.get(key)
+      let s=t.replace(/<br>/gi , '\n')
+      Content.set(key,s)
+  }
+})
+    
     let test_arr=Array.from(Content)
     let l=test_arr.length
     var i =0;
@@ -287,12 +323,6 @@ const Enterprise = ({navigation, route}) => {
            </Image>
         :<Image style={{width:width-20,height:250, margin:10}} source={{uri:img}}>
           </Image>}
-            </View>
-            <View style={{flexDirection: 'row', flex:1, justifyContent:'space-around', paddingTop:15}}>
-                <Text style={styles.text1}>가격 정보</Text>
-                <View style={{paddingLeft:width-450,paddingRight:width/2-20}}>
-                <Text style={styles.text2}>{cost}</Text>
-                </View>
             </View>
             <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-start', paddingTop:15}}>
                 <Text style={styles.text4}>이용 안내</Text>
