@@ -120,7 +120,7 @@ const handleLine = () => {
 }
 
 return(
-  
+  <ScrollView showsVerticalScrollIndicator ={false}>
   <View style = {styles.container}>
   
   <Text style={{marginLeft:20, fontSize:12,fontWeight:
@@ -140,6 +140,7 @@ return(
     <Text style={{color:"#595959", fontSize: 15, marginBottom:30}}>{mz.create_at}</Text>
   </View>
   </View>
+  </ScrollView>
   
   );
 };
