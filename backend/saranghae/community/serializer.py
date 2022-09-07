@@ -5,13 +5,13 @@ from .models import Magazine, Heart, Bookmark  # , Magazine_Comment
 class MagazineListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Magazine
-        fields = ('id', 'writer', 'title', 'overview', 'create_at')
+        fields = ('id', 'writer', 'title', 'overview', 'create_at', 'thumbnail')
 
 # Magazine detail
 class MagazineDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Magazine
-        fields = ('id', 'writer', 'title', 'overview', 'content', 'create_at')
+        fields = ('id', 'writer', 'title', 'overview', 'content', 'create_at', 'thumbnail')
 
 
 # Heart
