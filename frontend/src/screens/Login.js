@@ -85,7 +85,10 @@ const Login = ({navigation}) => {
         
         let formData = new FormData();
         const config = {
-            header: { "content-Type": "multipart/form-data" },
+            headers: { "content-Type": "multipart/form-data" },
+            transformRequest: (data, headers) => {
+                return data;
+              },
         };
         formData.append("user_id", ID);
         formData.append("password", password);
