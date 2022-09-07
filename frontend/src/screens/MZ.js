@@ -63,12 +63,15 @@ item: {
 
 const MZ = ({route}) => {
 
+const name=route.params.ID
+const uri=route.params.Uri
+
+
 const Container = styled.View`
     flex : 1;
     background-color : ${({ theme }) => theme.background};
     padding : 30px;
 `;
-const name=route.params.ID
 
 
 /*메거진 디테일 받아오기 */
@@ -91,8 +94,6 @@ const axios_mz= async ()=>{
   })
 
 }
-
-
 
 useEffect(() => {
   axios_mz();
@@ -120,7 +121,7 @@ const handleLine = () => {
 }
 
 return(
-  <ScrollView showsVerticalScrollIndicator ={false}>
+  <ScrollView>
   <View style = {styles.container}>
   
   <Text style={{marginLeft:20, fontSize:12,fontWeight:
@@ -133,7 +134,7 @@ return(
     <View style={styles.listItem}>
     <Text style={{fontWeight:"bold", fontSize: 25}}>{mz.title}</Text>
     </View>
-
+    <Image style={{resizeMode:'contain',height:250, margin: 15, marginBottom:80}} source={{uri}}/>
     <Text style={{color:"#595959", fontSize: 15, marginBottom:10}}>{mz.overview}</Text>
     <Text style={{color:"#595959", fontSize: 15, marginBottom:50}}>{mz.content}</Text>
     <Text style={{color:"#595959", fontSize: 15, marginBottom:20}}>{"작가 : " + mz.writer}</Text>
@@ -141,7 +142,6 @@ return(
   </View>
   </View>
   </ScrollView>
-  
   );
 };
 

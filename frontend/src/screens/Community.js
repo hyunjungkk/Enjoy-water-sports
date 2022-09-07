@@ -78,24 +78,26 @@ const axios_magazine= async ()=>{
     const report=JSON.parse(valor)
     setmagazine(report.results)
   })
-
 }
-
-const Item = ({id,title, writer, overview, create_at}) => (
+const Item = ({uri, id,title, writer, overview, create_at}) => (
+ 
     //<Image style={{width:'100%',resizeMode:'contain'}} source={{uri:img}}></Image>
-  <TouchableOpacity onPress={()=>navigation.navigate('MZ', {ID:id})}>
+  <TouchableOpacity onPress={()=>navigation.navigate('MZ', {ID:id, Uri:uri})}>
   <View style={{margin:20}}>
+  <Image style={{resizeMode:'contain',height:250, margin: 15}} source={{uri}}/>
   <Text style={{color:"#595959", fontSize: 15, marginBottom:10}}>{"작가 : " + writer}</Text>
   <Text style={{fontWeight:"bold", fontSize: 18,marginBottom:20}}>{title}</Text>
   <Text style={{color:"#595959", fontSize: 15, marginBottom:10}}>{overview}</Text>
-  <Text style={{color:"#595959", fontSize: 15, marginBottom:30}}>{create_at}</Text>
+  
+  <Text style={{color:"#595959", fontSize: 15, marginBottom:30}}>{create_at[0]+create_at[1]+create_at[2]+create_at[3]
+                                                                + create_at[4]+ create_at[5]+create_at[6]+create_at[7]+create_at[8]+create_at[9]}</Text>
   </View>
   </TouchableOpacity>
 
 );
 
 const renderItem = ({ item }) => (
-  <Item id={item.id} title={item.title} writer={item.writer} overview={item.overview} create_at={item.create_at}/>
+  <Item uri={item.thumbnail} id={item.id} title={item.title} writer={item.writer} overview={item.overview} create_at={item.create_at}/>
 );
 
 useEffect(() => {
@@ -104,7 +106,7 @@ useEffect(() => {
 
 
 return(
-  
+ 
   <View style = {styles.container}>
   <View style = {styles.listItem}>
   <Text style={{marginLeft:20, marginBottom:30,marginTop:20, fontSize:22,fontWeight:
