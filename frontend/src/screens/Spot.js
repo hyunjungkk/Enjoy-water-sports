@@ -345,9 +345,7 @@ const Spot = ({navigation, route}) => {
         <ScrollView showsVerticalScrollIndicator ={false}>
             <Container>
                 <View style={{ flex:0.5}}>
-                    <TouchableOpacity onPress={onIncrease} >
-                    <Icon name={iconname} size={25}  color='red' style={{margin:10, marginTop:30}}/>
-                    </TouchableOpacity>
+                    <Text style={{fontSize:20, margin:10, marginTop:30, marginRight:width/2-20}}>{name}</Text>
                 </View>
                 <View style={{flex:1, marginBottom:20}}>
                     <Image style={{width:width-30, height:250, margin:5}} imageStyle={styles.listImage} source={{uri}}/>

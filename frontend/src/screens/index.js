@@ -9,7 +9,7 @@ import Location_list from './Location_list';
 import Ranking from './Ranking';
 import Login from './Login';
 import kakaoLogin from './kakaoLogin';
-import MZ from './MZ'
+import MZ from './MZ';
 
 import EditProfile from './EditProfile';
 import Like_list from './Like_list';

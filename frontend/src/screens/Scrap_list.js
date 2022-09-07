@@ -6,7 +6,6 @@ import { Button } from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import MZ from './MZ';
 
 const Container = styled.View`
     flex : 1;
@@ -60,7 +59,7 @@ const Scrap_list = ({navigation}) => {
   },[]);
 
   const Item = ({ item }) => (
-    <TouchableOpacity onPress={()=>navigation.navigate(MZ, {ID:item.mz_id, Uri:item.thumbnail})}>
+    <TouchableOpacity onPress={()=>navigation.navigate('MZ', {ItemID:item.mz_id, Uri:item.thumbnail})}>
     <View style={styles.item}>
         <Image style={styles.tinyLogo}
         source={{uri:item.thumbnail}}

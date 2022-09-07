@@ -61,9 +61,9 @@ item: {
 
 }
 
-const MZ = ({route}) => {
+const MZ = ({navigation, route}) => {
 
-const name=route.params.ID
+const name=route.params.ItemID
 const uri=route.params.Uri
 
 
@@ -149,4 +149,4 @@ return(
 };
 
 
-export default MZ
+export default MZ;
