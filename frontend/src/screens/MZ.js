@@ -135,10 +135,13 @@ return(
     <Text style={{fontWeight:"bold", fontSize: 25}}>{mz.title}</Text>
     </View>
     <Image style={{resizeMode:'contain',height:250, margin: 15, marginBottom:80}} source={{uri}}/>
+    
     <Text style={{color:"#595959", fontSize: 15, marginBottom:10}}>{mz.overview}</Text>
     <Text style={{color:"#595959", fontSize: 15, marginBottom:50}}>{mz.content}</Text>
     <Text style={{color:"#595959", fontSize: 15, marginBottom:20}}>{"작가 : " + mz.writer}</Text>
+    
     <Text style={{color:"#595959", fontSize: 15, marginBottom:30}}>{mz.create_at}</Text>
+
   </View>
   </View>
   </ScrollView>

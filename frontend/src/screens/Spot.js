@@ -115,9 +115,6 @@ const styles = {
 
 const Spot = ({navigation, route}) => {
 
-
-  
-
   const name=route.params.ID
   const sid=route.params.SID
   const uri=route.params.Uri
