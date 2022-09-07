@@ -6,6 +6,7 @@ import { Button } from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import MZ from './MZ';
 
 const Container = styled.View`
     flex : 1;
@@ -14,80 +15,9 @@ const Container = styled.View`
     background-color : ${({ theme }) => theme.background};
     padding : 20px;
 `;
-
-const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: '하파서프',
-      category: '숙박레저 패키지',
-      location: '강릉',
-      content: '서핑 강습 + 바베큐 파티 + 게스트하우스',
-      imageUrl: '../images/fsa.jpg',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: '함덕해수욕장',
-      category: '관광지',
-      location: '제주',
-      content: '검은모래해변, 유채꽃밭, 둘레길',
-      imageUrl: '../images/fsa.jpg',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      imageUrl: '../images/fsa.jpg',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      imageUrl: '../images/fsa.jpg',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      imageUrl: '../images/fsa.jpg',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      imageUrl: '../images/fsa.jpg',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      content: '해수욕장, 해변',
-      imageUrl: '../images/fsa.jpg',
-    },
-  ];
   
-  const Item = ({ item }) => (
-    <TouchableOpacity onPress={()=>Alert.alert('이동')}>
-    <View style={styles.item}>
-        <Image style={styles.tinyLogo}
-        source={{uri:item.thumbnail}}
-        />
-      <View style={styles.textcon}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.overview}>#{item.overview}</Text>
-      </View>
-    </View>
-    </TouchableOpacity>
-  );
 
-const Scrap_list = () => {
+const Scrap_list = ({navigation}) => {
   const [DATA,setDATA] = useState([
     {
       "id":1,
@@ -128,6 +58,20 @@ const Scrap_list = () => {
       });
     })
   },[]);
+
+  const Item = ({ item }) => (
+    <TouchableOpacity onPress={()=>navigation.navigate(MZ, {ID:item.mz_id, Uri:item.thumbnail})}>
+    <View style={styles.item}>
+        <Image style={styles.tinyLogo}
+        source={{uri:item.thumbnail}}
+        />
+      <View style={styles.textcon}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.overview}>#{item.overview}</Text>
+      </View>
+    </View>
+    </TouchableOpacity>
+  );
 
 
     const renderItem = ({ item }) => (

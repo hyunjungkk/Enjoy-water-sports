@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import { TouchableWithoutFeedback,Keyboard, SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, TouchableOpacity, Alert } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, TouchableOpacity, Alert, navigation } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -16,21 +16,9 @@ const Container = styled.View`
     padding : 20px;
 `;
 
-  const Item = ({ item }) => (
-    <TouchableOpacity onPress={()=>Alert.alert('이동')}>
-    <View style={styles.item}>
-        <Image style={styles.tinyLogo}
-        source={{uri:item.thumbnail}}
-        />
-      <View style={styles.textcon}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.overview}>#{item.overview}</Text>
-      </View>
-    </View>
-    </TouchableOpacity>
-  );
 
-const Like_list = () => {
+
+const Like_list = ({navigation}) => {
   const [DATA,setDATA] = useState([
     {
       "id": 2,
@@ -72,6 +60,20 @@ const Like_list = () => {
       });
     })
   },[]);
+
+  const Item = ({ item }) => (
+    <TouchableOpacity onPress={()=>navigation.navigate('Enterprise',{typeid:item.contenttypeid, conid:item.contentid, title:item.title, img:item.thumbnail})}>
+    <View style={styles.item}>
+        <Image style={styles.tinyLogo}
+        source={{uri:item.thumbnail}}
+        />
+      <View style={styles.textcon}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.overview}>#{item.overview}</Text>
+      </View>
+    </View>
+    </TouchableOpacity>
+  );
 
     const renderItem = ({ item }) => (
         <Item item={item} />
