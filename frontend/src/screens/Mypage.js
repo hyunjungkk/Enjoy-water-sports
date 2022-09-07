@@ -68,11 +68,6 @@ const Mypage = ({navigation}) => {
             <View style={styles.fixprofile}> 
              {nickname? <Text style={styles.title}> {nickname} </Text>:<Text  style={styles.title}>로그인이 필요해요!</Text>}
             </View>
-            <Button
-                color="#adb5bd"
-                title="프로필 편집"
-                onPress={()=>navigation.navigate('EditProfile')}
-            />
             <Separator/>
             <View style={styles.fixToText}>
                 <Button
@@ -83,10 +78,6 @@ const Mypage = ({navigation}) => {
                 <Button
                 title="스크랩"
                 onPress={()=>goLists('Scrap_list')}
-                />
-                <Button
-                title="내후기"
-                onPress={()=>goLists('Review_list')}
                 />
             </View>
             <Separator/>
@@ -125,7 +116,7 @@ const styles = StyleSheet.create({
       },
     fixToText: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'space-evenly',
     },
     separator: {
       marginVertical: 15,

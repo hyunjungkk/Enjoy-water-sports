@@ -36,66 +36,12 @@ const Like_list = () => {
       "id": 2,
       "contentid": "125716",
       "contenttypeid": "12",
-      "title": "동호해변(양양) 샘플 데이터",
+      "title": "좋아요 리스트가 없습니다.",
       "thumbnail": "http://tong.visitkorea.or.kr/cms/resource/48/2745248_image2_1.jpg",
-      "overview": "동호해변 개요개요 어쩌",
+      "overview": "동호해변(양양)을 추천해드릴게요.",
       "likeYn": true,
       "user_id": 8,
-  //    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-  //    title: '하파서프',
-  //    category: '숙박레저 패키지',
-  //    location: '강릉',
-  //    content: '서핑 강습 + 바베큐 파티 + 게스트하우스',
-  //    iU: require('../images/leisure_fishing.jpg'),
     },
-      /*
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: '함덕해수욕장',
-      category: '관광지',
-      location: '제주',
-      content: '검은모래해변, 유채꽃밭, 둘레길',
-      iU: require('../images/leisure_surfing.jpg'),
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      iU: require('../images/leisure_fishing.jpg'),
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      iU: require('../images/leisure_fishing.jpg'),
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      iU: require('../images/leisure_fishing.jpg'),
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      iU: require('../images/leisure_fishing.jpg'),
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      content: '해수욕장, 해변',
-      iU: require('../images/leisure_fishing.jpg'),
-    },*/
   ]);
 
   useEffect(()=>{
@@ -113,7 +59,6 @@ const Like_list = () => {
           if(response) {
             if(response.data.count > 0) {
               setDATA(response.data.results)
-              
             }
           }
           else {
@@ -167,7 +112,7 @@ const styles = StyleSheet.create({
       marginRight: 20,
     },
     textcon: {
-      padding: 10,
+      padding: 12,
       flex: 1,
     },
     title: {

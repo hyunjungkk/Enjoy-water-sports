@@ -1,9 +1,11 @@
 import React from 'react';
+import {useState, useEffect} from 'react';
 import { TouchableWithoutFeedback,Keyboard, SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Container = styled.View`
     flex : 1;
@@ -75,21 +77,58 @@ const DATA = [
     <TouchableOpacity onPress={()=>Alert.alert('이동')}>
     <View style={styles.item}>
         <Image style={styles.tinyLogo}
-        source={require('../images/fsa.jpg')}
+        source={{uri:item.thumbnail}}
         />
       <View style={styles.textcon}>
         <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.category}>#{item.category}</Text>
-        <Text style={styles.category}>#{item.location}</Text>
+        <Text style={styles.overview}>#{item.overview}</Text>
       </View>
-    </View>
-    <View style={styles.itemcontent}>
-        <Text style={styles.content}>{item.content}</Text>
     </View>
     </TouchableOpacity>
   );
 
 const Scrap_list = () => {
+  const [DATA,setDATA] = useState([
+    {
+      "id":1,
+      "title":"서핑 초보들은 모여라 !",
+      "thumbnail":" nn",
+      "overview":"초보 서퍼들을 위한 준비..",
+      "bookmarkYn":true,
+      "user_id":4,
+      "mz_id":1
+    },
+  ]);
+
+  useEffect(()=>{
+    const access = ''
+
+    AsyncStorage.getItem('access_token', (err, result) => {
+      const config = {
+        headers : {
+          Authorization : `Bearer ${result}`,
+        }
+      }
+      axios.get(`http://3.34.181.178/community/bookmarklist`,config)
+          .then(function (response) {
+          // response  
+          if(response) {
+            if(response.data.count > 0) {
+              setDATA(response.data.results)
+            }
+          }
+          else {
+          
+          }
+      }).catch(function (error) {
+          // 오류발생시 실행
+          alert(error)
+      }).then(function() {
+          // 항상 실행
+      });
+    })
+  },[]);
+
 
     const renderItem = ({ item }) => (
         <Item item={item} />
