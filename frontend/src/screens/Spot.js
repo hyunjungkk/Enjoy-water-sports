@@ -105,7 +105,13 @@ const styles = {
   src: {
     height :15,
     width : width-30
-  }
+  },
+  text6:{
+    fontSize : 15,
+      margin :5,
+      marginLeft:15,
+      textDecorationLine:'underline'
+  },
 }
 
 
@@ -261,7 +267,7 @@ const Spot = ({navigation, route}) => {
   ];
 
 
-
+/* 
   const n_id=String(name)
   let kakao_query='https://dapi.kakao.com/v2/local/search/keyword.json?query={}'
   kakao_query=kakao_query.replace('{}',n_id)
@@ -290,9 +296,9 @@ const Spot = ({navigation, route}) => {
           console.log(error.message);
       }
   };
-
+*/
   useEffect(()=>{
-      callApi();
+      //callApi();
       axiostest();
       axios_all();
       axios_sleep();
@@ -301,7 +307,7 @@ const Spot = ({navigation, route}) => {
   },[]);
 
 
-
+/* 
   let p_id=String(pid)
   let Kakao_map='kakaomap://place?id={}'
   Kakao_map=Kakao_map.replace('{}',p_id)
@@ -310,7 +316,7 @@ const Spot = ({navigation, route}) => {
   let x=Number(p_x.toFixed(4))
   let y=Number(p_y.toFixed(4))
 
-  
+  */
   
   const [num, setNum] = useState(0);
   
@@ -351,9 +357,6 @@ const Spot = ({navigation, route}) => {
                     <Image style={{width:width-30, height:250, margin:5}} imageStyle={styles.listImage} source={{uri}}/>
                     <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
                     <Text style={styles.text}>이용 정보</Text>
-                    <TouchableOpacity onPress={()=>Linking.openURL(Kakao_map)}>
-                    <Text style={{marginLeft:width-250, marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
-                    </TouchableOpacity>
                     </View>
                     <Text style={styles.text4}>
                     <Text style={styles.text4}> 주소 : </Text>
@@ -365,7 +368,7 @@ const Spot = ({navigation, route}) => {
                     <TouchableOpacity onPress={()=>Linking.openURL(home_page)}>
                     <Text style={styles.text4}>
                     <Text style={styles.text4}> 홈페이지 : </Text>
-                    <Text style={styles.text4}>{home_page}</Text>
+                    <Text style={styles.text6}>{home_page}</Text>
                     </Text>
                     </TouchableOpacity> 
                     }
@@ -409,6 +412,11 @@ const Spot = ({navigation, route}) => {
                   </TouchableOpacity>
                 </ScrollView>
                 </View>
+
+                카카오맵에서 보기
+                <TouchableOpacity onPress={()=>Linking.openURL(Kakao_map)}>
+                    <Text style={{marginLeft:width-250, marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
+                    </TouchableOpacity>
 */
 
 export default Spot;

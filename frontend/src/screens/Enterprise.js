@@ -23,17 +23,42 @@ const Container = styled.View`
     padding : 20px;
 `;
 
+const style = StyleSheet.create({
+  shadow: {
+      ...Platform.select({
+          ios: { 
+              shadowColor: '#000',
+              background: '#ffffff',
+             shadowOffset: { width: 10, height: 10, },
+              shadowOpacity: 0.5,
+             shadowRadius: 10,
+             fontSize : 20,
+              margin :15,
+            fontWeight: "bold",
+          },
+          android: { 
+            background: '#ffffff',
+             elevation: 23,
+             fontSize : 20,
+             margin :15,
+             color:'#ffffff',
+             fontWeight: "bold",
+          },
+      })
+  }
+});
+
+
 const styles = {
   image: {
     width:width-20,
     height:250
   },
-  listImage: {
-    flexDirection:'row',
+  listImage:{
     borderRadius:15,
-    marginBottom:30,
-    marginTop:20,
-    marginHorizontal:0,
+    height:150,
+    width:150,
+    margin:5
   },
   text:{
       fontSize : 20,
@@ -49,25 +74,46 @@ const styles = {
       fontSize : 12,
       marginLeft:15,
       margin:5,
-      color:'#bfbfbf'
+     
   },
   text3:{
       fontSize : 20,
       margin :15,
   },
-  text4:{
-    fontSize : 18,
-    marginLeft:15,
-    margin:5,
-    marginRight:width-130
+  text5:{
+    fontSize : 20,
+      margin :15,
+      fontWeight: "bold",
+      color:'#ffffff',
+      backgroundColor:'#E6E6E6'
 },
 text6:{
+  fontSize : 15,
+    margin :5,
+    marginLeft:15,
+    textDecorationLine:'underline'
+},
+  text4:{
     fontSize : 15,
     marginLeft:15,
-    margin:5,
+    margin :5
 },
+text7:{
+  fontSize : 15,
+  marginBottom:20,
+},
+  item: {
+    backgroundColor: '#6da7ed',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
   title: {
     fontSize: 15,
+  },
+  src: {
+    height :15,
+    width : width-30
   }
 }
 
@@ -139,7 +185,35 @@ const Enterprise = ({navigation, route}) => {
         })
       }
 
+      let spot_query= "http://3.34.181.178/tourapi/spot/?contentid={}&contenttypeid=*"
+      spot_query=spot_query.replace('{}',conid)
+      spot_query=spot_query.replace('*',typeid)
+      
+      const [address,setaddress]=useState('');
+      const [homepage,sethomepage]=useState('');
+      const [overview,setoverview]=useState('');
 
+      const axios_spot= async ()=>{
+        const access = ''
+        const config = {
+          headers : {
+            Authorization : `Bearer ${access}`,
+          }
+        }
+        axios.get(spot_query)
+        .then(function (response) {
+          const valor = JSON.stringify(response.data)
+          const report=JSON.parse(valor)
+          const add=report.response.body.items.item[0].addr1
+          const homepage=report.response.body.items.item[0].homepage
+          const overview=report.response.body.items.item[0].overview
+          setaddress(add)
+          sethomepage(homepage)
+          setoverview(overview)
+        })
+      }
+
+/* 
     let query='https://dapi.kakao.com/v2/local/search/keyword.json?query={}'
     query=query.replace('{}',title)
     const [pid, setPid] = useState('');
@@ -167,12 +241,27 @@ const Enterprise = ({navigation, route}) => {
             console.log(error.message);
         }
     };
-
+*/
     useEffect(()=>{
-        callApi();
+        //callApi();
         axiostest();
+        axios_spot();
     },[]);
+  const [line, setLine] = useState(4);
+  const [isActivated, setIsActivated] = useState(false);
 
+  const handleLine = () => {
+    isActivated ? setLine(4) : setLine(Number.MAX_SAFE_INTEGER);
+    setIsActivated(prev => !prev);
+  }
+
+  let re_home=homepage.split('<a href="')
+  let re_re_home=String(re_home[1])
+  let re_homepage=re_re_home.split('"')
+  let home_page=re_homepage[0]
+  
+  let re_over=overview.replace(/<br [/]>/gi , '\n')
+  let re_re_over=re_over.replace(/<br>/gi, '')
     const Content=new Map([
         [   
             "수용 인원",
@@ -223,11 +312,7 @@ const Enterprise = ({navigation, route}) => {
         ]
     ]);
     
-    Content.forEach(function(value,key){
-        if (value==''){
-            Content.delete(key)
-        }
-    })
+ 
 
     Content.forEach(function(value,key){
       if (value.includes('<a href="')===true){
@@ -235,7 +320,7 @@ const Enterprise = ({navigation, route}) => {
           let s=t.split('<a href="')
           let re_s=s[1].split('"')
           Content.set(key,re_s[0])
-          console.log(re_s[0])
+          
 
       }
   })
@@ -279,7 +364,7 @@ Content.forEach(function(value,key){
       i++;
     }
 
-
+/*
     let p_id=String(pid)
     let Kakao_map='kakaomap://place?id={}'
     Kakao_map=Kakao_map.replace('{}',p_id)
@@ -287,7 +372,7 @@ Content.forEach(function(value,key){
     let p_y=Number(py)
     let x=Number(p_x.toFixed(4))
     let y=Number(p_y.toFixed(4))
- 
+  */
     const [num, setNum] = useState(0);
   
     const onIncrease = () => {
@@ -305,18 +390,12 @@ Content.forEach(function(value,key){
     return (
         <ScrollView>
             <Container>
-            <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
-                    <Text style={{fontSize:20, margin:10, marginTop:30, marginRight:width/2-20}}>{title}</Text>
+            <View style={{width:width, flexDirection: 'row', flex:0.5, alignItems:'flex-start' , justifyContent:'space-between'}}>
+                    <Text style={{fontSize:20, marginLeft:20, marginTop:30,marginRight:50, alignContent:'flex-start', justifyContent:'flex-start'}}>{title}</Text>
                     <TouchableOpacity onPress={onIncrease} >
-                    <Icon name={iconname} size={25}  color='red' style={{margin:10, marginTop:30}}/>
+                    <Icon name={iconname} size={25}  color='red' style={{ margin:10, marginTop:30, alignContent:'flex-end'}}/>
                     </TouchableOpacity>
                 </View>
-            <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
-                <Text style={styles.text1}> 위치 정보 </Text>
-                <TouchableOpacity onPress={()=>Linking.openURL(Kakao_map)}>
-                    <Text style={{marginLeft:width-250, marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
-                </TouchableOpacity>
-            </View>
             <View>
             {img===""?
           <Image style={{width:width-20,height:250, margin:10}} source={{uri:sampleimg}}>
@@ -324,14 +403,166 @@ Content.forEach(function(value,key){
         :<Image style={{width:width-20,height:250, margin:10}} source={{uri:img}}>
           </Image>}
             </View>
-            <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-start', paddingTop:15}}>
-                <Text style={styles.text4}>이용 안내</Text>
-            </View>
-            <View style={{flexDirection: 'row', flex:1, justifyContent:'space-around', paddingTop:15}}>
-                <FlatList
-                data={arr_m}
-                renderItem={({item,index})=><Text style={styles.text6}>{item}</Text>}>
-                </FlatList>
+            <View style={{flex:1, marginBottom:20}}>
+                    <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
+                    <Text style={styles.text}>이용 정보</Text>
+                    </View>
+                    <Text style={styles.text4}>
+                    <Text style={styles.text4}> 주소 : </Text>
+                    <Text >{address}</Text>
+                    </Text>
+                    {home_page==="undefined"?
+                    <Text style={styles.text4}>   </Text>
+                    :
+                    <TouchableOpacity onPress={()=>Linking.openURL(home_page)}>
+                    <Text style={styles.text4}>
+                    <Text style={styles.text4}> 홈페이지 : </Text>
+                    <Text style={styles.text6}>{home_page}</Text>
+                    </Text>
+                    </TouchableOpacity> 
+                    }
+                    <View style={{ flex:0.5, alignItems:'flex-start'}}>
+                    <Text style={styles.text}>개요 </Text>
+                      <Text style={styles.text2} numberOfLines={line} ellipsizeMode="tail" onPress={()=>handleLine()}>{re_re_over}</Text>
+                    </View>
+                </View>
+                <View View style={{width:width, marginLeft:50, justifyContent:'flex-start'}}>
+                <Text style={styles.text}>이용 안내</Text>
+                <View style={{marginLeft:20}}>
+                {Content.get('예약안내')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text>
+              {Content.get('예약안내').includes('http')===true?
+              <Text style={styles.text7}>
+              <Text style={styles.text7}>예약 안내 : </Text>  
+              <TouchableOpacity onPress={()=>Linking.openURL(Content.get('예약안내'))}>
+              <Text style={styles.text6}>예약 사이트</Text>
+              </TouchableOpacity>
+              </Text>
+              :Content.get('예약안내').includes('-')===true?
+              <Text style={styles.text7}>
+              <Text style={styles.text7}>예약 안내 : </Text>  
+              <TouchableOpacity onPress={()=>Linking.openURL('tel:'+Content.get('예약안내'))}>
+              <Text style={styles.text7}>전화 예약</Text>
+              </TouchableOpacity>
+              </Text>
+              :
+              <Text style={styles.text7}>
+              <Text style={styles.text7}>예약 안내 : </Text>  
+              <Text style={styles.text7}>{Content.get('예약안내')}</Text>
+              </Text>
+            }
+              </Text>
+            }
+            {Content.get('문의 및 안내')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              {Content.get('문의 및 안내').includes('-')===true?
+              <Text style={styles.text7}>
+                <Text style={styles.text7}>문의 및 안내 : </Text>  
+              <TouchableOpacity onPress={()=>Linking.openURL('tel:'+Content.get('문의 및 안내'))}>
+              <Text style={styles.text6}>{Content.get('문의 및 안내')}</Text>
+              </TouchableOpacity>
+                </Text>  
+                :<Text style={styles.text7}>
+                  <Text style={styles.text7}>문의 및 안내 : </Text>
+                  <Text style={styles.text7}>{Content.get('문의 및 안내')}</Text>
+                  </Text>
+
+            }
+              </Text>
+            }
+              {Content.get('유아차 대여 여부')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>유아차 대여 여부 : </Text>  
+              <Text>{Content.get('유아차 대여 여부')}</Text>
+              </Text>
+            }
+            {Content.get('휴무')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>휴무 : </Text>  
+              <Text>{Content.get('휴무')}</Text>
+              </Text>
+            }
+            {Content.get('이용시간')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>이용시간 : </Text>  
+              <Text>{Content.get('이용시간')}</Text>
+              </Text>
+            }
+            {Content.get('신용카드 가능 여부')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>신용카드 가능 여부 : </Text>  
+              <Text>{Content.get('신용카드 가능 여부')}</Text>
+              </Text>
+            }
+            {Content.get('반려동물 동반 가능 여부')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>반려동물 동반 가능 여부 : </Text>  
+              <Text>{Content.get('반려동물 동반 가능 여부')}</Text>
+              </Text>
+            }
+            {Content.get('체험 가능 연령')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>체험 가능 연령 : </Text>  
+              <Text>{Content.get('체험 가능 연령')}</Text>
+              </Text>
+            }
+            {Content.get('개장기간')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>개장기간 : </Text>  
+              <Text>{Content.get('개장기간')}</Text>
+              </Text>
+            }
+            {Content.get('입장료')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>입장료 : </Text>  
+              <Text>{Content.get('입장료')}</Text>
+              </Text>
+            }
+            {Content.get('주차요금')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>주차요금 : </Text>  
+              <Text>{Content.get('주차요금')}</Text>
+              </Text>
+            }
+            {Content.get('주차시설')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>주차시설 : </Text>  
+              <Text>{Content.get('주차시설')}</Text>
+              </Text>
+            }
+            {Content.get('규모')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>규모 : </Text>  
+              <Text>{Content.get('규모')}</Text>
+              </Text>
+            }
+                </View>
             </View>
             </Container>
         </ScrollView>
@@ -382,4 +613,14 @@ const state =[
       </View>
     );
   }
+
+                  카카오맵에서 보기
+
+
+              <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
+                <Text style={styles.text}> 위치 정보 </Text>
+                <TouchableOpacity onPress={()=>Linking.openURL(Kakao_map)}>
+                    <Text style={{marginLeft:width-250, marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
+                </TouchableOpacity>
+            </View>
 */
