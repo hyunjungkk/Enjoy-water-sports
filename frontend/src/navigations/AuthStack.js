@@ -3,7 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Community, Home, Mypage, MZ, Search_1 } from '../screens';
-import { Spot, Enterprise, Search_2, Search_3, Location_list, Ranking, Login, EditProfile, Like_list, Scrap_list, Review_list,kakaoLogin } from '../screens';
+import { Spot, Enterprise, Search_2, Search_3, Location_list, Ranking, Login, EditProfile, Like_list, Scrap_list, Review_list,kakaoLogin,Enterprise_32,
+   Enterprise_39,Enterprise_15 } from '../screens';
 import RegisterPage from '../screens/RegisterPage';
 
 const Tab = createBottomTabNavigator();
@@ -30,7 +31,9 @@ const Main_home = () => {
           <Stack.Screen name = "Ranking" component = {Ranking} options = {{ headerBackTitleVisible : false,headerShown : false }} />
           <Stack.Screen name = "Spot" component = {Spot} options = {{ headerBackTitleVisible : false,headerShown : false }} />
           <Stack.Screen name = "Enterprise" component = {Enterprise} options = {{ headerBackTitleVisible : false,headerShown : false }} />
-          
+          <Stack.Screen name = "Enterprise_32" component = {Enterprise_32} options = {{ headerBackTitleVisible : false,headerShown : false }} />
+          <Stack.Screen name = "Enterprise_39" component = {Enterprise_39} options = {{ headerBackTitleVisible : false,headerShown : false }} />
+          <Stack.Screen name = "Enterprise_15" component = {Enterprise_15} options = {{ headerBackTitleVisible : false,headerShown : false }} />
       </Stack.Navigator>
   )
 }

@@ -258,12 +258,79 @@ const Spot = ({navigation, route}) => {
   const renderItem = ({ item }) => (
     <Item title={item.title} img={item.firstimage} typeid={item.contenttypeid} contentid={item.contentid}/>
   );
+
+
+  const Item_32 = ({ title, img, typeid, contentid}) => (
+      
+    <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_32',{typeid:typeid, conid:contentid, title:title,img:img})}>
+    {img===""?
+    <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
+      <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
+      <Text style={style.shadow}>{title}</Text>
+      </View>
+    </ImageBackground>
+    :<ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:img}}>
+      <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
+      <Text style={style.shadow}>{title}</Text>
+      </View>
+    </ImageBackground>}
+
+    </TouchableOpacity>
+);
+
+const renderItem_32 = ({ item }) => (
+  <Item_32 title={item.title} img={item.firstimage} typeid={item.contenttypeid} contentid={item.contentid}/>
+);
   
+
+const Item_39 = ({ title, img, typeid, contentid}) => (
+      
+  <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_39',{typeid:typeid, conid:contentid, title:title,img:img})}>
+  {img===""?
+  <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
+    <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
+    <Text style={style.shadow}>{title}</Text>
+    </View>
+  </ImageBackground>
+  :<ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:img}}>
+    <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
+    <Text style={style.shadow}>{title}</Text>
+    </View>
+  </ImageBackground>}
+
+  </TouchableOpacity>
+);
+
+const renderItem_39 = ({ item }) => (
+<Item_39 title={item.title} img={item.firstimage} typeid={item.contenttypeid} contentid={item.contentid}/>
+);
+
+const Item_15 = ({ title, img, typeid, contentid}) => (
+      
+  <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_15',{typeid:typeid, conid:contentid, title:title,img:img})}>
+  {img===""?
+  <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
+    <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
+    <Text style={style.shadow}>{title}</Text>
+    </View>
+  </ImageBackground>
+  :<ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:img}}>
+    <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
+    <Text style={style.shadow}>{title}</Text>
+    </View>
+  </ImageBackground>}
+
+  </TouchableOpacity>
+);
+
+const renderItem_15= ({ item }) => (
+<Item_15 title={item.title} img={item.firstimage} typeid={item.contenttypeid} contentid={item.contentid}/>
+);
   const tabListData = [
     {name: '레포츠', component: <FlatList data={sports} renderItem={renderItem} keyExtractor={item => item.id}/>},
-    { name: '숙박', component: <FlatList data={sleep} renderItem={renderItem} keyExtractor={item => item.id}/> },
-    { name: '음식점', component: <FlatList data={eat} renderItem={renderItem} keyExtractor={item => item.id}/> },
-    { name: '즐길거리', component: <FlatList data={fun} renderItem={renderItem} keyExtractor={item => item.id}/> },
+    { name: '숙박', component: <FlatList data={sleep} renderItem={renderItem_32} keyExtractor={item => item.id}/> },
+    { name: '음식점', component: <FlatList data={eat} renderItem={renderItem_39} keyExtractor={item => item.id}/> },
+    { name: '즐길거리', component: <FlatList data={fun} renderItem={renderItem_15} keyExtractor={item => item.id}/> },
   ];
 
 

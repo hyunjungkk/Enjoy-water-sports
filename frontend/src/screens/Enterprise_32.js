@@ -8,10 +8,9 @@ import { StyleSheet, Text,View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Dimensions } from 'react-native';
 import { Linking } from 'react-native';
+import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext } from 'react';
-import { UserContext } from '../context/UserContext';
-import axios from 'axios';
 //import MapView, {Marker} from 'react-native-maps';
 import { element } from 'prop-types';
 
@@ -122,7 +121,7 @@ text7:{
 
 
 
-const Enterprise = ({navigation, route}) => {
+const Enterprise_32 = ({navigation, route}) => {
 
     const typeid=route.params.typeid
     const img=route.params.img
@@ -130,21 +129,28 @@ const Enterprise = ({navigation, route}) => {
     const title=route.params.title
 
 
-    const [accomcountleports, setaccomcountleports]=useState('');
-    const [chkbabycarriageleports, setchkbabycarriageleports]=useState('');
-    const [chkcreditcardleports, setchkcreditcardleports]=useState('');
-    const [chkpetleports, setchkpetleports]=useState('');
-    const [expagerangeleports, setexpagerangeleports]=useState('');
-    const [infocenterleports, setinfocenterleports]=useState('');
-    const [openperiod, setopenperiod]=useState('');
-    const [parkingfeeleports,setparkingfeeleports]=useState('');
-    const [parkingleports,setparkingleports]=useState('');
-    const [reservation,setreservation]=useState('');
-    const [restdateleports,setrestdateleports]=useState('');
-    const [scaleleports,setscaleleports]=useState('');
-    const [usefeeleports,setusefeeleports]=useState('');
-    const [usetimeleports,setusetimeleports]=useState('');
-    const api_query="http://3.34.181.178/tourapi/enterprise/?contentid=*&contenttypeid=28"
+    const [accomcountlodging, setaccomcountlodging]=useState('');
+    const [benikia, setbenikia]=useState('');
+    const [checkintime,setcheckintime]=useState('');
+    const [checkouttime,setcheckouttime]=useState('');
+    const [chkcooking,setchkcooking]=useState('');
+    const [foodplace,setfoodplace]=useState('');
+    const [goodstay,setgoodstay]=useState('');
+    const [hanok,sethanok]=useState('');
+    const [infocenterlodging,setinfocenterlodging]=useState('');
+    const [parkinglodging,setparkinglodging]=useState('');
+    const [pickup,setpickup]=useState('');
+    const [reservationlodging,setreservationlodging]=useState('');
+    const [reservationurl,setreservationurl]=useState('');
+    const [subfacility,setsubfacility]=useState('');
+    const [barbecue,setbarbecue]=useState('');
+    const [beverage,setbeverage]=useState('');
+    const [fitness,setfitness]=useState('');
+    const [sauna,setasuna]=useState('');
+    const [sports,setsports]=useState('');
+    const [refundregulation,setrefundregulation]=useState('');
+
+    const api_query="http://3.34.181.178/tourapi/enterprise/?contentid=*&contenttypeid=32"
     const query_28=api_query.replace('*',conid)
     const axiostest= async ()=>{
         const access = ''
@@ -157,34 +163,46 @@ const Enterprise = ({navigation, route}) => {
         .then(function (response) {
           const valor = JSON.stringify(response.data)
           const report=JSON.parse(valor)
-          const accom=report.response.body.items.item[0].accomcountleports
-          setaccomcountleports(accom)
-          const chkbaby=report.response.body.items.item[0].chkbabycarriageleports
-          setchkbabycarriageleports(chkbaby)
-          const chkcre=report.response.body.items.item[0].chkcreditcardleports
-          setchkcreditcardleports(chkcre)
-          const chkpet=report.response.body.items.item[0].chkpetleports
-          setchkpetleports(chkpet)
-          const expag=report.response.body.items.item[0].expagerangeleports
-          setexpagerangeleports(expag)
-          const info=report.response.body.items.item[0].infocenterleports
-          setinfocenterleports(info)
-          const open=report.response.body.items.item[0].openperiod
-          setopenperiod(open)
-          const parkingfee=report.response.body.items.item[0].parkingfeeleports
-          setparkingfeeleports(parkingfee)
-          const parking=report.response.body.items.item[0].parkingleports
-          setparkingleports(parking)
-          const res=report.response.body.items.item[0].reservation
-          setreservation(res)
-          const rest=report.response.body.items.item[0].restdateleports
-          setrestdateleports(rest)
-          const scale=report.response.body.items.item[0].scaleleports
-          setscaleleports(scale)
-          const usef=report.response.body.items.item[0].usefeeleports
-          setusefeeleports(usef)
-          const uset=report.response.body.items.item[0].usetimeleports
-          setusetimeleports(uset)
+          const accom=report.response.body.items.item[0].accomcountlodging
+          setaccomcountlodging(accom)
+          const chkbaby=report.response.body.items.item[0].benikia
+          setbenikia(chkbaby)
+          const chkcre=report.response.body.items.item[0].checkintime
+          setcheckintime(chkcre)
+          const chkpet=report.response.body.items.item[0].checkouttime
+          setcheckouttime(chkpet)
+          const expag=report.response.body.items.item[0].chkcooking
+          setchkcooking(expag)
+          const info=report.response.body.items.item[0].foodplace
+          setfoodplace(info)
+          const open=report.response.body.items.item[0].goodstay
+          setgoodstay(open)
+          const parkingfee=report.response.body.items.item[0].hanok
+          sethanok(parkingfee)
+          const parking=report.response.body.items.item[0].infocenterlodging
+          setinfocenterlodging(parking)
+          const res=report.response.body.items.item[0].parkinglodging
+          setparkinglodging(res)
+          const rest=report.response.body.items.item[0].pickup
+          setpickup(rest)
+          const scale=report.response.body.items.item[0].reservationlodging
+          setreservationlodging(scale)
+          const usef=report.response.body.items.item[0].reservationurl
+          setreservationurl(usef)
+          const subf=report.response.body.items.item[0].subfacility
+          setsubfacility(subf)
+          const barb=report.response.body.items.item[0].barbecue
+          setbarbecue(barb)
+          const beve=report.response.body.items.item[0].beverage
+          setbeverage(beve)
+          const fitn=report.response.body.items.item[0].fitness
+          setfitness(fitn)
+          const saun=report.response.body.items.item[0].sauna
+          setsauna(saun)
+          const spor=report.response.body.items.item[0].sports
+          setsports(spor)
+          const refund=report.response.body.items.item[0].refundregulation
+          setrefundregulation(refund)
         })
       }
 
@@ -216,54 +234,6 @@ const Enterprise = ({navigation, route}) => {
         })
       }
 
-      let love_overview=overview.substr(0,15)
-      let love_query='/community/like/?contentid=!&contenttypeid=28&title=^,thumbnail=*&overview=@'
-      love_query=love_query.replace('!',conid)
-      love_query=love_query.replace('^',title)
-      love_query=love_query.replace('*',img)
-      love_query=love_query.replace('@',love_overview)
-      
-      
-      const data = useContext(UserContext)
-      const [access,setjwt]=useState('')
-      useEffect(()=>{
-        if(data.userdata){
-          AsyncStorage.getItem('access_token', (err, result) => {
-          setjwt(result)});
-        }
-      },[data.userdata]);
-
-      const love= async ()=>{
-        console.log(love_query)
-        console.log(access)
-        const love_config={
-        headers:{Authorization : `Bearer ${access}`,"Content-Type": "application/json"},
-        transformRequest: (data, headers) => {
-          return data;
-        },
-      }
-      console.log(love_config)
-        axios.post(
-          love_query,
-          love_config
-        )
-        .then(function(response){
-          console.log(response)
-        })
-      }
-
-      const [num, setNum] = useState(0);
-  
-      const onIncrease = () => {
-        setNum(num + 1);
-      }
-      
-      if (num%2===0) {
-        iconname='heart-outline';
-      } else {
-        iconname='heart';
-        alert('북마크에 저장되었습니다.');
-      }
 /* 
     let query='https://dapi.kakao.com/v2/local/search/keyword.json?query={}'
     query=query.replace('{}',title)
@@ -297,7 +267,6 @@ const Enterprise = ({navigation, route}) => {
         //callApi();
         axiostest();
         axios_spot();
-        love();
     },[]);
   const [line, setLine] = useState(4);
   const [isActivated, setIsActivated] = useState(false);
@@ -316,51 +285,69 @@ const Enterprise = ({navigation, route}) => {
   let re_re_over=re_over.replace(/<br>/gi, '')
     const Content=new Map([
         [   
-            "수용 인원",
-            accomcountleports
+            "수용 가능인원",
+            accomcountlodging
         ],
         [
-            "유아차 대여 여부",
-            chkbabycarriageleports
+            "베니키아 여부",
+            benikia
         ],
         [   
-            "신용카드 가능 여부",
-            chkcreditcardleports
+            "입실 시간",
+            checkintime
         ],
         [   
-            "반려동물 동반 가능 여부",
-            chkpetleports
+            "퇴실 시간",
+            checkouttime
         ],
-        ["체험 가능 연령",
-        expagerangeleports
+        ["객실내 취사 여부",
+        chkcooking
+        ],
+        ["식음료장",
+        foodplace
+        ],
+        [ "굿스테이 여부",
+        goodstay
+         ],
+        ["한옥 여부",
+        hanok
         ],
         ["문의 및 안내",
-        infocenterleports
+        infocenterlodging
         ],
-        [ "개장기간",
-             openperiod
-         ],
-        ["주차요금",
-          parkingfeeleports
+        [ "주차시설",
+        parkinglodging
         ],
-        ["주차시설",
-            parkingleports
+        ["픽업서비스",
+        pickup
         ],
-        [ "예약안내",
-            reservation
-        ],
-        ["휴무",
-        restdateleports
-        ],
-        ["규모",
-           scaleleports
+        ["예약안내",
+        reservationlodging
         ],  
         [   
-          "입장료",
-          usefeeleports
+          "예약안내 홈페이지",
+          reservationurl
         ],
-        ["이용시간",
-           usetimeleports
+        ["부대시설",
+        subfacility
+        ],
+        ["바비큐장 여부",
+        barbecue
+        ],
+        ["식음료장 여부",
+        beverage
+        ],
+        ["휘트니스 센터 여부",
+        fitness
+        ],
+        ["사우나실 여부",
+        sauna
+        ],
+        ["스포츠 시설 여부",
+        sports
+        ],
+        ["환불규정",
+        refundregulation
         ]
     ]);
     
@@ -425,7 +412,18 @@ Content.forEach(function(value,key){
     let x=Number(p_x.toFixed(4))
     let y=Number(p_y.toFixed(4))
   */
-
+    const [num, setNum] = useState(0);
+  
+    const onIncrease = () => {
+      setNum(num + 1);
+    }
+    
+    if (num%2===0) {
+      iconname='bookmark-outline';
+    } else {
+      iconname='bookmark';
+      alert('북마크에 저장되었습니다.');
+    }
     const sampleimg="http://tong.visitkorea.or.kr/cms/resource/13/2837213_image2_1.jpg"
 
     return (
@@ -496,6 +494,16 @@ Content.forEach(function(value,key){
             }
               </Text>
             }
+            {Content.get('예약안내 홈페이지')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+                <Text style={styles.text7}>예약안내 홈페이지 : </Text>  
+              <TouchableOpacity onPress={()=>Linking.openURL(Content.get('예약안내 홈페이지'))}>
+              <Text style={styles.text6}>예약안내 홈페이지</Text>
+              </TouchableOpacity>
+                </Text>  
+            }
             {Content.get('문의 및 안내')===''?
               <Text style={{fontSize:0.1}}> </Text>
               :
@@ -515,76 +523,44 @@ Content.forEach(function(value,key){
             }
               </Text>
             }
-              {Content.get('유아차 대여 여부')===''?
+              {Content.get('입실 시간')===''?
               <Text style={{fontSize:0.1}}> </Text>
               :
               <Text style={styles.text7}>
-              <Text>유아차 대여 여부 : </Text>  
-              <Text>{Content.get('유아차 대여 여부')}</Text>
+              <Text>입실 시간 : </Text>  
+              <Text>{Content.get('입실 시간')}</Text>
               </Text>
             }
-            {Content.get('휴무')===''?
+            {Content.get('퇴실 시간')===''?
               <Text style={{fontSize:0.1}}> </Text>
               :
               <Text style={styles.text7}>
-              <Text>휴무 : </Text>  
-              <Text>{Content.get('휴무')}</Text>
+              <Text>퇴실 시간 : </Text>  
+              <Text>{Content.get('퇴실 시간')}</Text>
               </Text>
             }
-            {Content.get('이용시간')===''?
+            {Content.get('객실내 취사 여부')===''?
               <Text style={{fontSize:0.1}}> </Text>
               :
               <Text style={styles.text7}>
-              <Text>이용시간 : </Text>  
-              <Text>{Content.get('이용시간')}</Text>
+              <Text>객실내 취사 여부 : </Text>  
+              <Text>{Content.get('객실내 취사 여부')}</Text>
               </Text>
             }
-            {Content.get('신용카드 가능 여부')===''?
+            {Content.get('수용 가능인원')===''?
               <Text style={{fontSize:0.1}}> </Text>
               :
               <Text style={styles.text7}>
-              <Text>신용카드 가능 여부 : </Text>  
-              <Text>{Content.get('신용카드 가능 여부')}</Text>
+              <Text>수용 가능인원 : </Text>  
+              <Text>{Content.get('수용 가능인원')}</Text>
               </Text>
             }
-            {Content.get('반려동물 동반 가능 여부')===''?
+            {Content.get('식음료장')===''?
               <Text style={{fontSize:0.1}}> </Text>
               :
               <Text style={styles.text7}>
-              <Text>반려동물 동반 가능 여부 : </Text>  
-              <Text>{Content.get('반려동물 동반 가능 여부')}</Text>
-              </Text>
-            }
-            {Content.get('체험 가능 연령')===''?
-              <Text style={{fontSize:0.1}}> </Text>
-              :
-              <Text style={styles.text7}>
-              <Text>체험 가능 연령 : </Text>  
-              <Text>{Content.get('체험 가능 연령')}</Text>
-              </Text>
-            }
-            {Content.get('개장기간')===''?
-              <Text style={{fontSize:0.1}}> </Text>
-              :
-              <Text style={styles.text7}>
-              <Text>개장기간 : </Text>  
-              <Text>{Content.get('개장기간')}</Text>
-              </Text>
-            }
-            {Content.get('입장료')===''?
-              <Text style={{fontSize:0.1}}> </Text>
-              :
-              <Text style={styles.text7}>
-              <Text>입장료 : </Text>  
-              <Text>{Content.get('입장료')}</Text>
-              </Text>
-            }
-            {Content.get('주차요금')===''?
-              <Text style={{fontSize:0.1}}> </Text>
-              :
-              <Text style={styles.text7}>
-              <Text>주차요금 : </Text>  
-              <Text>{Content.get('주차요금')}</Text>
+              <Text>식음료장 : </Text>  
+              <Text>{Content.get('식음료장')}</Text>
               </Text>
             }
             {Content.get('주차시설')===''?
@@ -595,12 +571,44 @@ Content.forEach(function(value,key){
               <Text>{Content.get('주차시설')}</Text>
               </Text>
             }
-            {Content.get('규모')===''?
+            {Content.get('픽업서비스')===''?
               <Text style={{fontSize:0.1}}> </Text>
               :
               <Text style={styles.text7}>
-              <Text>규모 : </Text>  
-              <Text>{Content.get('규모')}</Text>
+              <Text>픽업서비스 : </Text>  
+              <Text>{Content.get('픽업서비스')}</Text>
+              </Text>
+            }
+            {Content.get('부대시설')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>부대시설 : </Text>  
+              <Text>{Content.get('부대시설')}</Text>
+              </Text>
+            }
+            {Content.get('사우나실 여부')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>사우나실 여부 : </Text>  
+              <Text>{Content.get('사우나실 여부')}</Text>
+              </Text>
+            }
+            {Content.get('스포츠 시설 여부')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>스포츠 시설 여부 : </Text>  
+              <Text>{Content.get('스포츠 시설 여부')}</Text>
+              </Text>
+            }
+            {Content.get('환불규정')===''?
+              <Text style={{fontSize:0.1}}> </Text>
+              :
+              <Text style={styles.text7}>
+              <Text>환불규정 : </Text>  
+              <Text>{Content.get('환불규정')}</Text>
               </Text>
             }
                 </View>
@@ -613,7 +621,7 @@ Content.forEach(function(value,key){
 };
 
 
-export default Enterprise
+export default Enterprise_32;
 
 
 /*
