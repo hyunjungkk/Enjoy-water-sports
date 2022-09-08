@@ -215,15 +215,15 @@ const Enterprise = ({navigation, route}) => {
           setoverview(overview)
         })
       }
-
-      let love_overview=overview.substr(0,15)
-      let love_query='/community/like/?contentid=!&contenttypeid=28&title=^,thumbnail=*&overview=@'
+      const apiUrl = 'http://3.34.181.178/'
+      let love_overview=overview.substring(0,15)
+      let love_query='http://3.34.181.178/community/like/?contentid=!&contenttypeid=28&title=^&thumbnail=*&overview=@'
       love_query=love_query.replace('!',conid)
       love_query=love_query.replace('^',title)
       love_query=love_query.replace('*',img)
       love_query=love_query.replace('@',love_overview)
       
-      
+     
       const data = useContext(UserContext)
       const [access,setjwt]=useState('')
       useEffect(()=>{
@@ -233,23 +233,29 @@ const Enterprise = ({navigation, route}) => {
         }
       },[data.userdata]);
 
+      let formData = new FormData();
+      formData.append("contentid", conid);
+      formData.append("contenttypeid",typeid);
+      formData.append("title",title);
+      formData.append("thumbnail",img);
+      formData.append("overview",love_overview);
       const love= async ()=>{
-        console.log(love_query)
-        console.log(access)
-        const love_config={
-        headers:{Authorization : `Bearer ${access}`,"Content-Type": "application/json"},
-        transformRequest: (data, headers) => {
+        const config={
+        header:{Authorization : `Bearer ${access}`,"Content-Type": "application/json"},
+        transformRequest: (data, header) => {
           return data;
         },
       }
-      console.log(love_config)
         axios.post(
-          love_query,
-          love_config
+          `${apiUrl}community/like/`,
+          formData,
+          config
         )
         .then(function(response){
           console.log(response)
-        })
+        }
+        ).catch(function (error) {
+          alert(error)})
       }
 
       const [num, setNum] = useState(0);
@@ -467,7 +473,7 @@ Content.forEach(function(value,key){
                       <Text style={styles.text2} numberOfLines={line} ellipsizeMode="tail" onPress={()=>handleLine()}>{re_re_over}</Text>
                     </View>
                 </View>
-                <View View style={{width:width, marginLeft:50, justifyContent:'flex-start'}}>
+                <View View style={{width:width, marginLeft:55,marginRight:20, justifyContent:'flex-start'}}>
                 <Text style={styles.text}>이용 안내</Text>
                 <View style={{marginLeft:20}}>
                 {Content.get('예약안내')===''?
