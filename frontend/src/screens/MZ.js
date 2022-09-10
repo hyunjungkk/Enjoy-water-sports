@@ -123,7 +123,7 @@ const Container = styled.View`
     //alert(data.userdata)
     const [access,setjwt]=useState('')
       
-          
+     /*     
   useEffect(()=>{
     
     data.setUserdata(true); //로그인 여부 세팅
@@ -137,42 +137,16 @@ const Container = styled.View`
       setjwt(result)}); 
     }
   },[]);
+  */
       const scrap=()=>{
 
         AsyncStorage.getItem('access_token', (err, result) => {
-          //alert(result)
-          setjwt(result)}); 
+          const config = {
+            headers : {
+              Authorization : `Bearer ${result}`,
+            }
+          }
 
-        const config = {
-          headers: {Authorization : `Bearer ${access}`,
-          "Content-Type": "application/json"},
-          transformRequest: (data, headers) => {
-            return data;
-          },
-
-          
-        };
-        
-
-
-        axios.post(
-          `${apiUrl}community/bookmark`,
-          formData,
-          config
-        )
-        .then(function(response){
-          alert(response.bookmarkYn)
-        }
-        ).catch(function (error) {
-          console.log(error)
-          alert(error)}
-      )
-      
-        let formData = new FormData();
-        formData.append("mz_id", id);
-        formData.append("title",title);
-        formData.append("thumbnail",uri);
-        formData.append("overview",mz_overview);
 
         const form_data = {
           mz_id: String(id),
@@ -180,42 +154,61 @@ const Container = styled.View`
           thumbnail : String(uri),
           overview:mz_overview
         };
+
+          //alert(result)
+          axios.post(
+            `${apiUrl}community/bookmark`,
+            form_data,
+            config
+          )
+            .then(function (response) {
+              // response  
+              if(response) {
+                if(response.data.count > 0) {
+                  setDATA(response.data.results)
+                }
+              }
+              else {
+              
+              }
+          }).catch(function (error) {
+              // 오류발생시 실행
+              alert(error)
+          }).then(function() {
+              // 항상 실행
+          });
+        })
         
       }
+    /*
+      const bookyn=()=>{
+        let bookYn_query="http://3.34.181.178/community/bookmark?mz_id=*"
+        bookYn_query=bookYn_query.replace('*',id)
 
-      
-/*
-const scrap= async ()=>{
 
-  alert("scrap 작동")
-  //alert(access)
-  const config={
-  header:{Authorization : `Bearer ${access}`,"Content-Type": "application/json"},
-  transformRequest: (data, header) => {
-    //alert(data)
-    return data;
-  },
+        AsyncStorage.getItem('access_token', (err, result) => {
+          const config = {
+            headers : {
+              Authorization : `Bearer ${result}`,
+            }
+          }
 
-  }
-  //alert(config)
-  axios.post(
-    formData,
-    config,
-    `${apiUrl}community/bookmark`,
-    
-  )
-  .then(function(response){
-    alert("post start");
-  }
-  ).catch(function (error) {
-    alert(error)}
-  )
-}
-useEffect(() => {
-  scrap();
-},[]);
-*/
-
+          axios.get(bookYn_query,config)
+          .then(function (response) {
+            
+            const valor = JSON.stringify(response.data)
+            const report=JSON.parse(valor)
+            alert(report)
+          }).catch(function (error) {
+              // 오류발생시 실행
+              alert(error)
+          }).then(function() {
+              // 항상 실행
+          });
+        })
+        
+      }
+      */
 
     
     ///////////////////////////
@@ -225,17 +218,15 @@ useEffect(() => {
       setNum(num + 1);
     }
     if (num%2===0) {
-      iconname='bookmark-outline';
-    } else {
 
+      iconname='bookmark-outline';
+
+    } else {
       iconname='bookmark';
       alert('북마크에 저장되었습니다.');    
 
   }
 
-  useEffect(() => {
-    scrap();
-  },[]);
   
 
   
@@ -311,7 +302,7 @@ return(
     'bold', color:'#595959'}}>
     MAGAZINE</Text>
   <TouchableOpacity onPress={onIncrease} >
-    <Icon name={iconname} size={25}  color='red' style={{margin:10, marginTop:30, justifyContent: "flex-end"}}/>
+    <Icon name={iconname} size={25}  color='red' style={{margin:10, marginTop:30, justifyContent: "flex-end"} } onPress={scrap()}/>
   </TouchableOpacity>
   <View style={{margin:20}}>
     <View style={styles.listItem}>
