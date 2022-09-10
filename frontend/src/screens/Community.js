@@ -79,10 +79,10 @@ const axios_magazine= async ()=>{
     setmagazine(report.results)
   })
 }
-const Item = ({uri, id,title, writer, overview, create_at}) => (
+const Item = ({ uri, id,title, writer, overview, create_at}) => (
  
     //<Image style={{width:'100%',resizeMode:'contain'}} source={{uri:img}}></Image>
-  <TouchableOpacity onPress={()=>navigation.navigate('MZ', {ID:id, Uri:uri})}>
+  <TouchableOpacity onPress={()=>navigation.navigate('MZ', {ID:id, Title:title, Uri:uri, Overview:overview, Create_at:create_at})}>
   <View style={{margin:20}}>
   <Image style={{resizeMode:'contain',height:250, margin: 15}} source={{uri}}/>
   <Text style={{color:"#595959", fontSize: 15, marginBottom:10}}>{"작가 : " + writer}</Text>

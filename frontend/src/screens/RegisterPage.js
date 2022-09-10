@@ -84,7 +84,7 @@ const RegisterPage = ({navigation}) => {
             headers: { "content-Type": "multipart/form-data" },
             transformRequest: (data, headers) => {
                 return data;
-              },
+            },
         };
         formData.append("user_id", ID);
         formData.append("password", password);

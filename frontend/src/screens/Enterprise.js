@@ -222,9 +222,20 @@ const Enterprise = ({navigation, route}) => {
       love_query=love_query.replace('^',title)
       love_query=love_query.replace('*',img)
       love_query=love_query.replace('@',love_overview)
-      
      
+<<<<<<< Updated upstream
       
+=======
+      const data = useContext(UserContext)
+      const [access,setjwt]=useState('')
+      useEffect(()=>{
+        if(data.userdata){
+          AsyncStorage.getItem('access_token', (err, result) => {
+          setjwt(result)});
+        
+        }
+      },[data.userdata]);
+>>>>>>> Stashed changes
       const apiUrl = 'http://3.34.181.178/'
       
      

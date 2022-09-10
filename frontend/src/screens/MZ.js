@@ -7,6 +7,10 @@ import { Dimensions,Linking } from 'react-native';
 import { StyleSheet, Text,View } from 'react-native';
 import { Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 import Swiper from 'react-native-swiper/src';
 import { FlatList, TouchableOpacity } from 'react-native';
@@ -63,9 +67,12 @@ item: {
 
 const MZ = ({navigation, route}) => {
 
-const name=route.params.ItemID
-const uri=route.params.Uri
-
+const id=route.params.ID //id
+const title = route.params.Title//title
+const uri=route.params.Uri //thumbnail
+const overview = route.params.Overview //overview
+const create_at = route.params.Create_at //create_at
+const typeid=route.params.Typeid
 
 const Container = styled.View`
     flex : 1;
@@ -74,51 +81,221 @@ const Container = styled.View`
 `;
 
 
-/*메거진 디테일 받아오기 */
-let all_query="http://3.34.181.178/community/mz/*"
-all_query=all_query.replace('*',name)
-
-const [mz,setmz]=useState('');
-const axios_mz= async ()=>{
+  /*메거진 디테일 받아오기 */
+  let mz_query="http://3.34.181.178/community/mz/*"
+  mz_query=mz_query.replace('*',id)
+  
+  const [mz,setmz]=useState('');
+  const axios_mz= async ()=>{
   const access = ''
   const config = {
     headers : {
       Authorization : `Bearer ${access}`,
     }
   }
-  axios.get(all_query)
+  axios.get(mz_query,config)
   .then(function (response) {
     const valor = JSON.stringify(response.data)
     const report=JSON.parse(valor)
     setmz(report)
   })
-
 }
 
-useEffect(() => {
-  axios_mz();
-},[]);
+  useEffect(() => {
+    axios_mz();
+  },[]);
 
+
+  const apiUrl = 'http://3.34.181.178/'
+
+
+  let scrap_query='http://3.34.181.178/community/bookmark/?mz_id=*&title=#&thumbnail=@&overview=^  '
+  let mz_overview =overview.substring(0,15)
+
+  scrap_query=scrap_query.replace('*',id)
+  scrap_query=scrap_query.replace('#',title)
+  scrap_query=scrap_query.replace('@',uri)
+  scrap_query=scrap_query.replace('^',mz_overview) 
+
+
+    //alert(scrap_query)
+    const data = useContext(UserContext)
+    //alert(data.userdata)
+    const [access,setjwt]=useState('')
+      
+          
+  useEffect(()=>{
+    
+    data.setUserdata(true); //로그인 여부 세팅
+    //alert(data.userdata)
+    
+    if(data.userdata){
+      //alert("userdata")
+      
+      AsyncStorage.getItem('access_token', (err, result) => {
+      //alert(result)
+      setjwt(result)}); 
+    }
+  },[]);
+
+      const scrap=()=>{
+
+        let formData = new FormData();
+        const config = {
+          headers: {Authorization : `Bearer ${access}`,
+          "Content-Type": "application/json"},
+          transformRequest: (data, headers) => {
+            return data;
+          },
+        };
+       
+        formData.append("mz_id", id);
+        formData.append("title",title);
+        formData.append("thumbnail",uri);
+        formData.append("overview",mz_overview);
+
+        const form_data = {
+          mz_id: String(id),
+          title: String(title),
+          thumbnail : String(uri),
+          overview:mz_overview
+        };
+        axios.post(
+            `${apiUrl}community/bookmark`,
+            formData,
+            config
+          )
+          .then(function(response){
+            console.log(response)
+          }
+          ).catch(function (error) {
+            console.log(error)
+            alert(error)}
+        )
+      }
+
+      
+/*
+const scrap= async ()=>{
+
+  alert("scrap 작동")
+  //alert(access)
+  const config={
+  header:{Authorization : `Bearer ${access}`,"Content-Type": "application/json"},
+  transformRequest: (data, header) => {
+    //alert(data)
+    return data;
+  },
+
+  }
+  //alert(config)
+  axios.post(
+    formData,
+    config,
+    `${apiUrl}community/bookmark`,
+    
+  )
+  .then(function(response){
+    alert("post start");
+  }
+  ).catch(function (error) {
+    alert(error)}
+  )
+}
+useEffect(() => {
+  scrap();
+},[]);
+*/
+
+
+    
+    ///////////////////////////
+    const [num, setNum] = useState(0);
+  
+    const onIncrease = () => {
+      setNum(num + 1);
+    }
+    if (num%2===0) {
+      iconname='bookmark-outline';
+    } else {
+
+      iconname='bookmark';
+      alert('북마크에 저장되었습니다.');    
+       
+  
+      useEffect(() => {
+        scrap();
+      },[]);
+            
+  }
+
+  
+
+  
+
+  
+//bookmark 작동
+/*
 const [num, setNum] = useState(0);
   
 const onIncrease = () => {
   setNum(num + 1);
 }
 
-if (num%2===0) {
+if (num%2===0) { //scrap 비활성화시
   iconname='bookmark-outline';
-} else {
+
+} else { //scrap 활성화시
   iconname='bookmark';
+
+
+  //bookmark 연동
+
+  const axios_Scrap= async ()=>{
+  const access = ''
+  const config = {
+    headers : {
+      Authorization : `Bearer ${access}`,
+    }
+  }
+  useEffect(() => {
+    axios_Scrap(); //srap 저장
+  },[]);
+
+  alert("scrap_query post axios start")
+
+  axios.post(scrap_query,config) //scrap post
+  .then(function (response) {
+    alert("scrap_query post axios start")
+    
+    if(response) {
+      if(response.data.count > 0) {
+        alert("response start")
+        alert(response.message) // message 출력
+      
+        useEffect(() => {
+          axios_Scrap(); //srap 저장
+        },[]);
+        
+      }
+    }
+    else {
+
+    }
+    }).catch(function (error) {
+        // 오류발생시 실행
+        alert(error)
+    }).then(function() {
+        // 항상 실행
+    
+  })
+  }
+
   alert('북마크에 저장되었습니다.');
 }
-
+*/
 const [line, setLine] = useState(4);
-const [isActivated, setIsActivated] = useState(false);
 
-const handleLine = () => {
-  isActivated ? setLine(4) : setLine(Number.MAX_SAFE_INTEGER);
-  setIsActivated(prev => !prev);
-}
 
 return(
   <ScrollView>
@@ -139,8 +316,8 @@ return(
     <Text style={{color:"#595959", fontSize: 15, marginBottom:10}}>{mz.overview}</Text>
     <Text style={{color:"#595959", fontSize: 15, marginBottom:50}}>{mz.content}</Text>
     <Text style={{color:"#595959", fontSize: 15, marginBottom:20}}>{"작가 : " + mz.writer}</Text>
-    
-    <Text style={{color:"#595959", fontSize: 15, marginBottom:30}}>{mz.create_at}</Text>
+      
+    <Text style={{color:"#595959", fontSize: 15, marginBottom:30}}>{create_at}</Text>
 
   </View>
   </View>
