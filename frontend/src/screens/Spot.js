@@ -10,6 +10,9 @@ import { Dimensions } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import SwiperView from 'react-native-swiper-view';
 import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 import { Linking } from 'react-native';
 import { Platform } from 'react-native'
 
@@ -128,6 +131,16 @@ const Spot = ({navigation, route}) => {
   const area=route.params.Are
   const sigun=route.params.Sig
 
+
+  const data = useContext(UserContext)
+  const [access,setjwt]=useState('')
+  useEffect(()=>{
+    if(data.userdata){
+      AsyncStorage.getItem('access_token', (err, result) => {
+      setjwt(result)});
+    }
+  },[data.userdata]);
+
   let query= "http://3.34.181.178/tourapi/spot/?contentid={}&contenttypeid=*"
   query=query.replace('{}',sid)
   query=query.replace('*',tid)
@@ -239,7 +252,7 @@ const Spot = ({navigation, route}) => {
   const sampleimg="http://tong.visitkorea.or.kr/cms/resource/13/2837213_image2_1.jpg"
   const Item = ({ title, img, typeid, contentid}) => (
       
-      <TouchableOpacity onPress={()=>navigation.navigate('Enterprise',{typeid:typeid, conid:contentid, title:title,img:img})}>
+      <TouchableOpacity onPress={()=>navigation.navigate('Enterprise',{typeid:typeid, conid:contentid, title:title,img:img,access:access})}>
       {img===""?
       <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
         <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>

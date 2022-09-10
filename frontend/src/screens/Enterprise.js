@@ -123,7 +123,7 @@ text7:{
 
 
 const Enterprise = ({navigation, route}) => {
-
+    const access_token=route.params.access
     const typeid=route.params.typeid
     const img=route.params.img
     const conid=route.params.conid
@@ -224,19 +224,14 @@ const Enterprise = ({navigation, route}) => {
       love_query=love_query.replace('@',love_overview)
       
      
-      const data = useContext(UserContext)
-      const [access,setjwt]=useState('')
-      useEffect(()=>{
-        if(data.userdata){
-          AsyncStorage.getItem('access_token', (err, result) => {
-          setjwt(result)});
-        }
-      },[data.userdata]);
+      
       const apiUrl = 'http://3.34.181.178/'
       
      
       const love_check=()=>{
         let formData = new FormData();
+        const access=access_token
+        console.log(access)
         const config = {
           headers: {Authorization : `Bearer ${access}`,
           "Content-Type": "application/json"},
@@ -251,16 +246,16 @@ const Enterprise = ({navigation, route}) => {
         formData.append("thumbnail",img);
         formData.append("overview",love_overview);
 
-        const form_data = {
-          contentid: String(conid),
+        const form_data = JSON.stringify({
+          contentid: Number(conid),
           contenttypeid: String(typeid),
           title : String(title),
           thumbnail:String(img),
           overview:love_overview
-        };
+        });
         axios.post(
             `${apiUrl}community/like`,
-            formData,
+            form_data,
             config
           )
           .then(function(response){
