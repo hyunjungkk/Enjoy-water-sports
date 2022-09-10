@@ -36,7 +36,6 @@ const Search_3 = ({route, navigation}) => {
             //Authorization : `Bearer ${access}`,
           }
         }
-        alert(state)
         axios.get(`http://3.34.181.178/tourapi/areacode/?areacode=${state}`)
             .then(function (response) {
             // response  
@@ -50,7 +49,7 @@ const Search_3 = ({route, navigation}) => {
                 Alert.alert("검색 결과가 없습니다");
             }
         }).catch(function (error) {
-            alert(error)
+            //alert(error)
             // 오류발생시 실행
         }).then(function() {
             // 항상 실행
@@ -74,7 +73,7 @@ const Search_3 = ({route, navigation}) => {
                    )}
                    
                    /> 
-                }):<Button></Button>} 
+                }):<Text>검색 결과가 없습니다.</Text>} 
         </Container>
         </TouchableWithoutFeedback>
         </KeyboardAwareScrollView>

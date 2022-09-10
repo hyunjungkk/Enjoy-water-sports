@@ -49,7 +49,7 @@ const Search_2 = ({route, navigation}) => {
             
         <TouchableWithoutFeedback>
         <Container>
-        {DATAAAA.map((data) => {
+        {DATAAAA?DATAAAA.map((data) => {
                    //return <Button key={data.code} title = {data.name} onPress={()=>navigation.navigate('Search_3', {state: {data:(data.code), les:'gg'}})} /> 
                    return <Button 
                    key={data.code} 
@@ -60,7 +60,7 @@ const Search_2 = ({route, navigation}) => {
                             leis:(sendData_les)
                         }
                    )} /> 
-                })} 
+                }):<Text>검색 결과가 없습니다.</Text>} 
 
         </Container>
         </TouchableWithoutFeedback>

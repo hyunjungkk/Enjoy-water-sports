@@ -82,7 +82,7 @@ const Location_list = ({route, navigation}) => {
       
       }
   }).catch(function (error) {
-    //Alert.alert("error");
+    Alert.alert("검색 결과가 없습니다");
       // 오류발생시 실행
   }).then(function() {
       // 항상 실행
@@ -111,7 +111,7 @@ const Location_list = ({route, navigation}) => {
                               Are:data.areacode, 
                               Sig:data.sigungucode})}
                    />
-                }):<Button></Button>} 
+                }):<Text>검색 결과가 없습니다.</Text>} 
 
             </SafeAreaView>
         </Container>
