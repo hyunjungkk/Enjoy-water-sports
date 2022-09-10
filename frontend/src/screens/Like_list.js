@@ -19,6 +19,7 @@ const Container = styled.View`
 
 
 const Like_list = ({navigation}) => {
+  const [access,setaccess]=useState('')
   const [DATA,setDATA] = useState([
     {
       "id": 2,
@@ -33,9 +34,10 @@ const Like_list = ({navigation}) => {
   ]);
 
   useEffect(()=>{
-    const access = ''
+    
 
     AsyncStorage.getItem('access_token', (err, result) => {
+      setaccess(result)
       const config = {
         headers : {
           Authorization : `Bearer ${result}`,
@@ -62,7 +64,7 @@ const Like_list = ({navigation}) => {
   },[]);
 
   const Item = ({ item }) => (
-    <TouchableOpacity onPress={()=>navigation.navigate('Enterprise',{typeid:item.contenttypeid, conid:item.contentid, title:item.title, img:item.thumbnail})}>
+    <TouchableOpacity onPress={()=>navigation.navigate('Enterprise',{typeid:item.contenttypeid, conid:item.contentid, title:item.title, img:item.thumbnail, access:access})}>
     <View style={styles.item}>
         <Image style={styles.tinyLogo}
         source={{uri:item.thumbnail}}

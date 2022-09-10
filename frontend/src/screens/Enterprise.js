@@ -14,7 +14,6 @@ import { UserContext } from '../context/UserContext';
 import axios from 'axios';
 //import MapView, {Marker} from 'react-native-maps';
 import { element } from 'prop-types';
-
 const { width } = Dimensions.get('window');
 
   
@@ -215,31 +214,53 @@ const Enterprise = ({navigation, route}) => {
           setoverview(overview)
         })
       }
-      
-      let love_overview=overview.substring(0,15)
-      let love_query='http://3.34.181.178/community/like/?contentid=!&contenttypeid=28&title=^&thumbnail=*&overview=@'
-      love_query=love_query.replace('!',conid)
-      love_query=love_query.replace('^',title)
-      love_query=love_query.replace('*',img)
-      love_query=love_query.replace('@',love_overview)
 
-      const data = useContext(UserContext)
-      const [access,setjwt]=useState('')
-      useEffect(()=>{
-        if(data.userdata){
-          AsyncStorage.getItem('access_token', (err, result) => {
-          setjwt(result)});
-        
-        }
-      },[data.userdata]);
+      let love_overview=overview.substring(0,15)
 
       const apiUrl = 'http://3.34.181.178/'
       
-     
+      const [yn,setyn]=useState()
+      const love_yn=()=>{
+        let yn_query='http://3.34.181.178/community/like?contentid=*&contenttypeid=^'
+        yn_query=yn_query.replace('*',conid)
+        yn_query=yn_query.replace('^',typeid)
+        const type_data=JSON.stringify({
+          contentid:conid,
+          contenttypeid:typeid
+        })
+        const access=access_token;
+        const config={
+          headers : {
+            Authorization : `Bearer ${access}`,
+            "Content-Type": "application/json"},
+            transformRequest: (data, headers) => {
+              return data;
+          }
+        }
+        axios.get(
+          yn_query,
+          config
+          )
+          .then(function(response){
+            const yorn=response.data.likeYn
+            setyn(yorn)
+          })
+      }
+      const [iconname,seticonname]=useState('heart-outline')
+      const [road,setroad]=useState(1)
+      const heart_check=()=>{
+        if (yn===false) {
+         seticonname('heart-outline')
+        } if(yn===true) {
+          seticonname('heart')
+        }
+      }
+      
+
       const love_check=()=>{
+        setroad(2)
         let formData = new FormData();
         const access=access_token
-        console.log(access)
         const config = {
           headers: {Authorization : `Bearer ${access}`,
           "Content-Type": "application/json"},
@@ -248,45 +269,37 @@ const Enterprise = ({navigation, route}) => {
           },
         };
        
-        formData.append("contentid", conid);
-        formData.append("contenttypeid",typeid);
-        formData.append("title",title);
-        formData.append("thumbnail",img);
-        formData.append("overview",love_overview);
-
         const form_data = JSON.stringify({
-          contentid: Number(conid),
+          contentid: conid,
           contenttypeid: String(typeid),
           title : String(title),
           thumbnail:String(img),
           overview:love_overview
         });
+
         axios.post(
             `${apiUrl}community/like`,
             form_data,
             config
           )
           .then(function(response){
-            console.log(response)
+            console.log(response.data.likeYn)
+            setyn(response.data.likeYn)
           }
           ).catch(function (error) {
             console.log(error)
             alert(error)})
-       
+
+            if (yn===false) {
+              seticonname('heart-outline')
+            } else {
+              seticonname('heart')
+            }
+            setroad(1)
       }
 
-      const [num, setNum] = useState(0);
-  
-      const onIncrease = () => {
-        setNum(num + 1);
-      }
-      
-      if (num%2===0) {
-        iconname='heart-outline';
-      } else {
-        iconname='heart';
-        alert('북마크에 저장되었습니다.');
-      }
+
+
 /* 
     let query='https://dapi.kakao.com/v2/local/search/keyword.json?query={}'
     query=query.replace('{}',title)
@@ -320,8 +333,14 @@ const Enterprise = ({navigation, route}) => {
         //callApi();
         axiostest();
         axios_spot();
-        love_check();
+        love_yn();
     },[]);
+
+    useEffect(()=>{
+      return()=>{
+        heart_check();
+      }
+    },[road])
   const [line, setLine] = useState(4);
   const [isActivated, setIsActivated] = useState(false);
 
@@ -456,8 +475,12 @@ Content.forEach(function(value,key){
             <Container>
             <View style={{width:width, flexDirection: 'row', flex:0.5, alignItems:'flex-start' , justifyContent:'space-between'}}>
                     <Text style={{fontSize:20, marginLeft:20, marginTop:30,marginRight:50, alignContent:'flex-start', justifyContent:'flex-start'}}>{title}</Text>
-                    <TouchableOpacity onPress={onIncrease} >
-                    <Icon name={iconname} size={25}  color='red' style={{ margin:10, marginTop:30, alignContent:'flex-end'}}/>
+                    <TouchableOpacity onPress={love_check} >
+                    {yn===true?
+                    <Icon name={'heart'} size={25}  color='red' style={{ margin:10, marginTop:30, alignContent:'flex-end'}}/>
+                    :
+                    <Icon name={'heart-outline'} size={25}  color='red' style={{ margin:10, marginTop:30, alignContent:'flex-end'}}/>
+                  }
                     </TouchableOpacity>
                 </View>
             <View>

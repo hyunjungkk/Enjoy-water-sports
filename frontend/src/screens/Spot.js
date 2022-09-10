@@ -275,7 +275,7 @@ const Spot = ({navigation, route}) => {
 
   const Item_32 = ({ title, img, typeid, contentid}) => (
       
-    <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_32',{typeid:typeid, conid:contentid, title:title,img:img})}>
+    <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_32',{typeid:typeid, conid:contentid, title:title,img:img,access:access})}>
     {img===""?
     <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
       <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
@@ -298,7 +298,7 @@ const renderItem_32 = ({ item }) => (
 
 const Item_39 = ({ title, img, typeid, contentid}) => (
       
-  <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_39',{typeid:typeid, conid:contentid, title:title,img:img})}>
+  <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_39',{typeid:typeid, conid:contentid, title:title,img:img,access:access})}>
   {img===""?
   <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
     <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
@@ -320,7 +320,7 @@ const renderItem_39 = ({ item }) => (
 
 const Item_15 = ({ title, img, typeid, contentid}) => (
       
-  <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_15',{typeid:typeid, conid:contentid, title:title,img:img})}>
+  <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_15',{typeid:typeid, conid:contentid, title:title,img:img,access:access})}>
   {img===""?
   <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
     <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
