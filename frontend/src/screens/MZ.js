@@ -116,8 +116,46 @@ const Container = styled.View`
   scrap_query=scrap_query.replace('@',uri)
   scrap_query=scrap_query.replace('^',mz_overview) 
 
-      const scrap=()=>{
+      const [yn, setyn]=useState();
+      let yn_query='http://3.34.181.178/community/bookmark?mz_id=*';
+      yn_query=yn_query.replace('*',id)
+      const scrap_yn=()=>{
+        setroad(1)
+        const config = {
+          headers : {
+            Authorization : `Bearer ${access}`,
+            "Content-Type": "application/json",
+          },
+          transformRequest: (data, headers) => {
+            return data;
+          },
+        }
+        axios.get(
+          yn_query,
+          config
+          )
+          .then(function(response){
+            const yorn=response.data.bookmarkYn
+            setyn(yorn)
+          })
+          setroad(2)
+      }
 
+      const [iconname,seticonname]=useState('bookmark-outline')
+      const [road,setroad]=useState(2)
+
+      const bookmark_check=()=>{
+        if (yn===false) {
+         seticonname('bookmark-outline')
+        } if(yn===true) {
+          seticonname('bookmark')
+        }
+      }
+      
+
+
+  const scrap=()=>{
+        setroad(1)
           const config = {
             headers : {
               Authorization : `Bearer ${access}`,
@@ -141,9 +179,28 @@ const Container = styled.View`
             config
           )
             .then(function (response){
-              console.log(response.data)
+            const yorn=response.data.bookmarkYn
+            setyn(yorn)
             });
+
+            if (yn===false) {
+              seticonname('bookmark-outline')
+             } if(yn===true) {
+               seticonname('bookmark')
+             }
+        setroad(2)
       }
+
+    useEffect(()=>{
+        scrap_yn();
+    },[]);
+
+    useEffect(()=>{
+      return()=>{
+        bookmark_check();
+      }
+    },[road])
+
 
 return(
   <ScrollView>
@@ -152,8 +209,12 @@ return(
   <Text style={{marginLeft:20, fontSize:12,fontWeight:
     'bold', color:'#595959'}}>
     MAGAZINE</Text>
-  <TouchableOpacity>
-    <Icon name={'bookmark'} size={25}  color='red' style={{margin:10, marginTop:30, justifyContent: "flex-end"} } onPress={scrap()}/>
+  <TouchableOpacity onPress={scrap}>
+    {yn===true?
+    <Icon name={'bookmark'} size={25}  color='red' style={{ margin:10, marginTop:30, alignContent:'flex-end'}}/>
+    :
+    <Icon name={'bookmark-outline'} size={25}  color='red' style={{ margin:10, marginTop:30, alignContent:'flex-end'}}/>
+    }
   </TouchableOpacity>
   <View style={{margin:20}}>
     <View style={styles.listItem}>

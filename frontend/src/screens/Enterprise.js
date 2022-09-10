@@ -224,10 +224,6 @@ const Enterprise = ({navigation, route}) => {
         let yn_query='http://3.34.181.178/community/like?contentid=*&contenttypeid=^'
         yn_query=yn_query.replace('*',conid)
         yn_query=yn_query.replace('^',typeid)
-        const type_data=JSON.stringify({
-          contentid:conid,
-          contenttypeid:typeid
-        })
         const access=access_token;
         const config={
           headers : {
@@ -259,7 +255,6 @@ const Enterprise = ({navigation, route}) => {
 
       const love_check=()=>{
         setroad(2)
-        let formData = new FormData();
         const access=access_token
         const config = {
           headers: {Authorization : `Bearer ${access}`,
