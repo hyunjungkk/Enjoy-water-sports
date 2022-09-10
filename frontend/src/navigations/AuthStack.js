@@ -43,8 +43,8 @@ const Magazine = () => {
 
       <Stack.Navigator screenOptions = {{cardStyle : {backgroundColor : '#ffffff'}}}>
 
-          <Stack.Screen name = "Community" component = {Community} options = {{ headerBackTitleVisible : false }} />
-          <Stack.Screen name = "MZ" component = {MZ} options = {{ headerBackTitleVisible : false }} />
+          <Stack.Screen name = "Community" component = {Community} options = {{ headerBackTitleVisible : false,headerShown : false }} />
+          <Stack.Screen name = "MZ" component = {MZ} options = {{ headerBackTitleVisible : false, headerShown : false }} />
 
           
       </Stack.Navigator>

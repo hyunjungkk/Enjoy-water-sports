@@ -6,7 +6,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Dimensions,Linking } from 'react-native';
 import { StyleSheet, Text,View } from 'react-native';
 import { Image} from 'react-native';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 import Swiper from 'react-native-swiper/src';
 import { FlatList, TouchableOpacity } from 'react-native';
 import Hr from "react-native-hr-plus";
@@ -53,6 +55,16 @@ const styles = {
 
 const Community = ({navigation}) => {
 
+  const data = useContext(UserContext)
+  const [access,setjwt]=useState('')
+  useEffect(()=>{
+    if(data.userdata){
+      AsyncStorage.getItem('access_token', (err, result) => {
+      setjwt(result)});
+    }
+  },[data.userdata]);
+
+
 const Container = styled.View`
     flex : 1;
     background-color : ${({ theme }) => theme.background};
@@ -82,7 +94,7 @@ const axios_magazine= async ()=>{
 const Item = ({ uri, id,title, writer, overview, create_at}) => (
  
     //<Image style={{width:'100%',resizeMode:'contain'}} source={{uri:img}}></Image>
-  <TouchableOpacity onPress={()=>navigation.navigate('MZ', {ID:id, Title:title, Uri:uri, Overview:overview, Create_at:create_at})}>
+  <TouchableOpacity onPress={()=>navigation.navigate('MZ', {ID:id, Title:title, Uri:uri, Overview:overview, Create_at:create_at, access:access})}>
   <View style={{margin:20}}>
   <Image style={{resizeMode:'contain',height:250, margin: 15}} source={{uri}}/>
   <Text style={{color:"#595959", fontSize: 15, marginBottom:10}}>{"작가 : " + writer}</Text>
@@ -109,7 +121,7 @@ return(
  <ScrollView>
 
   <View style = {styles.listItem}>
-  <Text style={{marginLeft:20, marginBottom:30,marginTop:20, fontSize:22,fontWeight:
+  <Text style={{marginLeft:15,marginRight:35, marginBottom:30,marginTop:40, fontSize:22,fontWeight:
     'bold', color:'#595959'}}>
     MAGAZINE</Text>
 

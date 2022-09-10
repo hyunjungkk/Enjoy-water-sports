@@ -73,7 +73,7 @@ const uri=route.params.Uri //thumbnail
 const overview = route.params.Overview //overview
 const create_at = route.params.Create_at //create_at
 const typeid=route.params.Typeid
-
+const access=route.params.access
 const Container = styled.View`
     flex : 1;
     background-color : ${({ theme }) => theme.background};
@@ -87,7 +87,6 @@ const Container = styled.View`
   
   const [mz,setmz]=useState('');
   const axios_mz= async ()=>{
-  const access = ''
   const config = {
     headers : {
       Authorization : `Bearer ${access}`,
@@ -117,182 +116,34 @@ const Container = styled.View`
   scrap_query=scrap_query.replace('@',uri)
   scrap_query=scrap_query.replace('^',mz_overview) 
 
-
-    //alert(scrap_query)
-    const data = useContext(UserContext)
-    //alert(data.userdata)
-    const [access,setjwt]=useState('')
-      
-     /*     
-  useEffect(()=>{
-    
-    data.setUserdata(true); //로그인 여부 세팅
-    //alert(data.userdata)
-    
-    if(data.userdata){
-      //alert("userdata")
-      
-      AsyncStorage.getItem('access_token', (err, result) => {
-      alert(result)
-      setjwt(result)}); 
-    }
-  },[]);
-  */
       const scrap=()=>{
 
-        AsyncStorage.getItem('access_token', (err, result) => {
           const config = {
             headers : {
-              Authorization : `Bearer ${result}`,
-            }
+              Authorization : `Bearer ${access}`,
+              "Content-Type": "application/json",
+            },
+            transformRequest: (data, headers) => {
+              return data;
+            },
           }
 
-
-        const form_data = {
+        const form_data = JSON.stringify({
           mz_id: String(id),
           title: String(title),
           thumbnail : String(uri),
           overview:mz_overview
-        };
-
+        });
           //alert(result)
           axios.post(
             `${apiUrl}community/bookmark`,
             form_data,
             config
           )
-            .then(function (response) {
-              // response  
-              if(response) {
-                if(response.data.count > 0) {
-                  setDATA(response.data.results)
-                }
-              }
-              else {
-              
-              }
-          }).catch(function (error) {
-              // 오류발생시 실행
-              alert(error)
-          }).then(function() {
-              // 항상 실행
-          });
-        })
-        
+            .then(function (response){
+              console.log(response.data)
+            });
       }
-    /*
-      const bookyn=()=>{
-        let bookYn_query="http://3.34.181.178/community/bookmark?mz_id=*"
-        bookYn_query=bookYn_query.replace('*',id)
-
-
-        AsyncStorage.getItem('access_token', (err, result) => {
-          const config = {
-            headers : {
-              Authorization : `Bearer ${result}`,
-            }
-          }
-
-          axios.get(bookYn_query,config)
-          .then(function (response) {
-            
-            const valor = JSON.stringify(response.data)
-            const report=JSON.parse(valor)
-            alert(report)
-          }).catch(function (error) {
-              // 오류발생시 실행
-              alert(error)
-          }).then(function() {
-              // 항상 실행
-          });
-        })
-        
-      }
-      */
-
-    
-    ///////////////////////////
-    const [num, setNum] = useState(0);
-  
-    const onIncrease = () => {
-      setNum(num + 1);
-    }
-    if (num%2===0) {
-
-      iconname='bookmark-outline';
-
-    } else {
-      iconname='bookmark';
-      alert('북마크에 저장되었습니다.');    
-
-  }
-
-  
-
-  
-
-  
-//bookmark 작동
-/*
-const [num, setNum] = useState(0);
-  
-const onIncrease = () => {
-  setNum(num + 1);
-}
-
-if (num%2===0) { //scrap 비활성화시
-  iconname='bookmark-outline';
-
-} else { //scrap 활성화시
-  iconname='bookmark';
-
-
-  //bookmark 연동
-
-  const axios_Scrap= async ()=>{
-  const access = ''
-  const config = {
-    headers : {
-      Authorization : `Bearer ${access}`,
-    }
-  }
-  useEffect(() => {
-    axios_Scrap(); //srap 저장
-  },[]);
-
-  alert("scrap_query post axios start")
-
-  axios.post(scrap_query,config) //scrap post
-  .then(function (response) {
-    alert("scrap_query post axios start")
-    
-    if(response) {
-      if(response.data.count > 0) {
-        alert("response start")
-        alert(response.message) // message 출력
-      
-        useEffect(() => {
-          axios_Scrap(); //srap 저장
-        },[]);
-        
-      }
-    }
-    else {
-
-    }
-    }).catch(function (error) {
-        // 오류발생시 실행
-        alert(error)
-    }).then(function() {
-        // 항상 실행
-    
-  })
-  }
-
-  alert('북마크에 저장되었습니다.');
-}
-*/
-
 
 return(
   <ScrollView>
@@ -301,8 +152,8 @@ return(
   <Text style={{marginLeft:20, fontSize:12,fontWeight:
     'bold', color:'#595959'}}>
     MAGAZINE</Text>
-  <TouchableOpacity onPress={onIncrease} >
-    <Icon name={iconname} size={25}  color='red' style={{margin:10, marginTop:30, justifyContent: "flex-end"} } onPress={scrap()}/>
+  <TouchableOpacity>
+    <Icon name={'bookmark'} size={25}  color='red' style={{margin:10, marginTop:30, justifyContent: "flex-end"} } onPress={scrap()}/>
   </TouchableOpacity>
   <View style={{margin:20}}>
     <View style={styles.listItem}>
