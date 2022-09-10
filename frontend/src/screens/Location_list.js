@@ -3,6 +3,8 @@ import { TouchableWithoutFeedback,Keyboard, SafeAreaView, View, FlatList, StyleS
 import styled from 'styled-components/native';
 import { Button } from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useState } from "react";
+import axios from 'axios'
 
 const DATA = [
     {
@@ -12,55 +14,7 @@ const DATA = [
       location: '강릉',
       content: '서핑 강습 + 바베큐 파티 + 게스트하우스',
       iU: require('../images/leisure_fishing.jpg'),
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: '함덕해수욕장',
-      category: '관광지',
-      location: '제주',
-      content: '검은모래해변, 유채꽃밭, 둘레길',
-      iU: require('../images/leisure_surfing.jpg'),
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      iU: require('../images/leisure_fishing.jpg'),
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      iU: require('../images/leisure_surfing.jpg'),
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      iU: require('../images/leisure_fishing.jpg'),
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      iU: require('../images/leisure_fishing.jpg'),
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: '방아머리해수욕장',
-      category: '관광지',
-      location: '대부도',
-      content: '해수욕장, 해변',
-      iU: require('../images/leisure_fishing.jpg'),
-    },
+    }
   ];
 
 
@@ -91,7 +45,50 @@ const Container = styled.View`
     padding : 20px;
 `;
 
-const Location_list = () => {
+const Location_list = ({route, navigation}) => {
+  
+  const data1 = route.params.data1;
+  const data2 = route.params.data2;
+  const dataleis = route.params.leis;
+
+  const [DATAAAA, setDATAAAA] = useState([
+  ]);
+
+  const access = ''
+  const config = {
+    headers : {
+    //  Authorization : `Bearer ${access}`,
+    }
+  }
+  axios.get(`http://3.34.181.178/tourapi/locationlist/`,
+          {params: 
+            {areacode: data1,
+            sigungucode: data2,
+            cat1: 'A03',
+            cat2: 'A0303',
+            cat3: dataleis,
+            pageid: '1'}
+          })
+      .then(function (response) {
+      // response  
+      
+      if(response) {
+      const valor = JSON.stringify(response.data)
+      const report = JSON.parse(valor)
+          setDATAAAA(report.response.body.items.item);
+      }
+      else {
+      Alert.alert("검색 결과가 없습니다");
+      
+      }
+  }).catch(function (error) {
+    //Alert.alert("error");
+      // 오류발생시 실행
+  }).then(function() {
+      // 항상 실행
+  });
+
+
     const renderItem = ({ item }) => (
         <Item item={item} />
       );
@@ -103,12 +100,19 @@ const Location_list = () => {
         >
         <TouchableWithoutFeedback>
         <Container>
-            <SafeAreaView style={styles.container}>
-                <FlatList
-                    data={DATA}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                />
+            <SafeAreaView style={styles.btbt}>
+                  {DATAAAA?DATAAAA.map((data) => {
+                   return <Button title = {data.title} 
+                   onPress={()=>navigation.navigate('Spot', 
+                            {ID:data.title, 
+                              SID:data.contentid, 
+                              Uri:data.firstimage,
+                              TID:data.contenttypeid, 
+                              Are:data.areacode, 
+                              Sig:data.sigungucode})}
+                   />
+                }):<Button></Button>} 
+
             </SafeAreaView>
         </Container>
         </TouchableWithoutFeedback>
@@ -141,11 +145,9 @@ const styles = StyleSheet.create({
       flex: 1,
       width: '100%',
     },
-    tinyLogo: {
-      width: 250,
-      height: 120,
+    btbt: {
+      width: 300,
       marginVertical: 3,
-      borderRadius: 2,
     },
   });
 

@@ -15,6 +15,7 @@ const Search = () => {
       <Stack.Navigator screenOptions = {{cardStyle : {backgroundColor : '#ffffff'}}}>
           <Stack.Screen name = "Search_1" component = {Search_1} options = {{ headerBackTitleVisible : false }} />
           <Stack.Screen name = "Search_2" component = {Search_2} options = {{ headerBackTitleVisible : false }} />
+          <Stack.Screen name = "Search_3" component = {Search_3} options = {{ headerBackTitleVisible : false }} />
           <Stack.Screen name = "Location_list" component = {Location_list} options = {{ headerBackTitleVisible : false }} />
           
       </Stack.Navigator>
@@ -37,7 +38,6 @@ const Main_home = () => {
       </Stack.Navigator>
   )
 }
-
 const Magazine = () => {
   return (
 
@@ -60,7 +60,7 @@ const User = () => {
           <Stack.Screen name = "Like_list" component = {Like_list} options = {{ headerBackTitleVisible : false }} />
           <Stack.Screen name = "Scrap_list" component = {Scrap_list} options = {{ headerBackTitleVisible : false }} />
           <Stack.Screen name = "Review_list" component = {Review_list} options = {{ headerBackTitleVisible : false }} />
-          
+          <Stack.Screen name = "MZ" component = {MZ} options = {{ headerBackTitleVisible : false }} />
       </Stack.Navigator>
   )
 }

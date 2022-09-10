@@ -3,6 +3,8 @@ import { TouchableWithoutFeedback,Keyboard, Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useState } from "react";
+import axios from 'axios'
 
 const Container = styled.View`
     flex : 1;
@@ -13,26 +15,53 @@ const Container = styled.View`
 `;
 
 
-const Search_2 = ({navigation}) => {
+const Search_2 = ({route, navigation}) => {
+    const sendData_les = route.params.data;
+    const [DATAAAA, setDATAAAA] = useState([
+    ]);
 
+    const access = ''
+    const config = {
+        headers : {
+      //  Authorization : `Bearer ${access}`,
+        }
+    }
+        axios.get(`http://3.34.181.178/tourapi/areacode/?areacode=`)
+            .then(function (response) {
+            // response  
+            if(response) {
+            const valor = JSON.stringify(response.data)
+            const report = JSON.parse(valor)
+            //Alert.alert(report.response.body.items.item[0].name)
+            setDATAAAA(report.response.body.items.item);
+            }
+            else {
+            Alert.alert("검색 결과가 없습니다");
+            }
+        }).catch(function (error) {
+            // 오류발생시 실행
+        }).then(function() {
+            // 항상 실행
+        });
+    
     return (
-        <KeyboardAwareScrollView 
-           // contentContainerStyle = {{flex : 1}}
-           // extraScrollHeight = {20}
-        >
+        <KeyboardAwareScrollView>
             
         <TouchableWithoutFeedback>
         <Container>
-            <Button title = "서울" onPress={()=>navigation.navigate('Search_3', {data:"1"})}/> 
-            <Button title = "인천" onPress={()=>navigation.navigate('Search_3', {data:"2"})}/>  
-            <Button title = "대전" onPress={()=>navigation.navigate('Search_3', {data:"3"})}/>  
-            <Button title = "대구" onPress={()=>navigation.navigate('Search_3', {data:"4"})}/>  
-            <Button title = "광주" onPress={()=>navigation.navigate('Search_3', {data:"5"})}/>  
-            <Button title = "부산" onPress={()=>navigation.navigate('Search_3', {data:"6"})}/>  
-            <Button title = "울산" onPress={()=>navigation.navigate('Search_3', {data:"7"})}/> 
-            <Button title = "세종특별자치시" onPress={()=>navigation.navigate('Search_3', {data:"8"})}/> 
-            <Button title = "경기도" onPress={()=>navigation.navigate('Search_3', {data:"9"})}/> 
-            <Button title = "강원도" onPress={()=>navigation.navigate('Search_3', {data:"10"})}/> 
+        {DATAAAA.map((data) => {
+                   //return <Button key={data.code} title = {data.name} onPress={()=>navigation.navigate('Search_3', {state: {data:(data.code), les:'gg'}})} /> 
+                   return <Button 
+                   key={data.code} 
+                   title = {data.name} 
+                   onPress={()=>navigation.navigate('Search_3', 
+                        {
+                            data:(data.code),
+                            leis:(sendData_les)
+                        }
+                   )} /> 
+                })} 
+
         </Container>
         </TouchableWithoutFeedback>
         </KeyboardAwareScrollView>

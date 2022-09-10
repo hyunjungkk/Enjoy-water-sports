@@ -5,6 +5,7 @@ import Search_1 from './Search_1';
 import Spot from './Spot';
 import Enterprise from './Enterprise';
 import Search_2 from './Search_2';
+import Search_3 from './Search_3';
 import Location_list from './Location_list';
 import Ranking from './Ranking';
 import Login from './Login';
@@ -20,5 +21,5 @@ import Enterprise_15 from './Enterprise_15';
 
 
 export {Community, Home, Mypage, Search_1, Spot, Enterprise,
-    Search_2, Location_list, Ranking, Login, EditProfile, Like_list,
+    Search_2, Search_3, Location_list, Ranking, Login, EditProfile, Like_list,
     Scrap_list, Review_list, kakaoLogin, MZ,Enterprise_32,Enterprise_39,Enterprise_15};

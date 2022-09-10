@@ -7,17 +7,12 @@ import { useState } from "react";
 
 import axios from 'axios'
 
-
-const Item = ({ name }) => (
-    <View >
-      <Text>{name}</Text>
-    </View>
-  );
-
 const Container = styled.View`
     flex : 1;
     background-color : ${({ theme }) => theme.background};
     padding : 20px;
+    justify-content : center;
+    align-items : center;
 `;
 const styles = StyleSheet.create({
     fixToText: {
@@ -27,51 +22,40 @@ const styles = StyleSheet.create({
 });
 
 
-const Search_3 = ({route}) => {
+const Search_3 = ({route, navigation}) => {
 
     const [DATAAAA, setDATAAAA] = useState([
-        {
-            "rnum": 1,
-            "code": "1",
-            "name": "강남구"
-        },
-        {
-            "rnum": 2,
-            "code": "2",
-            "name": "강동구"
-        }
     ]);
 
     const sendData = route.params.data;
+    const sendleis = route.params.leis;
     const state = sendData;
-        const access = ''
+       const access = ''
         const config = {
           headers : {
-            Authorization : `Bearer ${access}`,
+            //Authorization : `Bearer ${access}`,
           }
         }
-        axios.get(`http://3.34.181.178/tourapi/areacode/`,
-                {params: {areacode: state}})
+        alert(state)
+        axios.get(`http://3.34.181.178/tourapi/areacode/?areacode=${state}`)
             .then(function (response) {
             // response  
             if(response) {
-            const valor = JSON.stringify(response.data)
-            const report = JSON.parse(valor)
-            //Alert.alert(report.response.body.items.item[0].name)
+                const valor = JSON.stringify(response.data)
+                const report = JSON.parse(valor)
+                //Alert.alert(report.response.body.items.item[0].name)
                 setDATAAAA(report.response.body.items.item);
             }
             else {
-            Alert.alert("검색 결과가 없습니다");
+                Alert.alert("검색 결과가 없습니다");
             }
         }).catch(function (error) {
+            alert(error)
             // 오류발생시 실행
         }).then(function() {
             // 항상 실행
         });
     
-    const renderItem = ({ item }) => (
-        <Item name={item.name} />
-    );
 
     return (
         <KeyboardAwareScrollView>
@@ -79,9 +63,18 @@ const Search_3 = ({route}) => {
         <Container>
             <View style={styles.fixToText}>
             </View>
-            {DATAAAA.map((data) => {
-                   return <Button key={data.code} title = {data.name} /> 
-                })} 
+            {DATAAAA?DATAAAA.map((data) => {
+                   return <Button key={data.code} title = {data.name} 
+                   onPress={()=>navigation.navigate('Location_list', 
+                        {
+                            data1:(sendData),
+                            data2:(data.code),
+                            leis:(sendleis)
+                        }
+                   )}
+                   
+                   /> 
+                }):<Button></Button>} 
         </Container>
         </TouchableWithoutFeedback>
         </KeyboardAwareScrollView>
