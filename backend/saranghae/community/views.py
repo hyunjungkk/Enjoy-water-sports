@@ -87,11 +87,11 @@ class heart_yn(APIView):
     Push or cancel the like button
     """
     def post(self, request):
-        content_id = request.GET["contentid"]
-        content_type_id = request.GET["contenttypeid"]
-        title = request.GET["title"]
-        thumbnail = request.GET["thumbnail"]
-        overview = request.GET["overview"]
+        content_id = request.data.get("contentid")
+        content_type_id = request.data.get("contenttypeid")
+        title = request.data.get("title")
+        thumbnail = request.data.get("thumbnail")
+        overview = request.data.get("overview")
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         payload = jwt.decode(token, my_settings.SIGNING_KEY, my_settings.ALGORITHM)
         user_id = payload['user_id']
@@ -184,14 +184,13 @@ class bookmark_yn(APIView):
 
 
     def post(self, request):
-        mz_id = request.GET["mz_id"]
-        title = request.GET["title"]
-        thumbnail = request.GET["thumbnail"]
-        overview = request.GET["overview"]
+        mz_id = request.data.get("mz_id")
+        title = request.data.get("title")
+        thumbnail = request.data.get("thumbnail")
+        overview = request.data.get("overview")
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         payload = jwt.decode(token, my_settings.SIGNING_KEY, my_settings.ALGORITHM)
         user_id = payload['user_id']
-
 
         try:
         # cancel
