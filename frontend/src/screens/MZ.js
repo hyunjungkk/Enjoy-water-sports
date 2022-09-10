@@ -133,22 +133,42 @@ const Container = styled.View`
       //alert("userdata")
       
       AsyncStorage.getItem('access_token', (err, result) => {
-      //alert(result)
+      alert(result)
       setjwt(result)}); 
     }
   },[]);
-
       const scrap=()=>{
 
-        let formData = new FormData();
+        AsyncStorage.getItem('access_token', (err, result) => {
+          //alert(result)
+          setjwt(result)}); 
+
         const config = {
           headers: {Authorization : `Bearer ${access}`,
           "Content-Type": "application/json"},
           transformRequest: (data, headers) => {
             return data;
           },
+
+          
         };
-       
+        
+
+
+        axios.post(
+          `${apiUrl}community/bookmark`,
+          formData,
+          config
+        )
+        .then(function(response){
+          alert(response.bookmarkYn)
+        }
+        ).catch(function (error) {
+          console.log(error)
+          alert(error)}
+      )
+      
+        let formData = new FormData();
         formData.append("mz_id", id);
         formData.append("title",title);
         formData.append("thumbnail",uri);
@@ -160,18 +180,7 @@ const Container = styled.View`
           thumbnail : String(uri),
           overview:mz_overview
         };
-        axios.post(
-            `${apiUrl}community/bookmark`,
-            formData,
-            config
-          )
-          .then(function(response){
-            console.log(response)
-          }
-          ).catch(function (error) {
-            console.log(error)
-            alert(error)}
-        )
+        
       }
 
       
@@ -221,14 +230,12 @@ useEffect(() => {
 
       iconname='bookmark';
       alert('북마크에 저장되었습니다.');    
-       
-  
-      useEffect(() => {
-        scrap();
-      },[]);
-            
+
   }
 
+  useEffect(() => {
+    scrap();
+  },[]);
   
 
   
@@ -294,7 +301,6 @@ if (num%2===0) { //scrap 비활성화시
   alert('북마크에 저장되었습니다.');
 }
 */
-const [line, setLine] = useState(4);
 
 
 return(

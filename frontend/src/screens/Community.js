@@ -106,8 +106,8 @@ useEffect(() => {
 
 
 return(
- 
-  <View style = {styles.container}>
+ <ScrollView>
+
   <View style = {styles.listItem}>
   <Text style={{marginLeft:20, marginBottom:30,marginTop:20, fontSize:22,fontWeight:
     'bold', color:'#595959'}}>
@@ -121,7 +121,7 @@ return(
       keyExtractor = {results => results.id}
       loop={true}
     />
-  </View>
+  </ScrollView>
   );
 };
 
