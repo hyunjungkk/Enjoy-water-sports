@@ -74,6 +74,7 @@ const overview = route.params.Overview //overview
 const create_at = route.params.Create_at //create_at
 const typeid=route.params.Typeid
 const access=route.params.access
+const Yn = route.params.yn
 const Container = styled.View`
     flex : 1;
     background-color : ${({ theme }) => theme.background};
@@ -141,6 +142,7 @@ const Container = styled.View`
           setroad(2)
       }
 
+      
       const [iconname,seticonname]=useState('bookmark-outline')
       const [road,setroad]=useState(2)
 
@@ -185,6 +187,8 @@ const Container = styled.View`
 
             if (yn===false) {
               seticonname('bookmark-outline')
+              alert("스크랩에 저장되었습니다")
+
              } if(yn===true) {
                seticonname('bookmark')
              }
@@ -214,6 +218,7 @@ return(
     <Icon name={'bookmark'} size={25}  color='red' style={{ margin:10, marginTop:30, alignContent:'flex-end'}}/>
     :
     <Icon name={'bookmark-outline'} size={25}  color='red' style={{ margin:10, marginTop:30, alignContent:'flex-end'}}/>
+    
     }
   </TouchableOpacity>
   <View style={{margin:20}}>

@@ -19,15 +19,7 @@ const Container = styled.View`
   
 
 const Scrap_list = ({navigation}) => {
-
-  const data = useContext(UserContext)
-  const [access,setjwt]=useState('')
-  useEffect(()=>{
-    if(data.userdata){
-      AsyncStorage.getItem('access_token', (err, result) => {
-      setjwt(result)});
-    }
-  },[data.userdata]);
+  const [access,setaccess]=useState('')
   const [DATA,setDATA] = useState([
     {
       "id":1,
@@ -41,9 +33,10 @@ const Scrap_list = ({navigation}) => {
   ]);
 
   useEffect(()=>{
-    const access = ''
+    
 
     AsyncStorage.getItem('access_token', (err, result) => {
+      setaccess(result)
       const config = {
         headers : {
           Authorization : `Bearer ${result}`,
@@ -70,7 +63,7 @@ const Scrap_list = ({navigation}) => {
   },[]);
 
   const Item = ({ item }) => (
-    <TouchableOpacity onPress={()=>navigation.navigate('MZ', {ItemID:item.mz_id, Uri:item.thumbnail, Overview:item.overview, access:access})}>
+    <TouchableOpacity onPress={()=>navigation.navigate('MZ', {ID:item.mz_id, Title:item.title,Uri:item.thumbnail, Overview:item.overview, access:access})}>
     <View style={styles.item}>
         <Image style={styles.tinyLogo}
         source={{uri:item.thumbnail}}
@@ -98,6 +91,7 @@ const Scrap_list = ({navigation}) => {
     </SafeAreaView>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {
