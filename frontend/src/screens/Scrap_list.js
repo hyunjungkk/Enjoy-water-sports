@@ -7,6 +7,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 const Container = styled.View`
     flex : 1;
     justify-content : center;
