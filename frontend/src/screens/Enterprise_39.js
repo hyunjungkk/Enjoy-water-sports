@@ -404,7 +404,7 @@ Content.forEach(function(value,key){
                       <Text style={styles.text2} numberOfLines={line} ellipsizeMode="tail" onPress={()=>handleLine()}>{re_re_over}</Text>
                     </View>
                 </View>
-                <View View style={{width:width, marginLeft:50, justifyContent:'flex-start'}}>
+                <View View style={{width:width, marginLeft:45,marginRight:20,justifyContent:'flex-start'}}>
                 <Text style={styles.text}>이용 안내</Text>
                 <View style={{marginLeft:20}}>
                 {Content.get('문의 및 안내')===''?

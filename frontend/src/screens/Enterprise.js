@@ -215,7 +215,7 @@ const Enterprise = ({navigation, route}) => {
           setoverview(overview)
         })
       }
-      const apiUrl = 'http://3.34.181.178/'
+      
       let love_overview=overview.substring(0,15)
       let love_query='http://3.34.181.178/community/like/?contentid=!&contenttypeid=28&title=^&thumbnail=*&overview=@'
       love_query=love_query.replace('!',conid)
@@ -232,30 +232,44 @@ const Enterprise = ({navigation, route}) => {
           setjwt(result)});
         }
       },[data.userdata]);
+      const apiUrl = 'http://3.34.181.178/'
+      
+     
+      const love_check=()=>{
+        let formData = new FormData();
+        const config = {
+          headers: {Authorization : `Bearer ${access}`,
+          "Content-Type": "application/json"},
+          transformRequest: (data, headers) => {
+            return data;
+          },
+        };
+       
+        formData.append("contentid", conid);
+        formData.append("contenttypeid",typeid);
+        formData.append("title",title);
+        formData.append("thumbnail",img);
+        formData.append("overview",love_overview);
 
-      let formData = new FormData();
-      formData.append("contentid", conid);
-      formData.append("contenttypeid",typeid);
-      formData.append("title",title);
-      formData.append("thumbnail",img);
-      formData.append("overview",love_overview);
-      const love= async ()=>{
-        const config={
-        header:{Authorization : `Bearer ${access}`,"Content-Type": "application/json"},
-        transformRequest: (data, header) => {
-          return data;
-        },
-      }
+        const form_data = {
+          contentid: String(conid),
+          contenttypeid: String(typeid),
+          title : String(title),
+          thumbnail:String(img),
+          overview:love_overview
+        };
         axios.post(
-          `${apiUrl}community/like/`,
-          formData,
-          config
-        )
-        .then(function(response){
-          console.log(response)
-        }
-        ).catch(function (error) {
-          alert(error)})
+            `${apiUrl}community/like`,
+            formData,
+            config
+          )
+          .then(function(response){
+            console.log(response)
+          }
+          ).catch(function (error) {
+            console.log(error)
+            alert(error)})
+       
       }
 
       const [num, setNum] = useState(0);
@@ -303,7 +317,7 @@ const Enterprise = ({navigation, route}) => {
         //callApi();
         axiostest();
         axios_spot();
-        love();
+        love_check();
     },[]);
   const [line, setLine] = useState(4);
   const [isActivated, setIsActivated] = useState(false);

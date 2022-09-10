@@ -422,7 +422,7 @@ Content.forEach(function(value,key){
                       <Text style={styles.text2} numberOfLines={line} ellipsizeMode="tail" onPress={()=>handleLine()}>{re_re_over}</Text>
                     </View>
                 </View>
-                <View View style={{width:width, marginLeft:50, justifyContent:'flex-start'}}>
+                <View View style={{marginRight:35, justifyContent:'flex-start'}}>
                 <Text style={styles.text}>이용 안내</Text>
                 <View style={{marginLeft:20}}>
 
@@ -570,7 +570,7 @@ Content.forEach(function(value,key){
               :
               <Text style={styles.text7}>
               <Text>이용요금 : </Text>  
-              <Text>{Content.get('이용요금')}</Text>
+              <Text styles={{width:width-10 ,marginLeft:10}}>{Content.get('이용요금')}</Text>
               </Text>
             }
                 </View>
