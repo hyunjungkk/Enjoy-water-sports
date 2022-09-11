@@ -11,6 +11,7 @@ import { Linking } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 //import MapView, {Marker} from 'react-native-maps';
 import { element } from 'prop-types';
 
@@ -122,7 +123,7 @@ text7:{
 
 
 const Enterprise_39 = ({navigation, route}) => {
-
+    const access_token=route.params.access
     const typeid=route.params.typeid
     const img=route.params.img
     const conid=route.params.conid
@@ -204,7 +205,90 @@ const Enterprise_39 = ({navigation, route}) => {
         })
       }
 
-/* 
+      let love_overview=overview.substring(0,15)
+
+      const apiUrl = 'http://3.34.181.178/'
+      
+      const [yn,setyn]=useState()
+      const love_yn=()=>{
+        let yn_query='http://3.34.181.178/community/like?contentid=*&contenttypeid=^'
+        yn_query=yn_query.replace('*',conid)
+        yn_query=yn_query.replace('^',typeid)
+        const type_data=JSON.stringify({
+          contentid:conid,
+          contenttypeid:typeid
+        })
+        const access=access_token;
+        const config={
+          headers : {
+            Authorization : `Bearer ${access}`,
+            "Content-Type": "application/json"},
+            transformRequest: (data, headers) => {
+              return data;
+          }
+        }
+        axios.get(
+          yn_query,
+          config
+          )
+          .then(function(response){
+            const yorn=response.data.likeYn
+            setyn(yorn)
+          })
+      }
+      const [iconname,seticonname]=useState('heart-outline')
+      const [road,setroad]=useState(1)
+      const heart_check=()=>{
+        if (yn===false) {
+         seticonname('heart-outline')
+        } if(yn===true) {
+          seticonname('heart')
+        }
+      }
+      
+
+      const love_check=()=>{
+        setroad(2)
+        let formData = new FormData();
+        const access=access_token
+        const config = {
+          headers: {Authorization : `Bearer ${access}`,
+          "Content-Type": "application/json"},
+          transformRequest: (data, headers) => {
+            return data;
+          },
+        };
+       
+        const form_data = JSON.stringify({
+          contentid: conid,
+          contenttypeid: String(typeid),
+          title : String(title),
+          thumbnail:String(img),
+          overview:love_overview
+        });
+
+        axios.post(
+            `${apiUrl}community/like`,
+            form_data,
+            config
+          )
+          .then(function(response){
+            console.log(response.data.likeYn)
+            setyn(response.data.likeYn)
+          }
+          ).catch(function (error) {
+            console.log(error)
+            alert(error)})
+
+            if (yn===false) {
+              seticonname('heart-outline')
+            } else {
+              seticonname('heart')
+            }
+            setroad(1)
+      }
+
+
     let query='https://dapi.kakao.com/v2/local/search/keyword.json?query={}'
     query=query.replace('{}',title)
     const [pid, setPid] = useState('');
@@ -232,12 +316,18 @@ const Enterprise_39 = ({navigation, route}) => {
             console.log(error.message);
         }
     };
-*/
     useEffect(()=>{
-        //callApi();
+        callApi();
         axiostest();
         axios_spot();
+        love_yn();
     },[]);
+
+    useEffect(()=>{
+      return()=>{
+        heart_check();
+      }
+    },[road])
   const [line, setLine] = useState(4);
   const [isActivated, setIsActivated] = useState(false);
 
@@ -342,7 +432,7 @@ Content.forEach(function(value,key){
       i++;
     }
 
-/*
+
     let p_id=String(pid)
     let Kakao_map='kakaomap://place?id={}'
     Kakao_map=Kakao_map.replace('{}',p_id)
@@ -350,19 +440,8 @@ Content.forEach(function(value,key){
     let p_y=Number(py)
     let x=Number(p_x.toFixed(4))
     let y=Number(p_y.toFixed(4))
-  */
-    const [num, setNum] = useState(0);
   
-    const onIncrease = () => {
-      setNum(num + 1);
-    }
-    
-    if (num%2===0) {
-      iconname='bookmark-outline';
-    } else {
-      iconname='bookmark';
-      alert('북마크에 저장되었습니다.');
-    }
+
     const sampleimg="http://tong.visitkorea.or.kr/cms/resource/13/2837213_image2_1.jpg"
 
     return (
@@ -370,8 +449,12 @@ Content.forEach(function(value,key){
             <Container>
             <View style={{width:width, flexDirection: 'row', flex:0.5, alignItems:'flex-start' , justifyContent:'space-between'}}>
                     <Text style={{fontSize:20, marginLeft:20, marginTop:30,marginRight:50, alignContent:'flex-start', justifyContent:'flex-start'}}>{title}</Text>
-                    <TouchableOpacity onPress={onIncrease} >
-                    <Icon name={iconname} size={25}  color='red' style={{ margin:10, marginTop:30, alignContent:'flex-end'}}/>
+                    <TouchableOpacity onPress={love_check} >
+                    {yn===true?
+                    <Icon name={'heart'} size={25}  color='red' style={{ margin:10, marginTop:30, alignContent:'flex-end'}}/>
+                    :
+                    <Icon name={'heart-outline'} size={25}  color='red' style={{ margin:10, marginTop:30, alignContent:'flex-end'}}/>
+                  }
                     </TouchableOpacity>
                 </View>
             <View>
@@ -384,6 +467,9 @@ Content.forEach(function(value,key){
             <View style={{flex:1, marginBottom:20}}>
                     <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
                     <Text style={styles.text}>이용 정보</Text>
+                    <TouchableOpacity onPress={()=>Linking.openURL(Kakao_map)}>
+                    <Text style={{marginLeft:width-250, marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
+                </TouchableOpacity>
                     </View>
                     <Text style={styles.text4}>
                     <Text style={styles.text4}> 주소 : </Text>
@@ -404,7 +490,7 @@ Content.forEach(function(value,key){
                       <Text style={styles.text2} numberOfLines={line} ellipsizeMode="tail" onPress={()=>handleLine()}>{re_re_over}</Text>
                     </View>
                 </View>
-                <View View style={{width:width, marginLeft:45,marginRight:20,justifyContent:'flex-start'}}>
+                <View View style={{width:width, marginLeft:35,marginRight:20,justifyContent:'flex-start'}}>
                 <Text style={styles.text}>이용 안내</Text>
                 <View style={{marginLeft:20}}>
                 {Content.get('문의 및 안내')===''?

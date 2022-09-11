@@ -347,7 +347,7 @@ const renderItem_15= ({ item }) => (
   ];
 
 
-/* 
+
   const n_id=String(name)
   let kakao_query='https://dapi.kakao.com/v2/local/search/keyword.json?query={}'
   kakao_query=kakao_query.replace('{}',n_id)
@@ -376,9 +376,9 @@ const renderItem_15= ({ item }) => (
           console.log(error.message);
       }
   };
-*/
+
   useEffect(()=>{
-      //callApi();
+      callApi();
       axiostest();
       axios_all();
       axios_sleep();
@@ -387,7 +387,7 @@ const renderItem_15= ({ item }) => (
   },[]);
 
 
-/* 
+
   let p_id=String(pid)
   let Kakao_map='kakaomap://place?id={}'
   Kakao_map=Kakao_map.replace('{}',p_id)
@@ -396,7 +396,7 @@ const renderItem_15= ({ item }) => (
   let x=Number(p_x.toFixed(4))
   let y=Number(p_y.toFixed(4))
 
-  */
+  
   
   const [num, setNum] = useState(0);
   
@@ -437,6 +437,9 @@ const renderItem_15= ({ item }) => (
                     <Image style={{width:width-30, height:250, margin:5}} imageStyle={styles.listImage} source={{uri}}/>
                     <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
                     <Text style={styles.text}>이용 정보</Text>
+                    <TouchableOpacity onPress={()=>Linking.openURL(Kakao_map)}>
+                    <Text style={{marginLeft:width-250, marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
+                    </TouchableOpacity>
                     </View>
                     <Text style={styles.text4}>
                     <Text style={styles.text4}> 주소 : </Text>

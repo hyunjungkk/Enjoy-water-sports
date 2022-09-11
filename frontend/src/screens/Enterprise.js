@@ -12,7 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext';
 import axios from 'axios';
-//import MapView, {Marker} from 'react-native-maps';
+
 import { element } from 'prop-types';
 const { width } = Dimensions.get('window');
 
@@ -295,7 +295,7 @@ const Enterprise = ({navigation, route}) => {
 
 
 
-/* 
+
     let query='https://dapi.kakao.com/v2/local/search/keyword.json?query={}'
     query=query.replace('{}',title)
     const [pid, setPid] = useState('');
@@ -323,9 +323,9 @@ const Enterprise = ({navigation, route}) => {
             console.log(error.message);
         }
     };
-*/
+
     useEffect(()=>{
-        //callApi();
+        callApi();
         axiostest();
         axios_spot();
         love_yn();
@@ -453,7 +453,7 @@ Content.forEach(function(value,key){
       i++;
     }
 
-/*
+
     let p_id=String(pid)
     let Kakao_map='kakaomap://place?id={}'
     Kakao_map=Kakao_map.replace('{}',p_id)
@@ -461,7 +461,7 @@ Content.forEach(function(value,key){
     let p_y=Number(py)
     let x=Number(p_x.toFixed(4))
     let y=Number(p_y.toFixed(4))
-  */
+  
 
     const sampleimg="http://tong.visitkorea.or.kr/cms/resource/13/2837213_image2_1.jpg"
 
@@ -484,10 +484,14 @@ Content.forEach(function(value,key){
            </Image>
         :<Image style={{width:width-20,height:250, margin:10}} source={{uri:img}}>
           </Image>}
+          
             </View>
             <View style={{flex:1, marginBottom:20}}>
                     <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
                     <Text style={styles.text}>이용 정보</Text>
+                    <TouchableOpacity onPress={()=>Linking.openURL(Kakao_map)}>
+                    <Text style={{marginLeft:width-250, marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
+                </TouchableOpacity>
                     </View>
                     <Text style={styles.text4}>
                     <Text style={styles.text4}> 주소 : </Text>
@@ -508,7 +512,7 @@ Content.forEach(function(value,key){
                       <Text style={styles.text2} numberOfLines={line} ellipsizeMode="tail" onPress={()=>handleLine()}>{re_re_over}</Text>
                     </View>
                 </View>
-                <View View style={{width:width, marginLeft:55,marginRight:20, justifyContent:'flex-start'}}>
+                <View View style={{width:width, marginLeft:35,marginRight:20, justifyContent:'flex-start'}}>
                 <Text style={styles.text}>이용 안내</Text>
                 <View style={{marginLeft:20}}>
                 {Content.get('예약안내')===''?
