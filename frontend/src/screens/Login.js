@@ -5,8 +5,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Dimensions } from 'react-native';
 import { StyleSheet, Text,View, Button } from 'react-native';
 import { Image,TextInput } from 'react-native';
-import Home from './Home';
-import kakaoLogin from './kakaoLogin';
 import RegisterPage from './RegisterPage';
 import { useState } from 'react';
 import axios from 'axios';
@@ -72,7 +70,7 @@ const Login = ({navigation}) => {
     const [password, setPassword] = useState('')
 
     const goResgister = () => {
-        navigation.navigate(RegisterPage)
+        navigation.navigate('RegisterPage')
     }
 
     const startLogin = () => {
@@ -110,7 +108,7 @@ const Login = ({navigation}) => {
                 AsyncStorage.setItem("email",response.data.user.email)
                 AsyncStorage.setItem("nickname",response.data.user.nickname)
 
-                navigation.navigate(Home)
+                navigation.navigate('Home')
             })
             .catch(function (error) {
                 alert("ID 또는 비밀번호를 다시 한 번 확인해주세요!")
