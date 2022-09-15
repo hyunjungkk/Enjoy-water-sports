@@ -246,6 +246,7 @@ const Enterprise_39 = ({navigation, route}) => {
         }
       }
       
+      
 
       const love_check=()=>{
         setroad(2)
@@ -464,11 +465,11 @@ Content.forEach(function(value,key){
         :<Image style={{width:width-20,height:250, margin:10}} source={{uri:img}}>
           </Image>}
             </View>
-            <View style={{flex:1, marginBottom:20}}>
-                    <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
+            <View style={{flex:1, marginBottom:20, width:width-30}}>
+                    <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start',justifyContent:'space-between'}}>
                     <Text style={styles.text}>이용 정보</Text>
                     <TouchableOpacity onPress={()=>Linking.openURL(Kakao_map)}>
-                    <Text style={{marginLeft:width-250, marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
+                    <Text style={{marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
                 </TouchableOpacity>
                     </View>
                     <Text style={styles.text4}>

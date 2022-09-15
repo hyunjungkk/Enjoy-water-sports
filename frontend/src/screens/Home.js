@@ -185,7 +185,7 @@ const Home = ({navigation}) => {
                 </View>
               </Swiper>
             </View>
-            <View style={{ flex: 3.5 }}>
+            <View style={{ flex: 3.5 , width:width-40}}>
             <Text style={{fontSize:20, marginTop:30, marginBottom:10}}>
                 <Text># 지금 가장</Text>
                 <Text style={{color:'#ff0000'}}> HOT </Text>

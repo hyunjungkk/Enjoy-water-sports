@@ -479,7 +479,7 @@ Content.forEach(function(value,key){
         :<Image style={{width:width-20,height:250, margin:10}} source={{uri:img}}>
           </Image>}
             </View>
-            <View style={{flex:1, marginBottom:20}}>
+            <View style={{width:width-40,flex:1, marginBottom:20}}>
                     <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
                     <Text style={styles.text}>이용 정보</Text>
                     </View>
@@ -502,9 +502,9 @@ Content.forEach(function(value,key){
                       <Text style={styles.text2} numberOfLines={line} ellipsizeMode="tail" onPress={()=>handleLine()}>{re_re_over}</Text>
                     </View>
                 </View>
-                <View View style={{ marginRight:20, justifyContent:'flex-start'}}>
+                <View style={{width:width-30, justifyContent:'flex-start'}}>
                 <Text style={styles.text}>이용 안내</Text>
-                <View style={{marginLeft:20}}>
+                <View style={{marginLeft:10}}>
 
                 {Content.get('행사 홈페이지')===''?
               <Text style={{fontSize:0.1}}> </Text>

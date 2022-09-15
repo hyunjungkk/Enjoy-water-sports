@@ -254,12 +254,12 @@ const Spot = ({navigation, route}) => {
       
       <TouchableOpacity onPress={()=>navigation.navigate('Enterprise',{typeid:typeid, conid:contentid, title:title,img:img,access:access})}>
       {img===""?
-      <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
+      <ImageBackground style={{width:width-40,height:150, margin:10}} source={{uri:sampleimg}}>
         <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
         <Text style={style.shadow}>{title}</Text>
         </View>
       </ImageBackground>
-      :<ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:img}}>
+      :<ImageBackground style={{width:width-40,height:150, margin:10}} source={{uri:img}}>
         <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
         <Text style={style.shadow}>{title}</Text>
         </View>
@@ -277,12 +277,12 @@ const Spot = ({navigation, route}) => {
       
     <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_32',{typeid:typeid, conid:contentid, title:title,img:img,access:access})}>
     {img===""?
-    <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
+    <ImageBackground style={{width:width-40,height:150, margin:10}} source={{uri:sampleimg}}>
       <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
       <Text style={style.shadow}>{title}</Text>
       </View>
     </ImageBackground>
-    :<ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:img}}>
+    :<ImageBackground style={{width:width-40,height:150, margin:10}} source={{uri:img}}>
       <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
       <Text style={style.shadow}>{title}</Text>
       </View>
@@ -300,12 +300,12 @@ const Item_39 = ({ title, img, typeid, contentid}) => (
       
   <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_39',{typeid:typeid, conid:contentid, title:title,img:img,access:access})}>
   {img===""?
-  <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
+  <ImageBackground style={{width:width-40,height:150, margin:10}} source={{uri:sampleimg}}>
     <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
     <Text style={style.shadow}>{title}</Text>
     </View>
   </ImageBackground>
-  :<ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:img}}>
+  :<ImageBackground style={{width:width-40,height:150, margin:10}} source={{uri:img}}>
     <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
     <Text style={style.shadow}>{title}</Text>
     </View>
@@ -322,12 +322,12 @@ const Item_15 = ({ title, img, typeid, contentid}) => (
       
   <TouchableOpacity onPress={()=>navigation.navigate('Enterprise_15',{typeid:typeid, conid:contentid, title:title,img:img,access:access})}>
   {img===""?
-  <ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:sampleimg}}>
+  <ImageBackground style={{width:width-40,height:150, margin:10}} source={{uri:sampleimg}}>
     <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
     <Text style={style.shadow}>{title}</Text>
     </View>
   </ImageBackground>
-  :<ImageBackground style={{width:width-20,height:150, margin:10}} source={{uri:img}}>
+  :<ImageBackground style={{width:width-40,height:150, margin:10}} source={{uri:img}}>
     <View style={{flexDirection: 'column', flex:1, justifyContent:'flex-end', paddingTop:15}}>
     <Text style={style.shadow}>{title}</Text>
     </View>
@@ -430,15 +430,15 @@ const renderItem_15= ({ item }) => (
     return (
         <ScrollView showsVerticalScrollIndicator ={false}>
             <Container>
-                <View style={{ flex:0.5}}>
-                    <Text style={{fontSize:20, margin:10, marginTop:30, marginRight:width/2-20}}>{name}</Text>
+                <View style={{flexDirection: 'row',alignItems:'flex-start', justifyContent:'flex-start',margin:10, marginTop:30}}>
+                    <Text style={{fontSize:22,fontWeight: "bold"}}>{name}</Text>
                 </View>
-                <View style={{flex:1, marginBottom:20}}>
-                    <Image style={{width:width-30, height:250, margin:5}} imageStyle={styles.listImage} source={{uri}}/>
-                    <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start'}}>
+                <View style={{flex:1, marginBottom:20, width:width-40}}>
+                    <Image style={{width:width-50, height:230, margin:5}} imageStyle={styles.listImage} source={{uri}}/>
+                    <View style={{flexDirection: 'row', flex:0.5, alignItems:'flex-start' , justifyContent:'space-between'}}>
                     <Text style={styles.text}>이용 정보</Text>
                     <TouchableOpacity onPress={()=>Linking.openURL(Kakao_map)}>
-                    <Text style={{marginLeft:width-250, marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
+                    <Text style={{marginTop:10, marginBottom:10, backgroundColor:'#b8b4ad',color:'#ffffff',fontSize:17}}>카카오맵에서 보기</Text>
                     </TouchableOpacity>
                     </View>
                     <Text style={styles.text4}>
