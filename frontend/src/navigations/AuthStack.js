@@ -6,6 +6,9 @@ import { Community, Home, Mypage, MZ, Search_1 } from '../screens';
 import { Spot, Enterprise, Search_2, Search_3, Location_list, Ranking, Login, EditProfile, Like_list, Scrap_list, Review_list,kakaoLogin,Enterprise_32,
    Enterprise_39,Enterprise_15 } from '../screens';
 import RegisterPage from '../screens/RegisterPage';
+import { Screen } from 'react-native-screens';
+
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -68,6 +71,8 @@ const User = () => {
 
 const AllTabs = () => {
     return(
+        
+      
         <Tab.Navigator screenOptions = {({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
@@ -89,12 +94,13 @@ const AllTabs = () => {
             inactiveTintColor: 'gray',
             showLabel : false
           }}
-        >
+        >   
             <Tab.Screen name = "Main_home" component = {Main_home} options = {{headerShown : false}}/>
             <Tab.Screen name = "Search" component = {Search} options = {{headerShown : false}}/>
             <Tab.Screen name="Magazine"component={Magazine} options = {{headerShown : false}}/>
             <Tab.Screen name="User"component={User} options = {{headerShown : false}}/>
         </Tab.Navigator>
+       
     )
 }
 

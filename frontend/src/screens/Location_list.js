@@ -1,10 +1,13 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { TouchableWithoutFeedback,Keyboard, SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useState } from "react";
 import axios from 'axios'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
 const DATA = [
     {
@@ -47,9 +50,21 @@ const Container = styled.View`
 
 const Location_list = ({route, navigation}) => {
   
+
+
   const data1 = route.params.data1;
   const data2 = route.params.data2;
   const dataleis = route.params.leis;
+
+
+  const data = useContext(UserContext)
+  const [jwt,setjwt]=useState('')
+  useEffect(()=>{
+    if(data.userdata){
+      AsyncStorage.getItem('access_token', (err, result) => {
+      setjwt(result)});
+    }
+  },[data.userdata]);
 
   const [DATAAAA, setDATAAAA] = useState([
   ]);
@@ -103,13 +118,12 @@ const Location_list = ({route, navigation}) => {
             <SafeAreaView style={styles.btbt}>
                   {DATAAAA?DATAAAA.map((data) => {
                    return <Button title = {data.title} 
-                   onPress={()=>navigation.navigate('Spot', 
-                            {ID:data.title, 
-                              SID:data.contentid, 
-                              Uri:data.firstimage,
-                              TID:data.contenttypeid, 
-                              Are:data.areacode, 
-                              Sig:data.sigungucode})}
+                   onPress={()=>navigation.navigate('Enterprise', 
+                            {title:data.title, 
+                              conid:data.contentid, 
+                              img:data.firstimage,
+                              typeid:data.contenttypeid, 
+                              access:jwt})}
                    />
                 }):<Text>검색 결과가 없습니다.</Text>} 
 

@@ -4,6 +4,8 @@ import styled from 'styled-components/native';
 import { useState, useEffect, useContext } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from '../context/UserContext';
+import { Link } from '@react-navigation/native';
+import { Linking } from 'react-native';
 
 const fsainit = require('../images/magazine_user.png')
 const fsauser = require('../images/me.svg')
@@ -16,7 +18,7 @@ const Container = styled.View`
 const Separator = () => (
     <View style={styles.separator} />
   );
-
+/*
 const DATA = [
     {
       title: "더보기",
@@ -31,6 +33,7 @@ const Item = ({ title }) => (
     </View>
   </TouchableOpacity>
   );
+  */
 
 const Mypage = ({navigation}) => {
     const data = useContext(UserContext);
@@ -82,11 +85,15 @@ const Mypage = ({navigation}) => {
             </View>
             <Separator/>
             <SafeAreaView style={styles.container}>
-                <SectionList
-                sections={DATA}
-                keyExtractor={(item, index) => item + index}
-                renderItem={({ item }) => <Item title={item} />}
-                />
+                <TouchableOpacity onPress={()=>Alert.alert('준비중입니다.')}>
+                  <Text style={{marginTop:20,marginBottom:30}}>공지사항</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>Linking.openURL('http://3.34.181.178/privacy_policy')}>
+                  <Text style={{marginBottom:30}}>약관 및 동의 내용</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>Alert.alert('새로운 기능','사랑해 1.0.9 업데이트')}>
+                  <Text style={{marginBottom:20}}>앱 버전</Text>
+                </TouchableOpacity>
             </SafeAreaView>
 
         </Container>

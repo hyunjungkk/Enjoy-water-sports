@@ -20,10 +20,11 @@ const styles = StyleSheet.create({
     fixPic: {
         flexDirection: 'row',
         justifyContent: 'center',
+
       },
     tinyLogo: {
-        width: 170,
-        height: 120,
+        width: 160,
+        height: 160,
         marginVertical: 7,
         marginHorizontal: 7,
         borderRadius: 5,
@@ -47,6 +48,7 @@ const Search_1 = ({navigation}) => {
             contentContainerStyle = {{flex : 1}}
             extraScrollHeight = {20}
         >
+        <View style={{marginTop:80}}></View>
         <View style={styles.fixPic}>
             <TouchableOpacity onPress={()=>navigation.navigate('Search_2', {data:'A03030200'})}>
                 <Image style={styles.tinyLogo}
@@ -93,7 +95,7 @@ const Search_1 = ({navigation}) => {
             <Image style={styles.tinyLogo}
                     source={require('../images/search_img/8.png')}
             />
-            </TouchableOpacity >
+            </TouchableOpacity>
         </View>
         </KeyboardAwareScrollView>
     ); 

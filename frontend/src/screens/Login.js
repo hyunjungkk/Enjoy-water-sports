@@ -108,7 +108,7 @@ const Login = ({navigation}) => {
                 AsyncStorage.setItem("email",response.data.user.email)
                 AsyncStorage.setItem("nickname",response.data.user.nickname)
 
-                navigation.navigate('Home')
+                navigation.replace('Home')
             })
             .catch(function (error) {
                 alert("ID 또는 비밀번호를 다시 한 번 확인해주세요!")

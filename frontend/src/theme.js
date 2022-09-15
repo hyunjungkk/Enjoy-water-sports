@@ -10,14 +10,14 @@ const colors = {
 export const theme = {
     background : colors.white,
     text : colors.black,
-    label : colors.grey_1,
-    inputPlaceholder : colors.grey_1,
-    inputBorder : colors.grey_1,
+    label : colors.blue,
+    inputPlaceholder : colors.blue,
+    inputBorder : colors.blue,
     
-    buttonBackground : colors.blue,
-    buttonTitle : colors.white,
+    buttonBackground : colors.white,
+    buttonTitle : colors.black,
     buttonUnfilledTitle : colors.blue,
-    headerTintColor : colors.black,
+    headerTintColor : colors.blue,
     errorText : colors.red,
     
     itemBackground: '#333333',
