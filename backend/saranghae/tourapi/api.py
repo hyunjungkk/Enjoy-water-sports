@@ -11,7 +11,7 @@ def detailIntro(str_contentid, str_contenttypeid):
     overview = []
     url = "https://apis.data.go.kr/B551011/KorService/detailIntro"
     
-    MobileOS="ETC"
+    MobileOS="AND"
     MobileApp="saranghae"
     _type="json"
     contentId = str_contentid #"2501905"
@@ -41,7 +41,7 @@ def areaCode(str_areacode):
     overview = []
     url = "https://apis.data.go.kr/B551011/KorService/areaCode"
     
-    MobileOS="ETC"
+    MobileOS="AND"
     MobileApp="saranghae"
     _type="json"
     areacode = str_areacode #""
@@ -64,7 +64,7 @@ def searchKeyword(str_keyword):
     
     numOfRows="3"
     pageNo="1"
-    MobileOS="ETC"
+    MobileOS="AND"
     MobileApp="saranghae"
     _type="json"
     listYN = "Y"
@@ -98,7 +98,7 @@ def areaBasedList(str_areacode,str_sigungucode,
     numOfRows="10"
     pageNo=pageId
     
-    MobileOS="ETC"
+    MobileOS="AND"
     MobileApp="saranghae"
     _type="json"
     listYN = "Y"
@@ -138,7 +138,7 @@ def detailCommon(str_contentid, str_contenttypeid):
 
     url = "https://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon"
 
-    MobileOS="ETC"
+    MobileOS="AND"
     MobileApp="saranghae"
     _type="json"
     contentId = str_contentid #125716
@@ -179,7 +179,7 @@ def areaBasedList_alltype(str_areacode,str_sigungucode, str_contentTypeId):
     numOfRows="100"
     pageNo=1
     
-    MobileOS="ETC"
+    MobileOS="AND"
     MobileApp="saranghae"
     _type="json"
     listYN = "Y"
