@@ -1,6 +1,6 @@
 # Enjoy_water_sports
 
-### 2022 관광데이터 활용 공모전 출품작: 사랑해(海)
+### 🏅 2022 관광데이터 활용 공모전 장려상 수상작 : 사랑해(海)
 <img src = "https://user-images.githubusercontent.com/87849933/203487899-727ac2a5-5176-49e1-a9b0-789a2b7b38a2.jpg" width="700" heigth="500"></img>
 <img src = "https://user-images.githubusercontent.com/87849933/203487904-14926db8-3277-461e-8ca8-a58f6f751a6c.jpg" width="700" heigth="500"></img>
 <img src = "https://user-images.githubusercontent.com/87849933/203487908-f7f8b79e-883c-4f8d-9564-2d4c6e0977a6.jpg" width="700" heigth="500"></img>
