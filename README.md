@@ -21,5 +21,8 @@
 <img src = "https://user-images.githubusercontent.com/87849933/203487993-02b09e5b-d835-408f-8560-4b5365fa0910.jpg" width="700" heigth="500"></img>
 
 ### 시연 영상
+![s1](https://user-images.githubusercontent.com/87849933/203491205-ef7a8cf7-e10e-4bc7-b4ad-e84b5cdd974c.gif)
+![s2](https://user-images.githubusercontent.com/87849933/203491214-eeebbbac-f486-4e8f-96a8-72a27092ab93.gif)
+![s3](https://user-images.githubusercontent.com/87849933/203491218-ee70e668-7aa7-4d0f-b601-8292edda52a6.gif)|
 
 
