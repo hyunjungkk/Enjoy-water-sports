@@ -1,28 +1,29 @@
-# Enjoy_water_sports
-
 ### 🏅 2022 관광데이터 활용 공모전 장려상 수상작 : 사랑해(海)
-<img src = "https://user-images.githubusercontent.com/87849933/203487899-727ac2a5-5176-49e1-a9b0-789a2b7b38a2.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487904-14926db8-3277-461e-8ca8-a58f6f751a6c.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487908-f7f8b79e-883c-4f8d-9564-2d4c6e0977a6.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487913-a9377407-e40a-438d-a765-ab1e7297229f.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487915-8461fbff-46e0-4440-9c0f-7091f951040a.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487922-a887d972-54a7-4ea8-8058-b770cde9e2ce.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487926-29693aa5-bb6e-4784-bdbb-621dc0a3ee35.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487933-5d2644ef-af33-4761-869b-81c3e38c12ab.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487941-ce41317d-2aa4-4e97-9e73-aaf361a97de7.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487944-2a1cbc23-72fd-439d-a8c4-f6111cdd7d41.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487947-61efea16-b82b-47c0-934f-729ce98435e0.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487965-8713f03c-b5cd-4ce8-a596-a8b2971d42b7.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487972-e1abc321-4ea1-4f46-8954-be62bd701c9c.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487977-b48b1fd3-ead0-4274-8745-1dc05adb4eda.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487981-79697a5f-7665-425a-9402-2a5d5b496c83.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487986-a781cb8a-1a84-4a92-b1fc-62f831c29eeb.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487991-6bf0500e-c762-42d8-9f4b-fb2c30dd09fd.jpg" width="700" heigth="500"></img>
-<img src = "https://user-images.githubusercontent.com/87849933/203487993-02b09e5b-d835-408f-8560-4b5365fa0910.jpg" width="700" heigth="500"></img>
 
-### 시연 영상
+## 🌊 프로젝트 소개
+
+대한민국 수상레저관광 활성화 서비스 <br><br>
+국내 수상레저 명소와 숨은 스팟, 렌탈샵, 숙소, 안전수칙, 방역수칙 등 다양하고 유익한 정보를 제공하여 많은 사람들이 수상레저를 쉽게 접하고 안전하게 즐길 수 있도록 도와주는 어플입니다.
+
+
+## 📌 기술 스택
+* Back-End: <img src="https://img.shields.io/badge/Django-092E20?style=flat&logo=Django&logoColor=white"/> <br>
+* Front-End: <img src="https://img.shields.io/badge/React%20Native-61DAFB?style=flat&logo=React&logoColor=white"/> <br>
+* DB: <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=PostgreSQL&logoColor=white"/> <br>
+* DevOps: <img src="https://img.shields.io/badge/AWS-FF9900?style=flat&logo=AmazonAWS&logoColor=white"/> <br>
+* Data: TourAPI(공공데이터포털), KakaoAPI
+
+
+
+## 📍 기능
+* 서핑, 요트, 스쿠버다이빙, 카약/카누 등 수상레저를 즐길 수 있는 아름다운 국내 관광지 정보 제공
+* 관광지 주변 수상레저 업체, 숙소, 맛집 등 다양한 정보 제공
+* 검색: 수상레저 카테고리 및 지역 별 수상레저 관광지 검색
+* 추천: 한국관광공사 조회수 데이터 기반 인기 관광지 Top3 등 추천
+* 매거진 및 외부 콘텐츠: 수상레저 안전수칙 및 해양 보호 관련 다양한 컨텐츠 제공
+
+
+## 🎥 시연영상
 ![s1](https://user-images.githubusercontent.com/87849933/203491205-ef7a8cf7-e10e-4bc7-b4ad-e84b5cdd974c.gif)
-![s2](https://user-images.githubusercontent.com/87849933/203491214-eeebbbac-f486-4e8f-96a8-72a27092ab93.gif)
-![s3](https://user-images.githubusercontent.com/87849933/203491218-ee70e668-7aa7-4d0f-b601-8292edda52a6.gif)|
-
+![s2](https://user-images.githubusercontent.com/87849933/203491218-ee70e668-7aa7-4d0f-b601-8292edda52a6.gif)|
 
